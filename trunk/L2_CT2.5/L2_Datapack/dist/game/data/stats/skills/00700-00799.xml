@@ -1879,7 +1879,7 @@
 		<set name="operateType" val="OP_ACTIVE" />
 		<set name="power" val="4040" />
 		<set name="saveVs" val="CON" />
-		<set name="skillRadius" val="600" />
+		<set name="skillRadius" val="500" />
 		<set name="skillType" val="PDAM" />
 		<set name="soulMaxConsumeCount" val="5" />
 		<set name="SSBoost" val="2.0" />
