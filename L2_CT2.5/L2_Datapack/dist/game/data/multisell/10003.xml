@@ -1,0 +1,88 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+<!-- DC Breasplate -->
+   <item id="1">
+    <ingredient id="9143" count="13"/>
+    <production id="365" count="1"/>
+   </item>
+
+  <!-- DC gaiters -->
+  <item id="2">
+    <ingredient id="9143" count="9"/>
+    <production id="388" count="1"/>
+  </item>
+
+  <!-- DC Helment -->
+  <item id="3">
+    <ingredient id="9143" count="6"/>
+    <production id="512" count="1"/>
+  </item>
+
+  <!-- DC Gloves -->
+  <item id="4">
+    <ingredient id="9143" count="6"/>
+    <production id="5765" count="1"/>
+  </item>
+
+  <!-- DC Boots -->
+  <item id="4">
+    <ingredient id="9143" count="6"/>
+    <production id="5777" count="1"/>
+  </item>
+
+  <!-- DC Robe -->
+  <item id="5">
+    <ingredient id="9143" count="22"/>
+    <production id="2407" count="1"/>
+  </item>
+
+  <!-- DC Boots -->
+  <item id="6">
+    <ingredient id="9143" count="6"/>
+    <production id="5779" count="1"/>
+  </item>
+
+
+  <!-- DC Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="6"/>
+    <production id="5767" count="1"/>
+  </item>
+
+   <!-- DC Leather Armor -->
+  <item id="8">
+    <ingredient id="9143" count="13"/>
+    <production id="2385" count="1"/>
+  </item>
+
+  <!-- DC Leggings -->
+  <item id="9">
+    <ingredient id="9143" count="9"/>
+    <production id="2389" count="1"/>
+  </item>
+
+  <!-- DC Boots -->
+  <item id="6">
+    <ingredient id="9143" count="6"/>
+    <production id="5778" count="1"/>
+  </item>
+
+
+  <!-- DC Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="6"/>
+    <production id="5766" count="1"/>
+  </item>
+  
+    <!-- DC Shield -->
+  <item id="8">
+    <ingredient id="9143" count="6"/>
+    <production id="641" count="1"/>
+  </item>
+
+</list>

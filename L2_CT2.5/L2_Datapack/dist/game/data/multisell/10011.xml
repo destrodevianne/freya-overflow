@@ -1,0 +1,74 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+<!-- NM Plate Armor -->
+   <item id="1">
+    <ingredient id="9143" count="26"/>
+    <production id="374" count="1"/>
+   </item>
+
+  <!-- NM Circlet -->
+  <item id="2">
+    <ingredient id="9143" count="8"/>
+    <production id="2418" count="1"/>
+  </item>
+
+  <!-- NM Boots -->
+  <item id="3">
+    <ingredient id="9143" count="8"/>
+    <production id="5783" count="1"/>
+  </item>
+
+  <!-- NM Gloves -->
+  <item id="4">
+    <ingredient id="9143" count="8"/>
+    <production id="5771" count="1"/>
+  </item>
+
+  <!-- NM Leather Armor -->
+  <item id="5">
+    <ingredient id="9143" count="26"/>
+    <production id="2394" count="1"/>
+  </item>
+
+  <!-- NM Boots -->
+  <item id="6">
+    <ingredient id="9143" count="8"/>
+    <production id="5784" count="1"/>
+  </item>
+
+  <!-- NM Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="8"/>
+    <production id="5772" count="1"/>
+  </item>
+
+    <!-- NM Robe -->
+  <item id="8">
+    <ingredient id="9143" count="26"/>
+    <production id="2408" count="1"/>
+  </item>
+
+  <!-- NM Boots -->
+  <item id="6">
+    <ingredient id="9143" count="8"/>
+    <production id="5785" count="1"/>
+  </item>
+
+  <!-- NM Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="8"/>
+    <production id="5773" count="1"/>
+  </item>
+  
+    <!-- NM Shield -->
+  <item id="20">
+    <ingredient id="9143" count="8"/>
+    <production id="2498" count="1"/>
+  </item>
+
+</list>
