@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Tallum Plate Armor -->
+   <item id="1">
+    <ingredient id="9143" count="22"/>
+    <production id="2382" count="1"/>
+   </item>
+
+  <!-- Tallum Helmet -->
+  <item id="2">
+    <ingredient id="9143" count="6"/>
+    <production id="547" count="1"/>
+  </item>
+
+  <!-- Tallum Boots -->
+  <item id="3">
+    <ingredient id="9143" count="6"/>
+    <production id="5780" count="1"/>
+  </item>
+
+  <!-- Tallum Gloves -->
+  <item id="4">
+    <ingredient id="9143" count="6"/>
+    <production id="5768" count="1"/>
+  </item>
+
+  <!-- Tallum Leather Armor -->
+  <item id="5">
+    <ingredient id="9143" count="22"/>
+    <production id="2393" count="1"/>
+  </item>
+
+  <!-- Tallum Boots -->
+  <item id="6">
+    <ingredient id="9143" count="6"/>
+    <production id="5781" count="1"/>
+  </item>
+
+
+  <!-- Tallum Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="6"/>
+    <production id="5769" count="1"/>
+  </item>
+
+    <!-- Tallum Tunic -->
+  <item id="8">
+    <ingredient id="9143" count="13"/>
+    <production id="2400" count="1"/>
+  </item>
+
+  <!-- Tallum Stockings -->
+  <item id="9">
+    <ingredient id="9143" count="9"/>
+    <production id="2405" count="1"/>
+  </item>
+
+  <!-- Tallum Boots -->
+  <item id="6">
+    <ingredient id="9143" count="6"/>
+    <production id="5782" count="1"/>
+  </item>
+
+
+  <!-- Tallum Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="6"/>
+    <production id="5770" count="1"/>
+  </item>
+
+</list>

@@ -1,0 +1,81 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Blue Wolf Boots -->
+  <item id="1">
+    <ingredient id="9143" count="4"/>
+    <production id="5734" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Boots -->
+  <item id="2">
+    <ingredient id="9143" count="4"/>
+    <production id="5735" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Boots -->
+  <item id="3">
+    <ingredient id="9143" count="4"/>
+    <production id="5736" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Helmet -->
+  <item id="4">
+    <ingredient id="9143" count="4"/>
+    <production id="2416" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves -->
+  <item id="5">
+    <ingredient id="9143" count="4"/>
+    <production id="5718" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves -->
+  <item id="6">
+    <ingredient id="9143" count="4"/>
+    <production id="5719" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="4"/>
+    <production id="5720" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Breastplate -->
+  <item id="8">
+    <ingredient id="9143" count="11"/>
+    <production id="358" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Gaiters -->
+  <item id="9">
+    <ingredient id="9143" count="7"/>
+    <production id="2380" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Leather Armor -->
+  <item id="10">
+    <ingredient id="9143" count="18"/>
+    <production id="2391" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Tunic -->
+  <item id="11">
+    <ingredient id="9143" count="11"/>
+    <production id="2398" count="1"/>
+  </item>
+
+  <!-- Blue Wolf Stockings -->
+  <item id="12">
+    <ingredient id="9143" count="7"/>
+    <production id="2403" count="1"/>
+  </item>
+
+
+</list>

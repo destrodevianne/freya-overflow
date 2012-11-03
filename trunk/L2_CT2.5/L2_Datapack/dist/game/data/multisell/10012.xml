@@ -1,0 +1,68 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+<!-- MJ Plate Armor -->
+   <item id="1">
+    <ingredient id="9143" count="26"/>
+    <production id="2383" count="1"/>
+   </item>
+
+  <!-- MJ Circlet -->
+  <item id="2">
+    <ingredient id="9143" count="8"/>
+    <production id="2419" count="1"/>
+  </item>
+
+  <!-- MJ Boots -->
+  <item id="3">
+    <ingredient id="9143" count="8"/>
+    <production id="5786" count="1"/>
+  </item>
+
+  <!-- MJ Gloves -->
+  <item id="4">
+    <ingredient id="9143" count="8"/>
+    <production id="5774" count="1"/>
+  </item>
+
+  <!-- MJ Leather Armor -->
+  <item id="5">
+    <ingredient id="9143" count="26"/>
+    <production id="2395" count="1"/>
+  </item>
+
+  <!-- MJ Boots -->
+  <item id="6">
+    <ingredient id="9143" count="8"/>
+    <production id="5787" count="1"/>
+  </item>
+
+  <!-- MJ Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="8"/>
+    <production id="5775" count="1"/>
+  </item>
+
+    <!-- MJ Robe -->
+  <item id="8">
+    <ingredient id="9143" count="26"/>
+    <production id="2409" count="1"/>
+  </item>
+
+  <!-- MJ Boots -->
+  <item id="6">
+    <ingredient id="9143" count="8"/>
+    <production id="5788" count="1"/>
+  </item>
+
+  <!-- MJ Gloves -->
+  <item id="7">
+    <ingredient id="9143" count="8"/>
+    <production id="5776" count="1"/>
+  </item>
+
+</list>
