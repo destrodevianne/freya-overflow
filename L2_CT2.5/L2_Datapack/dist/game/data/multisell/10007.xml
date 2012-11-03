@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Armas Debyan 2 -->
+<!-- Armas -->
 <list xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:noNamespaceSchemaLocation="multisell.xsd">
 	<item id="1">
 		<ingredient id="9143" count="40" />

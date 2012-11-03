@@ -1,12 +1,12 @@
 # Made by d0S
 import sys
-from com.l2spartan.gameserver.datatables         import SkillTable
-from com.l2spartan.gameserver.model.actor.instance import L2PcInstance
-from com.l2spartan.gameserver.model.actor.instance import L2DoorInstance
-from com.l2spartan.gameserver.model.quest        import State
-from com.l2spartan.gameserver.model.quest        import QuestState
-from com.l2spartan.gameserver.model.quest.jython import QuestJython as JQuest
-from com.l2spartan.gameserver.network.serverpackets import ExStartScenePlayer
+from com.l2jserver.gameserver.datatables         import SkillTable
+from com.l2jserver.gameserver.model.actor.instance import L2PcInstance
+from com.l2jserver.gameserver.model.actor.instance import L2DoorInstance
+from com.l2jserver.gameserver.model.quest        import State
+from com.l2jserver.gameserver.model.quest        import QuestState
+from com.l2jserver.gameserver.model.quest.jython import QuestJython as JQuest
+from com.l2jserver.gameserver.network.serverpackets import ExStartScenePlayer
 
 qn = "195_SevenSignSecretRitualOfThePriests"
 
