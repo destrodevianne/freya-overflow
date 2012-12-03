@@ -27,45 +27,54 @@ Varka_Silenos = [ 21350, 21351, 21353, 21354, 21355, 21357, 21358, 21360, 21361,
 21362, 21369, 21370, 21364, 21365, 21366, 21368, 21371, 21372, 21373, 21374, 21375 ]
 
 Chance = {
-  21325:500,
-  21339:500,
-  21340:500,
-  21324:500,
-  21336:500,
-  21331:500,
-  21342:508,
-  21327:509,
-  21334:509,
-  21335:518,
-  21343:518,
-  21329:519,
-  21328:521,
-  21338:527,
-  21344:604,
-  21346:604,
-  21348:626,
-  21349:626,
-  21345:627,
-  21332:628,
-  21347:649
+  21325:500, #Ketra's War Hound
+  21339:500, #Ketra Orc General
+  21340:500, #Ketra Orc Battalion Commander
+  21324:500, #Ketra Orc Footman
+  21336:500, #Ketra Orc White Captain
+  21331:500, #Ketra Orc Warrior
+  21342:508, #Ketra Orc Grand Seer
+  21327:509, #Ketra Orc Raider
+  21334:509, #Ketra Orc Medium
+  21335:518, #Ketra Orc Elite Soldier
+  21343:518, #Ketra Commander
+  21329:519, #Ketra Orc Shaman
+  21328:521, #Ketra Orc Scout
+  21338:527, #Ketra Orc Seer
+  21344:604, #Ketra Elite Guard
+  21346:604, #Ketra's Head Guard
+  21348:626, #Prophet's Guard
+  21349:626, #Prophet's Aide
+  21345:627, #Ketra's Head Shaman
+  21332:628, #Ketra Orc Lieutenant
+  21347:649 #Ketra Prophet
 }
 
 Chance_molar = {
-  21339:568,
-  21340:568,
-  21324:500,
-  21336:529,
-  21331:529,
-  21342:578,
-  21327:510,
-  21334:539,
-  21343:548,
-  21329:519,
-  21328:522,
-  21338:558,
-  21345:713,
-  21332:664,
-  21347:638
+  21339:568, #Ketra Orc General
+  21340:568, #Ketra Orc Battalion Commander
+  21324:500, #Ketra Orc Footman
+  21336:529, #Ketra Orc White Captain
+  21331:529, #Ketra Orc Warrior
+  21342:578, #Ketra Orc Grand Seer
+  21327:510, #Ketra Orc Raider
+  21334:539, #Ketra Orc Medium
+  21343:548, #Ketra Commander
+  21329:519, #Ketra Orc Shaman
+  21328:522, #Ketra Orc Scout
+  21338:558, #Ketra Orc Seer
+  21345:713, #Ketra's Head Shaman
+  21332:664, #Ketra Orc Lieutenant
+  21347:638, #Ketra Prophet
+  #Added by Zephyr 03/12/2012
+  #-----Start-----
+  21325:500, #Ketra's War Hound
+  21335:518, #Ketra Orc Elite Soldier
+  21344:604, #Ketra Elite Guard
+  21346:604, #Ketra's Head Guard
+  21348:626, #Prophet's Guard
+  21349:626 #Prophet's Aide
+  #-----End-----
 }
 
 #Quest Items

@@ -67,7 +67,17 @@ Chance_mane = {
   21358:529,#Warrior
   21369:548,#Commander
   21371:713,#Head magus
-  21373:738#Prophet
+  21373:738,#Prophet
+  #Added by Zephyr 03/12/2012
+  #----Start----
+  21351:500,#Footman
+  21361:518,#Magus
+  21350:500,#Recruit
+  21370:604,#Elite guard
+  21372:604,#Head guard
+  21374:626,#Prophet Guard
+  21375:626#Disciple of Prophet
+  #-----End-----
 }
 
 #Quest Items
