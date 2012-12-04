@@ -1577,11 +1577,7 @@ public class SevenSignsFestival implements SpawnListener
 		// Check if this is the highest score for this level range so far for the player's cabal.
 		if (offeringScore > thisCabalHighScore)
 		{
-			// If the current score is greater than that for the other cabal,
-			// then they already have the points from this festival.
-			if (thisCabalHighScore < otherCabalHighScore)
-				return false;
-			
+						
 			List<Integer> prevParticipants = getPreviousParticipants(oracle, festivalId);
 			partyMembers = new ArrayList<String>(prevParticipants.size());
 			
