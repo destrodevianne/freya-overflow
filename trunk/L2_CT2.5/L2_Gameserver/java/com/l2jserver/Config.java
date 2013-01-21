@@ -81,7 +81,18 @@ public final class Config
 	public static final String GRANDBOSS_CONFIG_FILE = "./config/Grandboss.properties";
 	public static final String GRACIASEEDS_CONFIG_FILE = "./config/GraciaSeeds.properties";
 	public static final String CHAT_FILTER_FILE = "./config/chatfilter.txt";
-	
+	public static final String SMART_CB = "./config/SmartCB.properties";
+       
+    // --------------------------------------------------
+    // Smart Community Board Definitions
+    // --------------------------------------------------
+    public static int TOP_PLAYER_ROW_HEIGHT;
+    public static int TOP_PLAYER_RESULTS;
+    public static int RAID_LIST_ROW_HEIGHT;
+    public static int RAID_LIST_RESULTS;
+    public static boolean RAID_LIST_SORT_ASC;
+    public static boolean ALLOW_REAL_ONLINE_STATS;
+      
 	
 	//--------------------------------------------------
 	// L2J Variable Definitions
@@ -1215,6 +1226,25 @@ public final class Config
 					throw new Error("Failed to Load "+COMMUNITY_CONFIGURATION_FILE+" File.");
 				}
 				
+				// Load Smart CB Properties file (if exists)
+                final File smartcb = new File(SMART_CB);
+                try (InputStream is1 = new FileInputStream(smartcb))
+                {
+                     L2Properties smartCB = new L2Properties();
+                     smartCB.load(is1);
+                     TOP_PLAYER_ROW_HEIGHT = Integer.parseInt(smartCB.getProperty("TopPlayerRowHeight", "19"));                             
+                     TOP_PLAYER_RESULTS = Integer.parseInt(smartCB.getProperty("TopPlayerResults", "20"));
+                     RAID_LIST_ROW_HEIGHT = Integer.parseInt(smartCB.getProperty("RaidListRowHeight", "18"));
+                     RAID_LIST_RESULTS = Integer.parseInt(smartCB.getProperty("RaidListResults", "20"));
+                     RAID_LIST_SORT_ASC = Boolean.parseBoolean(smartCB.getProperty("RaidListSortAsc", "True"));
+                     ALLOW_REAL_ONLINE_STATS = Boolean.parseBoolean(smartCB.getProperty("AllowRealOnlineStats", "True"));
+                }
+                catch (Exception e)
+                {
+                     _log.warning("Config: " + e.getMessage());
+                     throw new Error("Failed to Load " + SMART_CB + " File.");
+                }
+                      
 				// Load Feature L2Properties file (if exists)
 				try
 				{
