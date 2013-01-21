@@ -54,7 +54,7 @@ public class ClanList
                                else
                                {
                                        allystatus = "-";
-                                       ally = "[no-ally]";
+                                       ally = "[Sin-Alianza]";
                                }
                                if (hascastle != 0)
                                {
@@ -66,7 +66,7 @@ public class ClanList
                                        statement2.close();
                                }
                                else
-                                       castlename = "[none]";
+                                       castlename = "[---]";
                                PreparedStatement statement3 = con.prepareStatement("SELECT char_name FROM characters WHERE charId=" + clanleader);
                                ResultSet result3 = statement3.executeQuery();
                               
