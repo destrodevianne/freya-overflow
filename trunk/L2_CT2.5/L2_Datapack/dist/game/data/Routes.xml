@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<routes>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="Routes.xsd">
 	<!-- Just test route - Giran town square -->
 	<route id="1" repeat="true" repeatStyle="cycle">
 		<stat name="debug" val="false" />
@@ -47,7 +47,7 @@
 		<point string="" X="28491" Y="245926" Z="-3698" delay="0" run="true" /> <!-- custom -->
 		<point string="" X="29074" Y="245889" Z="-3672" delay="0" run="true" />
 		<point string="" X="29182" Y="244811" Z="-3688" delay="0" run="true" />
-		<point string="" X="28925" Y="244462" Z="-3698" delay="0" run="true" />	<!-- custom -->
+		<point string="" X="28925" Y="244462" Z="-3698" delay="0" run="true" /> <!-- custom -->
 		<!-- <point string="" X="28770" Y="244248" Z="-2496" delay="0" run="true" /> --> <!-- retail -->
 	</route>
 	<!-- malign_conveyor_1_2 -->
@@ -57,15 +57,15 @@
 		<point string="" X="28276" Y="247756" Z="-3272" delay="0" run="true" />
 		<point string="" X="27344" Y="246649" Z="-3680" delay="0" run="true" />
 		<point string="" X="27652" Y="245914" Z="-3688" delay="0" run="true" />
-		<!--  <point string="" X="28255" Y="245912" Z="-2552" delay="0" run="true" /> --> <!-- retail -->
-		<point string="" X="28058" Y="245915" Z="-3701" delay="0" run="true" />	<!-- custom -->
+		<!-- <point string="" X="28255" Y="245912" Z="-2552" delay="0" run="true" /> --> <!-- retail -->
+		<point string="" X="28058" Y="245915" Z="-3701" delay="0" run="true" /> <!-- custom -->
 	</route>
 	<!-- malign_conveyor_1_3 -->
 	<route id="8" repeat="true" repeatStyle="conveyor">
 		<point string="" X="27336" Y="246216" Z="-3656" delay="0" run="true" />
 		<point string="" X="27645" Y="245921" Z="-3672" delay="0" run="true" />
 		<!-- <point string="" X="28245" Y="245904" Z="-2552" delay="0" run="true" /> --> <!-- retail -->
-		<point string="" X="28058" Y="245915" Z="-3701" delay="0" run="true" />	<!-- custom -->
+		<point string="" X="28058" Y="245915" Z="-3701" delay="0" run="true" /> <!-- custom -->
 	</route>
 	<!-- malign_conveyor_1_4 -->
 	<route id="9" repeat="true" repeatStyle="conveyor">

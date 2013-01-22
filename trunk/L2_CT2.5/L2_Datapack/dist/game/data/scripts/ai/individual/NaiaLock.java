@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package ai.individual;
 
 import ai.group_template.L2AttackableAIScript;
@@ -22,29 +21,28 @@ import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Removes minions after master's death 
+ * Removes minions after master's death
  * @author GKR
  */
-
 public class NaiaLock extends L2AttackableAIScript
 {
 	private static final int LOCK = 18491;
 	
-	public NaiaLock (int id, String name, String descr)
+	@Override
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		super(id,name,descr);
+		((L2MonsterInstance) npc).getMinionList().onMasterDie(true);
+		return super.onKill(npc, killer, isPet);
+	}
+	
+	public NaiaLock(int id, String name, String descr)
+	{
+		super(id, name, descr);
 		addKillId(LOCK);
 	}
-
-	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
-	{
-		((L2MonsterInstance)npc).getMinionList().onMasterDie(true);		
-		return super.onKill(npc, killer, isPet); 
-	}
-
+	
 	public static void main(String[] args)
 	{
-		new SinWardens(-1, "NaiaLock", "ai");
+		new NaiaLock(-1, "NaiaLock", "ai");
 	}
 }

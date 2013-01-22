@@ -17,11 +17,10 @@ package hellbound.Falk;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
+import com.l2jserver.gameserver.model.quest.QuestState;
 
 /**
- * 
- * @author DS, based on theOne's work
- *
+ * @author DS
  */
 public class Falk extends Quest
 {
@@ -30,54 +29,64 @@ public class Falk extends Quest
 	private static final int STANDART_CERT = 9851;
 	private static final int PREMIUM_CERT = 9852;
 	private static final int DARION_BADGE = 9674;
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		if (player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) > 0
-				|| player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) > 0
-				|| player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) > 0)
-			return "32297-01a.htm";
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
 		
-		else
-			return "32297-01.htm";
+		if (qs.hasQuestItems(BASIC_CERT) || qs.hasQuestItems(STANDART_CERT) || qs.hasQuestItems(PREMIUM_CERT))
+		{
+			return "32297-01a.htm";
+		}
+		return "32297-01.htm";
 	}
-
+	
 	@Override
 	public final String onTalk(L2Npc npc, L2PcInstance player)
 	{
-		if (player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) > 0
-				|| player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) > 0
-				|| player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) > 0)
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
+		if (qs.hasQuestItems(BASIC_CERT) || qs.hasQuestItems(STANDART_CERT) || qs.hasQuestItems(PREMIUM_CERT))
+		{
 			return "32297-01a.htm";
-		else
-			return "32297-02.htm";
+		}
+		return "32297-02.htm";
 	}
-
+	
+	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
 		if (event.equalsIgnoreCase("badges"))
 		{
-			if (player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) < 1
-					&& player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) < 1
-					&& player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) < 1)
+			if (!qs.hasQuestItems(BASIC_CERT) && !qs.hasQuestItems(STANDART_CERT) && !qs.hasQuestItems(PREMIUM_CERT))
 			{
-				if (player.getInventory().getInventoryItemCount(DARION_BADGE, -1, false) >= 20)
+				if (qs.getQuestItemsCount(DARION_BADGE) >= 20)
 				{
-					if (player.destroyItemByItemId("Quest", DARION_BADGE, 20, npc, true))
-					{
-						player.addItem("Quest", BASIC_CERT, 1, npc, true);
-						return "32297-02a.htm";
-					}
+					qs.takeItems(DARION_BADGE, 20);
+					qs.giveItems(BASIC_CERT, 1);
+					return "32297-02a.htm";
 				}
-				
 				return "32297-02b.htm";
 			}
 		}
-		
 		return event;
 	}
-
+	
 	public Falk(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -85,10 +94,9 @@ public class Falk extends Quest
 		addStartNpc(FALK);
 		addTalkId(FALK);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Falk(-1, Falk.class.getSimpleName(), "hellbound");
+		new Falk(-1, "Falk", "hellbound");
 	}
-
 }

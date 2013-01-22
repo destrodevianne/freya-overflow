@@ -22,37 +22,39 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 
 /**
- * 
- * @author DS, based on theOne's work
- *
+ * @author DS
  */
 public class OutpostCaptain extends Quest
 {
 	private static final int CAPTAIN = 18466;
-	private static final int[] DEFENDERS = { 22357, 22358 };
+	private static final int[] DEFENDERS =
+	{
+		22357, 22358
+	};
 	private static final int DOORKEEPER = 32351;
-
+	
 	@Override
-	public String onAdvEvent (String event, L2Npc npc, L2PcInstance player)
+	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		if (event.equalsIgnoreCase("level_up"))
 		{
 			npc.deleteMe();
 			HellboundManager.getInstance().setLevel(9);
 		}
-		
 		return null;
 	}
-
+	
 	@Override
 	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		if (HellboundManager.getInstance().getLevel() == 8)
-			addSpawn(DOORKEEPER, npc.getSpawn().getLocx(), npc.getSpawn().getLocy(), npc.getSpawn().getLocz(), 0, false, 0, false); 
-
+		{
+			addSpawn(DOORKEEPER, npc.getSpawn().getLocx(), npc.getSpawn().getLocy(), npc.getSpawn().getLocz(), 0, false, 0, false);
+		}
+		
 		return super.onKill(npc, killer, isPet);
 	}
-
+	
 	@Override
 	public final String onSpawn(L2Npc npc)
 	{
@@ -62,15 +64,18 @@ public class OutpostCaptain extends Quest
 		{
 			L2DoorInstance door = DoorTable.getInstance().getDoor(20250001);
 			if (door != null)
+			{
 				door.closeMe();
+			}
+		}
+		else if (npc.getNpcId() == DOORKEEPER)
+		{
+			startQuestTimer("level_up", 3000, npc, null);
 		}
 		
-		else if (npc.getNpcId() == DOORKEEPER)
-			startQuestTimer("level_up", 3000, npc, null);
-
 		return super.onSpawn(npc);
 	}
-
+	
 	public OutpostCaptain(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -79,9 +84,11 @@ public class OutpostCaptain extends Quest
 		addSpawnId(DOORKEEPER);
 		
 		for (int i : DEFENDERS)
+		{
 			addSpawnId(i);
+		}
 	}
-
+	
 	public static void main(String[] args)
 	{
 		new OutpostCaptain(-1, OutpostCaptain.class.getSimpleName(), "ai");

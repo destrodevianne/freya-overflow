@@ -19,11 +19,10 @@ import com.l2jserver.gameserver.instancemanager.HellboundManager;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
+import com.l2jserver.gameserver.model.quest.QuestState;
 
 /**
- * 
- * @author DS, based on theOne's work
- *
+ * @author DS
  */
 public class Hude extends Quest
 {
@@ -40,21 +39,23 @@ public class Hude extends Quest
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
 		if ("scertif".equalsIgnoreCase(event))
 		{
 			if (HellboundManager.getInstance().getLevel() > 3)
 			{
-				if (player.getInventory().getInventoryItemCount(MARK_OF_BETRAYAL, -1, false) >= 30
-						&& player.getInventory().getInventoryItemCount(STINGER, -1, false) >= 60
-						&& player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) > 0)
+				if (qs.hasQuestItems(BASIC_CERT) && (qs.getQuestItemsCount(MARK_OF_BETRAYAL) >= 30) && (qs.getQuestItemsCount(STINGER) >= 60))
 				{
-					if (player.destroyItemByItemId("Quest", MARK_OF_BETRAYAL, 30, npc, true)
-							&& player.destroyItemByItemId("Quest", STINGER, 60, npc, true)
-							&& player.destroyItemByItemId("Quest", BASIC_CERT, 1, npc, true))
-					{
-						player.addItem("Quest", STANDART_CERT, 1, npc, true);
-						return "32298-04a.htm";
-					}
+					qs.takeItems(MARK_OF_BETRAYAL, 30);
+					qs.takeItems(STINGER, 60);
+					qs.takeItems(BASIC_CERT, 1);
+					qs.giveItems(STANDART_CERT, 1);
+					return "32298-04a.htm";
 				}
 			}
 			return "32298-04b.htm";
@@ -63,64 +64,64 @@ public class Hude extends Quest
 		{
 			if (HellboundManager.getInstance().getLevel() > 6)
 			{
-				if (player.getInventory().getInventoryItemCount(LIFE_FORCE, -1, false) >= 56
-						&& player.getInventory().getInventoryItemCount(CONTAINED_LIFE_FORCE, -1, false) >= 14
-						&& player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) > 0)
+				if (qs.hasQuestItems(STANDART_CERT) && (qs.getQuestItemsCount(LIFE_FORCE) >= 56) && (qs.getQuestItemsCount(CONTAINED_LIFE_FORCE) >= 14))
 				{
-					if (player.destroyItemByItemId("Quest", LIFE_FORCE, 56, npc, true)
-							&& player.destroyItemByItemId("Quest", CONTAINED_LIFE_FORCE, 14, npc, true)
-							&& player.destroyItemByItemId("Quest", STANDART_CERT, 1, npc, true))
-					{
-						player.addItem("Quest", PREMIUM_CERT, 1, npc, true);
-						player.addItem("Quest", MAP, 1, npc, true);
-						return "32298-06a.htm";
-					}
+					qs.takeItems(LIFE_FORCE, 56);
+					qs.takeItems(CONTAINED_LIFE_FORCE, 14);
+					qs.takeItems(STANDART_CERT, 1);
+					qs.giveItems(PREMIUM_CERT, 1);
+					qs.giveItems(MAP, 1);
+					return "32298-06a.htm";
 				}
 			}
 			return "32298-06b.htm";
 		}
 		else if ("multisell1".equalsIgnoreCase(event))
 		{
-			if (player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) > 0
-					|| player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) > 0)
+			if (qs.hasQuestItems(STANDART_CERT) || qs.hasQuestItems(PREMIUM_CERT))
+			{
 				MultiSell.getInstance().separateAndSend(322980001, player, npc, false);
+			}
 		}
-
 		else if ("multisell2".equalsIgnoreCase(event))
 		{
-			if (player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) > 0)
+			if (qs.hasQuestItems(PREMIUM_CERT))
+			{
 				MultiSell.getInstance().separateAndSend(322980002, player, npc, false);
+			}
 		}
-
 		return null;
 	}
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		if (player.getQuestState(getName()) == null)
-			newQuestState(player);
-
-		if (player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) < 1
-				&& player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) < 1
-				&& player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) < 1)
-			return "32298-01.htm";
+		String htmltext = "";
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
 		
-		else if (player.getInventory().getInventoryItemCount(BASIC_CERT, -1, false) > 0
-							&& player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) < 1
-							&& player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) < 1)
-			return "32298-03.htm";
-
-		else if (player.getInventory().getInventoryItemCount(STANDART_CERT, -1, false) > 0
-							&& player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) < 1)
-			return "32298-05.htm";
-
-		else if (player.getInventory().getInventoryItemCount(PREMIUM_CERT, -1, false) > 0)
-			return "32298-07.htm";
-	
-		return null;
+		if (!qs.hasQuestItems(BASIC_CERT) && !qs.hasQuestItems(STANDART_CERT) && !qs.hasQuestItems(PREMIUM_CERT))
+		{
+			htmltext = "32298-01.htm";
+		}
+		else if (qs.hasQuestItems(BASIC_CERT) && !qs.hasQuestItems(STANDART_CERT) && !qs.hasQuestItems(PREMIUM_CERT))
+		{
+			htmltext = "32298-03.htm";
+		}
+		else if (qs.hasQuestItems(STANDART_CERT) && !qs.hasQuestItems(PREMIUM_CERT))
+		{
+			htmltext = "32298-05.htm";
+		}
+		else if (qs.hasQuestItems(PREMIUM_CERT))
+		{
+			htmltext = "32298-07.htm";
+		}
+		return htmltext;
 	}
-
+	
 	public Hude(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -128,9 +129,9 @@ public class Hude extends Quest
 		addStartNpc(HUDE);
 		addTalkId(HUDE);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Hude(-1, Hude.class.getSimpleName(), "hellbound");
+		new Hude(-1, "Hude", "hellbound");
 	}
 }

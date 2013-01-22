@@ -41,7 +41,7 @@ public final class TaskHellboundSave extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
-		HellboundManager.getInstance().saveVars();
+		HellboundManager.getInstance().saveData();
 	}
 
 	/**

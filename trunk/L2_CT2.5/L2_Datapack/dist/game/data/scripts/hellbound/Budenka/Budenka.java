@@ -44,6 +44,6 @@ public class Budenka extends Quest
 	
 	public static void main(String[] args)
 	{
-		new Budenka(-1, Budenka.class.getSimpleName(), "hellbound");
+		new Budenka(-1, "Budenka", "hellbound");
 	}
 }

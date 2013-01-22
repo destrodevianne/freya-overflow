@@ -18,11 +18,32 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
-import com.l2jserver.gameserver.model.quest.State;
 
+/**
+ * @author GKR
+ */
 public class Deltuva extends Quest
 {
 	private static final int DELTUVA = 32313;
+	
+	@Override
+	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
+	{
+		String htmltext = null;
+		if (event.equalsIgnoreCase("teleport"))
+		{
+			final QuestState hostQuest = player.getQuestState("132_MatrasCuriosity");
+			if ((hostQuest == null) || !hostQuest.isCompleted())
+			{
+				htmltext = "32313-02.htm";
+			}
+			else
+			{
+				player.teleToLocation(17934, 283189, -9701);
+			}
+		}
+		return htmltext;
+	}
 	
 	public Deltuva(int questId, String name, String descr)
 	{
@@ -30,26 +51,9 @@ public class Deltuva extends Quest
 		addStartNpc(DELTUVA);
 		addTalkId(DELTUVA);
 	}
-
-	@Override
-	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
-	{
-		String htmltext = null;
-		if (event.equalsIgnoreCase("teleport"))
-		{
-			QuestState hostQuest = player.getQuestState("132_MatrasCuriosity");
-
-			if (hostQuest == null || hostQuest.getState() != State.COMPLETED)
-				htmltext = "32313-02.htm";
-			else
-				player.teleToLocation(17934, 283189, -9701);
-		}
-		
-		return htmltext;
-	}
-
+	
 	public static void main(String[] args)
 	{
-		new Deltuva(-1, Deltuva.class.getSimpleName(), "hellbound");
+		new Deltuva(-1, "Deltuva", "hellbound");
 	}
 }

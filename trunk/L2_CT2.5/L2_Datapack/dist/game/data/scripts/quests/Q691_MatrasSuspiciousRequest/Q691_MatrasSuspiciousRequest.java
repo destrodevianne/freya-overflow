@@ -14,33 +14,32 @@
  */
 package quests.Q691_MatrasSuspiciousRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
-import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.util.Rnd;
-
-import java.util.Map;
-import javolution.util.FastMap;
 
 /**
  * @author GKR
  */
-
 public final class Q691_MatrasSuspiciousRequest extends Quest
 {
-	private static final String	QN = "691_MatrasSuspiciousRequest";
+	private static final String qn = "691_MatrasSuspiciousRequest";
 	
 	// NPCs
-	private static final int	MATRAS = 32245;
-
-	//Items
+	private static final int MATRAS = 32245;
+	
+	// Items
 	private static final int RED_GEM = 10372;
 	private static final int DYNASTY_SOUL_II = 10413;
 	
-	private static final Map<Integer, Integer> REWARD_CHANCES = new FastMap<Integer, Integer>();
+	private static final Map<Integer, Integer> REWARD_CHANCES = new HashMap<Integer, Integer>();
 	
 	static
 	{
@@ -64,18 +63,21 @@ public final class Q691_MatrasSuspiciousRequest extends Quest
 		addTalkId(MATRAS);
 		
 		for (int npcId : REWARD_CHANCES.keySet())
+		{
 			addKillId(npcId);
+		}
 	}
-
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = event;
-		QuestState st = player.getQuestState(QN);
-		
+		final QuestState st = player.getQuestState(qn);
 		if (st == null)
+		{
 			return getNoQuestMsg(player);
-
+		}
+		
 		if (event.equalsIgnoreCase("32245-04.htm"))
 		{
 			if (player.getLevel() >= 76)
@@ -85,9 +87,10 @@ public final class Q691_MatrasSuspiciousRequest extends Quest
 				st.playSound("ItemSound.quest_accept");
 			}
 			else
+			{
 				htmltext = getNoQuestMsg(player);
+			}
 		}
-
 		else if (event.equalsIgnoreCase("take_reward"))
 		{
 			int gemsCount = st.getInt("submitted_gems");
@@ -98,9 +101,10 @@ public final class Q691_MatrasSuspiciousRequest extends Quest
 				htmltext = "32245-09.htm";
 			}
 			else
+			{
 				htmltext = getHtm(player.getHtmlPrefix(), "32245-06.htm").replace("%itemcount%", st.get("submitted_gems"));
+			}
 		}
-		
 		else if (event.equalsIgnoreCase("32245-08.htm"))
 		{
 			int submittedCount = st.getInt("submitted_gems");
@@ -109,72 +113,78 @@ public final class Q691_MatrasSuspiciousRequest extends Quest
 			st.set("submitted_gems", Integer.toString(submittedCount + broughtCount));
 			htmltext = getHtm(player.getHtmlPrefix(), "32245-08.htm").replace("%itemcount%", Integer.toString(submittedCount + broughtCount));
 		}
-
 		else if (event.equalsIgnoreCase("32245-12.htm"))
 		{
-			st.giveItems(57, (int) (st.getInt("submitted_gems") * 10000));
+			st.giveItems(57, (st.getInt("submitted_gems") * 10000));
 			st.playSound("IItemSound.quest_finish");
 			st.exitQuest(true);
 		}
-
 		return htmltext;
 	}
-
+	
 	@Override
 	public final String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = Quest.getNoQuestMsg(player);
-		QuestState st = player.getQuestState(QN);
-
+		QuestState st = player.getQuestState(qn);
+		
 		if (st == null)
+		{
 			return htmltext;
+		}
 		
 		if (st.getState() == State.CREATED)
-		{ 
+		{
 			if (player.getLevel() >= 76)
+			{
 				htmltext = "32245-01.htm";
+			}
 			else
+			{
 				htmltext = "32245-03.htm";
+			}
 		}
-
 		else if (st.getState() == State.STARTED)
 		{
-		 	if (st.getQuestItemsCount(RED_GEM) > 0)
-		 		htmltext = "32245-05.htm";
-		 	
-		 	else if (st.getQuestItemsCount(RED_GEM) == 0)
-		 		htmltext = "32245-06.htm";
-		 	
-		 	else if (st.getInt("submitted_gems") > 0)
+			if (st.getQuestItemsCount(RED_GEM) > 0)
+			{
+				htmltext = "32245-05.htm";
+			}
+			else if (st.getQuestItemsCount(RED_GEM) == 0)
+			{
+				htmltext = "32245-06.htm";
+			}
+			else if (st.getInt("submitted_gems") > 0)
+			{
 				htmltext = getHtm(player.getHtmlPrefix(), "32245-06.htm").replace("%itemcount%", st.get("submitted_gems"));
+			}
 		}
-
 		return htmltext;
 	}
-
+	
 	@Override
 	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		L2PcInstance pl = getRandomPartyMember(player, "1");
 		if (pl == null)
+		{
 			return null;
-
-		final QuestState st = pl.getQuestState(QN);
+		}
 		
-		int chance = (int)(Config.RATE_QUEST_DROP * REWARD_CHANCES.get(npc.getNpcId()));
-		int numItems = Math.max((int) (chance / 1000), 1);
+		final QuestState st = pl.getQuestState(qn);
+		int chance = (int) (Config.RATE_QUEST_DROP * REWARD_CHANCES.get(npc.getNpcId()));
+		int numItems = Math.max((chance / 1000), 1);
 		chance = chance % 1000;
 		if (Rnd.get(1000) <= chance)
 		{
 			st.giveItems(RED_GEM, numItems);
-			st.playSound("ItemSound.quest_itemget"); 
+			st.playSound("ItemSound.quest_itemget");
 		}
-
 		return null;
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Q691_MatrasSuspiciousRequest(691, QN, "Matras' Suspicious Request");
+		new Q691_MatrasSuspiciousRequest(691, qn, "Matras' Suspicious Request");
 	}
 }

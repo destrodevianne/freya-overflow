@@ -20,31 +20,29 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.quest.Quest;
 
 /**
- * 
  * @author GKR
- *
  */
-
 public class Shadai extends Quest
 {
 	private static final int SHADAI = 32347;
 	
-	private static final int[] DAY_COORDS = { 16882, 238952, 9776 };
-	private static final int[] NIGHT_COORDS = { 9064, 253037, -1928 };
-	
-	public Shadai(int questId, String name, String descr)
+	private static final int[] DAY_COORDS =
 	{
-		super(questId, name, descr);
-		
-		addSpawnId(SHADAI);
-	}
-
+		16882, 238952, 9776
+	};
+	private static final int[] NIGHT_COORDS =
+	{
+		9064, 253037, -1928
+	};
+	
 	@Override
 	public final String onSpawn(L2Npc npc)
 	{
 		if (!npc.isTeleporting())
+		{
 			ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ValidatePosition(npc), 60000, 60000);
-
+		}
+		
 		return super.onSpawn(npc);
 	}
 	
@@ -52,14 +50,16 @@ public class Shadai extends Quest
 	{
 		int[] coords = DAY_COORDS;
 		boolean mustRevalidate = false;
-		if (npc.getX() != NIGHT_COORDS[0] && GameTimeController.getInstance().isNowNight())
+		if ((npc.getX() != NIGHT_COORDS[0]) && GameTimeController.getInstance().isNowNight())
 		{
 			coords = NIGHT_COORDS;
 			mustRevalidate = true;
 		}
-		else if (npc.getX() != DAY_COORDS[0] && !GameTimeController.getInstance().isNowNight())
+		else if ((npc.getX() != DAY_COORDS[0]) && !GameTimeController.getInstance().isNowNight())
+		{
 			mustRevalidate = true;
-			
+		}
+		
 		if (mustRevalidate)
 		{
 			npc.getSpawn().setLocx(coords[0]);
@@ -68,26 +68,32 @@ public class Shadai extends Quest
 			npc.teleToLocation(coords[0], coords[1], coords[2]);
 		}
 	}
-
+	
 	private static class ValidatePosition implements Runnable
 	{
 		private final L2Npc _npc;
-
+		
 		public ValidatePosition(L2Npc npc)
 		{
 			_npc = npc;
 		}
-
+		
 		@Override
 		public void run()
 		{
 			validatePosition(_npc);
 		}
 	}
-
-	public static void main(String[] args)
+	
+	public Shadai(int questId, String name, String descr)
 	{
-		new Shadai(-1, Shadai.class.getSimpleName(), "hellbound");
+		super(questId, name, descr);
+		
+		addSpawnId(SHADAI);
 	}
 	
+	public static void main(String[] args)
+	{
+		new Shadai(-1, "Shadai", "hellbound");
+	}
 }

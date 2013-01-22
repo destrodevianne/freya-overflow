@@ -20,14 +20,13 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
+import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 
 /**
- * 
- * @author DS, based on theOne's work
- * Appended by GKR - this class manages Natives' behaviour up to 9 lvl of Hellbound. 10 lvl are handled in Hellbound Town. 
- *
+ * This class manages Natives' behavior up to 9 level of Hellbound. 10 level are handled in Hellbound Town.
+ * @author DS, GKR
  */
 public class Natives extends Quest
 {
@@ -44,86 +43,102 @@ public class Natives extends Quest
 		1800111 //Alright, now Leodas is yours!
 	};
 	
-	private static final int[] doors = { 19250003, 19250004 };
+	private static final int[] doors =
+	{
+		19250003, 19250004
+	};
 	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
-		int hellboundLevel = HellboundManager.getInstance().getLevel();
-		int npcId = npc.getNpcId();
+		String htmltext = "";
+		final int hellboundLevel = HellboundManager.getInstance().getLevel();
+		final int npcId = npc.getNpcId();
 		
-		if (npcId == NATIVE)
-			return hellboundLevel > 5 ? "32362-01.htm" : "32362.htm"; 
-
-		else if (npcId == INSURGENT)
-			return hellboundLevel > 5 ? "32363-01.htm" : "32363.htm";
-		
-		else if (npcId == INCASTLE)
+		switch (npcId)
 		{
-			if (hellboundLevel < 9)
-				return "32357-01a.htm";
-
-			else if (hellboundLevel == 9)
-				return npc.isBusy() ? "32357-02.htm" : "32357-01.htm";  
-
-			else
-				return "32357-01b.htm";
+			case NATIVE:
+				htmltext = hellboundLevel > 5 ? "32362-01.htm" : "32362.htm";
+				break;
+			case INSURGENT:
+				htmltext = hellboundLevel > 5 ? "32363-01.htm" : "32363.htm";
+				break;
+			case INCASTLE:
+				if (hellboundLevel < 9)
+				{
+					htmltext = "32357-01a.htm";
+				}
+				else if (hellboundLevel == 9)
+				{
+					htmltext = npc.isBusy() ? "32357-02.htm" : "32357-01.htm";
+				}
+				else
+				{
+					htmltext = "32357-01b.htm";
+				}
+				break;
 		}
-		
-		return null;
+		return htmltext;
 	}
 	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = null;
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
 		if (npc.getNpcId() == TRAITOR)
 		{
 			if (event.equalsIgnoreCase("open_door"))
 			{
-				if (player.getInventory().getInventoryItemCount(MARK_OF_BETRAYAL, -1, false) >= 10)
+				if (qs.getQuestItemsCount(MARK_OF_BETRAYAL) >= 10)
 				{
-					if (player.destroyItemByItemId("Quest", MARK_OF_BETRAYAL, 10, npc, true))
-					{
-						npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getNpcId(), FSTRING_ID[1]));
-						HellboundManager.getInstance().updateTrust(-50, true);
-
-						for (int doorId : doors)
-						{
-							L2DoorInstance door = DoorTable.getInstance().getDoor(doorId);
-							if (door != null)
-								door.openMe();
-						}
+					qs.takeItems(MARK_OF_BETRAYAL, 10);
+					npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getNpcId(), FSTRING_ID[1]));
+					HellboundManager.getInstance().updateTrust(-50, true);
 					
-						cancelQuestTimers("close_doors");
-						startQuestTimer("close_doors", 1800000, npc, player); //30 min
-					} 
+					for (int doorId : doors)
+					{
+						L2DoorInstance door = DoorTable.getInstance().getDoor(doorId);
+						if (door != null)
+						{
+							door.openMe();
+						}
+					}
+					
+					cancelQuestTimers("close_doors");
+					startQuestTimer("close_doors", 1800000, npc, player); // 30 min
 				}
-			
-				else if (player.getInventory().getInventoryItemCount(MARK_OF_BETRAYAL, -1, false) > 0 && player.getInventory().getInventoryItemCount(MARK_OF_BETRAYAL, -1, false) < 10)
+				else if (qs.getQuestItemsCount(MARK_OF_BETRAYAL) > 0)
+				{
 					htmltext = "32364-01.htm";
-			
+				}
 				else
+				{
 					htmltext = "32364-02.htm";
+				}
 			}
-			
 			else if (event.equalsIgnoreCase("close_doors"))
 			{
 				for (int doorId : doors)
 				{
 					L2DoorInstance door = DoorTable.getInstance().getDoor(doorId);
 					if (door != null)
+					{
 						door.closeMe();
+					}
 				}
 			}
 		}
-		
-		else if (npc.getNpcId() == NATIVE && event.equalsIgnoreCase("hungry_death"))
+		else if ((npc.getNpcId() == NATIVE) && event.equalsIgnoreCase("hungry_death"))
 		{
 			npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getNpcId(), FSTRING_ID[0]));
 			npc.doDie(null);
 		}
-		
 		else if (npc.getNpcId() == INCASTLE)
 		{
 			if (event.equalsIgnoreCase("FreeSlaves"))
@@ -135,34 +150,35 @@ public class Natives extends Quest
 						npc.setBusy(true); // Prevent Native from take items more, than once
 						HellboundManager.getInstance().updateTrust(100, true);
 						htmltext = "32357-02.htm";
-						startQuestTimer("delete_me", 3000, npc, null);	
+						startQuestTimer("delete_me", 3000, npc, null);
 					}
 				}
 				else
+				{
 					htmltext = "32357-02a.htm";
+				}
 			}
-			
 			else if (event.equalsIgnoreCase("delete_me"))
 			{
-				npc.setBusy(false); // TODO: Does it really need?
+				npc.setBusy(false); 
 				npc.deleteMe();
 				npc.getSpawn().decreaseCount(npc);
 			}
 		}
-		
 		return htmltext;
 	}
 	
 	@Override
 	public final String onSpawn(L2Npc npc)
 	{
-		if (npc.getNpcId() == NATIVE && HellboundManager.getInstance().getLevel() < 6)
+		if ((npc.getNpcId() == NATIVE) && (HellboundManager.getInstance().getLevel() < 6))
+		{
 			startQuestTimer("hungry_death", 600000, npc, null);
+		}
 		
 		return super.onSpawn(npc);
 	}
-
-
+	
 	public Natives(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -175,9 +191,9 @@ public class Natives extends Quest
 		addTalkId(INCASTLE);
 		addSpawnId(NATIVE);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Natives(-1, Natives.class.getSimpleName(), "hellbound");
+		new Natives(-1, "Natives", "hellbound");
 	}
 }

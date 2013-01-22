@@ -537,6 +537,7 @@ public class Shutdown extends Thread
 		GrandBossManager.getInstance().cleanUp();
 		_log.info("GrandBossManager: All Grand Boss info saved!!");
 		HellboundManager.getInstance().cleanUp();
+		_log.info("Hellbound Manager: Data saved.");
 		_log.info("TradeController saving data.. This action may take some minutes! Please wait until completed!");
 		TradeController.getInstance().dataCountStore();
 		_log.info("TradeController: All count Item Saved");

@@ -18,40 +18,42 @@ import com.l2jserver.gameserver.instancemanager.HellboundManager;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
+import com.l2jserver.gameserver.model.quest.QuestState;
 
 /**
- * 
- * @author DS, based on theOne's work
- *
+ * @author DS
  */
 public class Kief extends Quest
 {
 	private static final int KIEF = 32354;
-
+	
 	private static final int BOTTLE = 9672;
 	private static final int DARION_BADGE = 9674;
 	private static final int DIM_LIFE_FORCE = 9680;
 	private static final int LIFE_FORCE = 9681;
 	private static final int CONTAINED_LIFE_FORCE = 9682;
 	private static final int STINGER = 10012;
-
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
 		if ("Badges".equalsIgnoreCase(event))
 		{
 			switch (HellboundManager.getInstance().getLevel())
 			{
 				case 2:
 				case 3:
-					final long num = player.getInventory().getInventoryItemCount(DARION_BADGE, -1, false);
-					if (num > 0)
+					if (qs.hasQuestItems(DARION_BADGE))
 					{
-						if (player.destroyItemByItemId("Quest", DARION_BADGE, num, npc, true))
-						{
-							HellboundManager.getInstance().updateTrust((int)num * 10, true);
-							return "32354-10.htm";
-						}
+						HellboundManager.getInstance().updateTrust((int) qs.getQuestItemsCount(DARION_BADGE) * 10, true);
+						qs.takeItems(DARION_BADGE, -1);
+						return "32354-10.htm";
 					}
 			}
 			return "32354-10a.htm";
@@ -60,13 +62,11 @@ public class Kief extends Quest
 		{
 			if (HellboundManager.getInstance().getLevel() >= 7)
 			{
-				if (player.getInventory().getInventoryItemCount(STINGER, -1, false) >= 20)
+				if (qs.getQuestItemsCount(STINGER) >= 20)
 				{
-					if (player.destroyItemByItemId("Quest", STINGER, 20, npc, true))
-					{
-						player.addItem("Quest", BOTTLE, 1, npc, true);
-						return "32354-11h.htm";
-					}
+					qs.takeItems(STINGER, 20);
+					qs.giveItems(BOTTLE, 1);
+					return "32354-11h.htm";
 				}
 				return "32354-11i.htm";
 			}
@@ -75,14 +75,11 @@ public class Kief extends Quest
 		{
 			if (HellboundManager.getInstance().getLevel() == 7)
 			{
-				final long num = player.getInventory().getInventoryItemCount(DIM_LIFE_FORCE, -1, false);
-				if (num > 0)
+				if (qs.hasQuestItems(DIM_LIFE_FORCE))
 				{
-					if (player.destroyItemByItemId("Quest", DIM_LIFE_FORCE, num, npc, true))
-					{
-						HellboundManager.getInstance().updateTrust((int)num * 20, true);
-						return "32354-11a.htm";
-					}
+					HellboundManager.getInstance().updateTrust((int) qs.getQuestItemsCount(DIM_LIFE_FORCE) * 20, true);
+					qs.takeItems(DIM_LIFE_FORCE, -1);
+					return "32354-11a.htm";
 				}
 				return "32354-11b.htm";
 			}
@@ -91,14 +88,11 @@ public class Kief extends Quest
 		{
 			if (HellboundManager.getInstance().getLevel() == 7)
 			{
-				final long num = player.getInventory().getInventoryItemCount(LIFE_FORCE, -1, false);
-				if (num > 0)
+				if (qs.hasQuestItems(LIFE_FORCE))
 				{
-					if (player.destroyItemByItemId("Quest", LIFE_FORCE, num, npc, true))
-					{
-						HellboundManager.getInstance().updateTrust((int)num * 80, true);
-						return "32354-11c.htm";
-					}
+					HellboundManager.getInstance().updateTrust((int) qs.getQuestItemsCount(LIFE_FORCE) * 80, true);
+					qs.takeItems(LIFE_FORCE, -1);
+					return "32354-11c.htm";
 				}
 				return "32354-nolifeforce.htm";
 			}
@@ -107,28 +101,26 @@ public class Kief extends Quest
 		{
 			if (HellboundManager.getInstance().getLevel() == 7)
 			{
-				final long num = player.getInventory().getInventoryItemCount(CONTAINED_LIFE_FORCE, -1, false);
-				if (num > 0)
+				if (qs.hasQuestItems(CONTAINED_LIFE_FORCE))
 				{
-					if (player.destroyItemByItemId("Quest", CONTAINED_LIFE_FORCE, num, npc, true))
-					{
-						HellboundManager.getInstance().updateTrust((int)num * 200, true);
-						return "32354-11e.htm";
-					}
+					HellboundManager.getInstance().updateTrust((int) qs.getQuestItemsCount(CONTAINED_LIFE_FORCE) * 200, true);
+					qs.takeItems(CONTAINED_LIFE_FORCE, -1);
+					return "32354-11e.htm";
 				}
 				return "32354-11f.htm";
 			}
 		}
-
 		return event;
 	}
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (player.getQuestState(getName()) == null)
+		{
 			newQuestState(player);
-
+		}
+		
 		switch (HellboundManager.getInstance().getLevel())
 		{
 			case 1:
@@ -148,7 +140,7 @@ public class Kief extends Quest
 				return "32354-01f.htm";
 		}
 	}
-
+	
 	public Kief(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -156,9 +148,9 @@ public class Kief extends Quest
 		addStartNpc(KIEF);
 		addTalkId(KIEF);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Kief(-1, Kief.class.getSimpleName(), "hellbound");
+		new Kief(-1, "Kief", "hellbound");
 	}
 }

@@ -2091,15 +2091,15 @@ public final class Config
 					RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(NPC.getProperty("RaidMinRespawnMultiplier", "1.0"));
 					RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(NPC.getProperty("RaidMaxRespawnMultiplier", "1.0"));
 					RAID_MINION_RESPAWN_TIMER = Integer.parseInt(NPC.getProperty("RaidMinionRespawnTime", "300000"));
-					String[] propertySplit = NPC.getProperty("CustomMinionsRespawnTime", "").split(";");
+					final String[] propertySplit = NPC.getProperty("CustomMinionsRespawnTime", "").split(";");
  					MINIONS_RESPAWN_TIME = new TIntIntHashMap(propertySplit.length);
  					for (String prop : propertySplit)
  					{
  						String[] propSplit = prop.split(",");
  						if (propSplit.length != 2)
+						{
  							_log.warning(StringUtil.concat("[CustomMinionsRespawnTime]: invalid config property -> CustomMinionsRespawnTime \"", prop, "\""));
- 							else
- 							{
+						}
  								try
  								{
  									MINIONS_RESPAWN_TIME.put(Integer.valueOf(propSplit[0]), Integer.valueOf(propSplit[1]));
@@ -2109,7 +2109,6 @@ public final class Config
  									if (!prop.isEmpty())
  										_log.warning(StringUtil.concat("[CustomMinionsRespawnTime]: invalid config property -> CustomMinionsRespawnTime \"", propSplit[0], "\"", propSplit[1]));
  								}
- 							}
  					}
 					
 					RAID_DISABLE_CURSE = Boolean.parseBoolean(NPC.getProperty("DisableRaidCurse", "False"));
