@@ -35,9 +35,6 @@ public class TopPlayers
                        case "toppk":
                                sort = "pkkills";
                                break;
-                       case "topadena":
-                               sort = "SUM(it.count)";
-                               break;
                        case "toprbrank":
                                sort = "SUM(chr.points)";
                                break;
@@ -65,9 +62,8 @@ public class TopPlayers
                                if (result.getInt("online") == 1)
                                        status = true;
                                String timeon = getPlayerRunTime(result.getInt("ch.onlinetime"));
-                               String adenas = getAdenas(result.getInt("SUM(it.count)"));
                               
-                               addChar(pos, result.getString("ch.char_name"), result.getInt("base_class"), result.getInt("ch.pvpkills"), result.getInt("ch.pkkills"), result.getInt("SUM(chr.points)"), adenas, timeon, status);
+                               addChar(pos, result.getString("ch.char_name"), result.getInt("base_class"), result.getInt("ch.pvpkills"), result.getInt("ch.pkkills"), timeon, status);
                        }
                       
                        result.close();
@@ -95,7 +91,7 @@ public class TopPlayers
                return _topList.toString();
        }
       
-       private void addChar(int position, String name, int classid, int pvp, int pk, int raid, String adenas, String online, boolean isOnline)
+       private void addChar(int position, String name, int classid, int pvp, int pk, String online, boolean isOnline)
        {
                _topList.append("<table border=0 cellspacing=0 cellpadding=2 bgcolor=050505 height=" + Config.TOP_PLAYER_ROW_HEIGHT + "><tr><td FIXWIDTH=5></td>");
                _topList.append("<td FIXWIDTH=20>" + position + ".</td>");
@@ -103,8 +99,6 @@ public class TopPlayers
                _topList.append("<td FIXWIDTH=175>" + className(classid) + "</td>");
                _topList.append("<td FIXWIDTH=60>" + pvp + "</td>");
                _topList.append("<td FIXWIDTH=60>" + pk + "</td>");
-               _topList.append("<td FIXWIDTH=65>" + raid + "</td>");
-               _topList.append("<td FIXWIDTH=150>" + adenas + "</td>");
                _topList.append("<td FIXWIDTH=148>" + online + "</td>");
                _topList.append("<td FIXWIDTH=65>" + ((isOnline) ? "<font color=99FF00>Online</font>" : "<font color=CC0000>Offline</font>") + "</td>");
                _topList.append("</tr></table><img src=\"L2UI.Squaregray\" width=\"758\" height=\"1\">");
@@ -230,14 +224,5 @@ public class TopPlayers
                else
                        timeResult = Integer.toString(secs / 3600) + " Hours " + Integer.toString((secs % 3600) / 60) + " mins";
                return timeResult;
-       }
-       public String getAdenas(int adena)
-       {
-               String adenas = "";
-               if (adena >= 1000000000)
-                       adenas = Integer.toString(adena / 1000000000) + " Billion " + Integer.toString((adena % 1000000000) / 1000000) + " million";
-               else
-                       adenas = Integer.toString(adena / 1000000) + " Million " + Integer.toString((adena % 1000000) / 1000) + " k";
-               return adenas;
        }
 }
