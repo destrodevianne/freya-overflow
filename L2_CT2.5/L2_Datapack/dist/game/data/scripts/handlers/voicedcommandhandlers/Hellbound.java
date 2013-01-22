@@ -18,36 +18,31 @@ import com.l2jserver.gameserver.handler.IVoicedCommandHandler;
 import com.l2jserver.gameserver.instancemanager.HellboundManager;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 
+/**
+ * @author DS
+ */
 public class Hellbound implements IVoicedCommandHandler
 {
 	private static final String[] VOICED_COMMANDS =
 	{
 		"hellbound"
 	};
-
-	/**
-	 * 
-	 * @see com.l2jserver.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(java.lang.String, com.l2jserver.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
-	 */
+	
+	@Override
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String params)
 	{
 		if (HellboundManager.getInstance().isLocked())
 		{
-			activeChar.sendMessage("Hellbound is locked");
+			activeChar.sendMessage("Hellbound is currently locked.");
 			return true;
 		}
-
+		
 		final int maxTrust = HellboundManager.getInstance().getMaxTrust();
-		activeChar.sendMessage("Hellbound level: " + HellboundManager.getInstance().getLevel() +
-				" trust: " + HellboundManager.getInstance().getTrust() +
-				(maxTrust > 0 ? "/" + maxTrust : ""));
+		activeChar.sendMessage("Hellbound level: " + HellboundManager.getInstance().getLevel() + " trust: " + HellboundManager.getInstance().getTrust() + (maxTrust > 0 ? "/" + maxTrust : ""));
 		return true;
 	}
-
-	/**
-	 * 
-	 * @see com.l2jserver.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
-	 */
+	
+	@Override
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

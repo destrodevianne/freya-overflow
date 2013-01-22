@@ -18,45 +18,50 @@ import com.l2jserver.gameserver.instancemanager.HellboundManager;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.quest.Quest;
+import com.l2jserver.gameserver.model.quest.QuestState;
 
 /**
- * 
- * @author DS, based on theOne's work
- *
+ * @author DS
  */
 public class Jude extends Quest
 {
 	private static final int JUDE = 32356;
-	private static final int TREASURE = 9684;
-
+	private static final int NativeTreasure = 9684;
+	private static final int RingOfWindMastery = 9677;
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
+		QuestState qs = player.getQuestState(getName());
+		if (qs == null)
+		{
+			qs = newQuestState(player);
+		}
+		
 		if ("TreasureSacks".equalsIgnoreCase(event))
 		{
 			if (HellboundManager.getInstance().getLevel() == 3)
 			{
-				if (player.getInventory().getInventoryItemCount(TREASURE, -1, false) >= 40)
+				if (qs.getQuestItemsCount(NativeTreasure) >= 40)
 				{
-					if (player.destroyItemByItemId("Quest", TREASURE, 40, npc, true))
-					{
-						player.addItem("Quest", 9677, 1, npc, true);
-						return "32356-02.htm";
-					}
+					qs.takeItems(NativeTreasure, 40);
+					qs.giveItems(RingOfWindMastery, 1);
+					return "32356-02.htm";
 				}
 			}
 			return "32356-02a.htm";
 		}
-
 		return event;
 	}
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (player.getQuestState(getName()) == null)
+		{
 			newQuestState(player);
-
+		}
+		
 		switch (HellboundManager.getInstance().getLevel())
 		{
 			case 0:
@@ -72,7 +77,7 @@ public class Jude extends Quest
 				return "32356-01b.htm";
 		}
 	}
-
+	
 	public Jude(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -80,9 +85,9 @@ public class Jude extends Quest
 		addStartNpc(JUDE);
 		addTalkId(JUDE);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Jude(-1, Jude.class.getSimpleName(), "hellbound");
+		new Jude(-1, "Jude", "hellbound");
 	}
 }

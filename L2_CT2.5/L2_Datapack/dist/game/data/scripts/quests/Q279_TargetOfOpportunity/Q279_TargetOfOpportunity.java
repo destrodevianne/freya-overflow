@@ -14,32 +14,40 @@
  */
 package quests.Q279_TargetOfOpportunity;
 
+import java.util.Arrays;
+
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
+import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.gameserver.model.quest.QuestState;
 import com.l2jserver.gameserver.model.quest.State;
-import com.l2jserver.gameserver.model.quest.Quest;
 import com.l2jserver.util.Rnd;
-
-import java.util.Arrays;
 
 /**
  * @author GKR
  */
-
 public final class Q279_TargetOfOpportunity extends Quest
 {
-	private static final String	QN = "279_TargetOfOpportunity";
-
-	//NPC's
-	private static final int JERIAN = 32302;
-	private static final int[] MONSTERS = { 22373, 22374, 22375, 22376};
+	private static final String qn = "279_TargetOfOpportunity";
 	
-	//Items
-	private static final int[] SEAL_COMPONENTS = { 15517, 15518, 15519, 15520 };
-	private static final int[] SEAL_BREAKERS = { 15515, 15516 };
-
+	// NPC's
+	private static final int JERIAN = 32302;
+	private static final int[] MONSTERS =
+	{
+		22373, 22374, 22375, 22376
+	};
+	
+	// Items
+	private static final int[] SEAL_COMPONENTS =
+	{
+		15517, 15518, 15519, 15520
+	};
+	private static final int[] SEAL_BREAKERS =
+	{
+		15515, 15516
+	};
+	
 	public Q279_TargetOfOpportunity(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -48,17 +56,21 @@ public final class Q279_TargetOfOpportunity extends Quest
 		addTalkId(JERIAN);
 		
 		for (int monster : MONSTERS)
+		{
 			addKillId(monster);
+		}
 	}
-
+	
 	@Override
 	public String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = event;
-		QuestState st = player.getQuestState(QN);
+		final QuestState st = player.getQuestState(qn);
 		
-		if (st == null || player.getLevel() < 82)
+		if ((st == null) || (player.getLevel() < 82))
+		{
 			return getNoQuestMsg(player);
+		}
 		
 		if (event.equalsIgnoreCase("32302-05.htm"))
 		{
@@ -67,9 +79,7 @@ public final class Q279_TargetOfOpportunity extends Quest
 			st.set("progress", "1");
 			st.playSound("ItemSound.quest_accept");
 		}
-		
-		else if (event.equalsIgnoreCase("32302-08.htm") && st.getInt("progress") == 1 && st.getQuestItemsCount(SEAL_COMPONENTS[0]) > 0
-						&& st.getQuestItemsCount(SEAL_COMPONENTS[1]) > 0 && st.getQuestItemsCount(SEAL_COMPONENTS[2]) > 0 && st.getQuestItemsCount(SEAL_COMPONENTS[0]) > 0)
+		else if (event.equalsIgnoreCase("32302-08.htm") && (st.getInt("progress") == 1) && st.hasQuestItems(SEAL_COMPONENTS[0]) && st.hasQuestItems(SEAL_COMPONENTS[1]) && st.hasQuestItems(SEAL_COMPONENTS[2]) && st.hasQuestItems(SEAL_COMPONENTS[3]))
 		{
 			st.takeItems(SEAL_COMPONENTS[0], -1);
 			st.takeItems(SEAL_COMPONENTS[1], -1);
@@ -80,53 +90,56 @@ public final class Q279_TargetOfOpportunity extends Quest
 			st.playSound("IItemSound.quest_finish");
 			st.exitQuest(true);
 		}
-		
 		return htmltext;
 	}
-
+	
 	@Override
 	public final String onTalk(L2Npc npc, L2PcInstance player)
 	{
 		String htmltext = Quest.getNoQuestMsg(player);
-		QuestState st = player.getQuestState(QN);
-
-		if (st == null)
-			return htmltext;
-		
-		if (st.getState() == State.CREATED)
-		{ 
-			if (player.getLevel() >= 82)
-				htmltext = "32302-01.htm";
-			else
-				htmltext = "32302-02.htm";
-		}
-		
-		else if (st.getState() == State.STARTED)
+		final QuestState st = player.getQuestState(qn);
+		if (st != null)
 		{
-			if (st.getInt("progress") == 1)
-			{ 
-				if (st.getQuestItemsCount(SEAL_COMPONENTS[0]) > 0 && st.getQuestItemsCount(SEAL_COMPONENTS[1]) > 0 &&
-						st.getQuestItemsCount(SEAL_COMPONENTS[2]) > 0 && st.getQuestItemsCount(SEAL_COMPONENTS[0]) > 0)
-					htmltext = "32302-07.htm";
+			if (st.getState() == State.CREATED)
+			{
+				if (player.getLevel() >= 82)
+				{
+					htmltext = "32302-01.htm";
+				}
 				else
-					htmltext = "32302-06.htm";
+				{
+					htmltext = "32302-02.htm";
+				}
+			}
+			else if (st.getState() == State.STARTED)
+			{
+				if (st.getInt("progress") == 1)
+				{
+					if (st.hasQuestItems(SEAL_COMPONENTS[0]) && st.hasQuestItems(SEAL_COMPONENTS[1]) && st.hasQuestItems(SEAL_COMPONENTS[2]) && st.hasQuestItems(SEAL_COMPONENTS[3]))
+					{
+						htmltext = "32302-07.htm";
+					}
+					else
+					{
+						htmltext = "32302-06.htm";
+					}
+				}
 			}
 		}
-
-	
 		return htmltext;
 	}
-
+	
 	@Override
 	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		L2PcInstance pl = getRandomPartyMember(player, "progress", "1");
-		int idx = Arrays.binarySearch(MONSTERS, npc.getNpcId());
-		if (pl == null || idx < 0)
+		final int idx = Arrays.binarySearch(MONSTERS, npc.getNpcId());
+		if ((pl == null) || (idx < 0))
+		{
 			return null;
-
-		final QuestState st = pl.getQuestState(QN);
+		}
 		
+		final QuestState st = pl.getQuestState(qn);
 		if (Rnd.get(1000) < (int) (311 * Config.RATE_QUEST_DROP))
 		{
 			if (st.getQuestItemsCount(SEAL_COMPONENTS[idx]) < 1)
@@ -138,10 +151,11 @@ public final class Q279_TargetOfOpportunity extends Quest
 					st.playSound("ItemSound.quest_middle");
 				}
 				else
+				{
 					st.playSound("ItemSound.quest_itemget");
+				}
 			}
 		}
-		
 		return null;
 	}
 	
@@ -150,17 +164,20 @@ public final class Q279_TargetOfOpportunity extends Quest
 		for (int i = 0; i < SEAL_COMPONENTS.length; i++)
 		{
 			if (i == idx)
+			{
 				continue;
+			}
 			
 			if (st.getQuestItemsCount(SEAL_COMPONENTS[i]) < 1)
-				return false; 
-		} 
-
+			{
+				return false;
+			}
+		}
 		return true;
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Q279_TargetOfOpportunity(279, QN, "Target of Opportunity");
+		new Q279_TargetOfOpportunity(279, qn, "Target of Opportunity");
 	}
 }

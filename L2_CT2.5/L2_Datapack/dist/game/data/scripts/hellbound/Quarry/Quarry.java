@@ -30,25 +30,41 @@ import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 import com.l2jserver.util.Rnd;
 
+/**
+ * @author DS, GKR
+ */
 public class Quarry extends Quest
 {
 	private static final int SLAVE = 32299;
 	private static final int TRUST = 50;
 	private static final int ZONE = 40107;
-	//Id, chance (n from 10000)
-	private static final int[][] DROPLIST = 
-	{ 
-		{ 9628, 261 }, //Leonard
-		{ 9630, 175 }, //Orichalcum
-		{ 9629, 145 }, //Adamantine				
-		{ 1876, 6667 }, //Mithril ore
-		{ 1877, 1333 }, //Adamantine nugget
-		{ 1874, 2222 } //Oriharukon ore
+	// Id, chance (n from 10000)
+	private static final int[][] DROPLIST =
+	{
+		{
+			9628, 261
+		}, // Leonard
+		{
+			9630, 175
+		}, // Orichalcum
+		{
+			9629, 145
+		}, // Adamantine
+		{
+			1876, 6667
+		}, // Mithril ore
+		{
+			1877, 1333
+		}, // Adamantine nugget
+		{
+			1874, 2222
+		}
+	// Oriharukon ore
 	};
-
+	
 	private static final int SUCCESS_FSTRING_ID = 1800026; //Thank you for the rescue. It's a small gift.
 	private static final int FAIL_FSTRING_ID = 1800073; //Hun.. hungry
-
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -60,120 +76,124 @@ public class Quarry extends Quest
 				{
 					npc.setTarget(null);
 					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-					((L2QuestGuardInstance) npc).setAutoAttackable(false);
+					npc.setAutoAttackable(false);
 					npc.setRHandId(0);
 					npc.teleToLocation(npc.getSpawn().getLocx(), npc.getSpawn().getLocy(), npc.getSpawn().getLocz());
 					return null;
-				} 
+				}
 			}
 			
 			npc.broadcastPacket(new NpcSay(npc.getObjectId(), Say2.ALL, npc.getNpcId(), FAIL_FSTRING_ID));
 			npc.doDie(npc);
-			
 			return null;
 		}
-		
 		else if (event.equalsIgnoreCase("FollowMe"))
 		{
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, player);
 			npc.setTarget(player);
-			((L2QuestGuardInstance) npc).setAutoAttackable(true);
+			npc.setAutoAttackable(true);
 			npc.setRHandId(9136);
 			npc.setWalking();
-
+			
 			if (getQuestTimer("time_limit", npc, null) == null)
-				startQuestTimer("time_limit", 900000, npc, null); //15 min limit for save
-
+			{
+				startQuestTimer("time_limit", 900000, npc, null); // 15 min limit for save
+			}
 			return "32299-02.htm";
 		}
 		return event;
 	}
-
+	
 	@Override
 	public final String onSpawn(L2Npc npc)
 	{
-		((L2QuestGuardInstance) npc).setAutoAttackable(false);
-		((L2QuestGuardInstance) npc).setPassive(true);
-
+		npc.setAutoAttackable(false);
+		if (npc instanceof L2QuestGuardInstance)
+		{
+			((L2QuestGuardInstance) npc).setPassive(true);
+		}
 		return super.onSpawn(npc);
 	}
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		if (HellboundManager.getInstance().getLevel() != 5)
+		{
 			return "32299.htm";
+		}
 		else
 		{
 			if (player.getQuestState(getName()) == null)
+			{
 				newQuestState(player);
-
+			}
 			return "32299-01.htm";
 		}
 	}
-
-
-	//Let's manage kill points in Engine
+	
+	// Let's manage kill points in Engine
 	@Override
 	public final String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
-		((L2QuestGuardInstance) npc).setAutoAttackable(false);
-
+		npc.setAutoAttackable(false);
 		return super.onKill(npc, killer, isPet);
 	}
-
+	
 	@Override
 	public final String onEnterZone(L2Character character, L2ZoneType zone)
 	{
-		if (character instanceof L2Npc
-				&& ((L2Npc)character).getNpcId() == SLAVE)
+		if (character instanceof L2Npc)
 		{
-			if (!character.isDead()
-					&& !((L2Npc)character).isDecayed()
-					&& character.getAI().getIntention() == CtrlIntention.AI_INTENTION_FOLLOW)
+			final L2Npc npc = (L2Npc) character;
+			if (npc.getNpcId() == SLAVE)
 			{
-				if (HellboundManager.getInstance().getLevel() == 5)
+				if (!npc.isDead() && !npc.isDecayed() && (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_FOLLOW))
 				{
-					ThreadPoolManager.getInstance().scheduleGeneral(new Decay((L2Npc)character), 1000);
-					try
+					if (HellboundManager.getInstance().getLevel() == 5)
 					{
-						character.broadcastPacket(new NpcSay(character.getObjectId(), Say2.ALL, ((L2Npc) character).getNpcId(), SUCCESS_FSTRING_ID));
-					}
-					catch (Exception e)
-					{
+						ThreadPoolManager.getInstance().scheduleGeneral(new Decay(npc), 1000);
+						try
+						{
+							character.broadcastPacket(new NpcSay(character.getObjectId(), Say2.ALL, ((L2Npc) character).getNpcId(), SUCCESS_FSTRING_ID));
+						}
+						catch (Exception e)
+						{
+							//
+						}
 					}
 				}
 			}
 		}
-		return null; 
+		return null;
 	}
-
+	
 	private final class Decay implements Runnable
 	{
 		private final L2Npc _npc;
-
+		
 		public Decay(L2Npc npc)
 		{
 			_npc = npc;
 		}
-
+		
 		@Override
 		public void run()
 		{
-			if (_npc != null && !_npc.isDead())
+			if ((_npc != null) && !_npc.isDead())
 			{
 				if (_npc.getTarget() instanceof L2PcInstance)
 				{
 					for (int[] i : DROPLIST)
 					{
 						if (Rnd.get(10000) < i[1])
-						{ 
-							((L2Attackable) _npc).dropItem((L2PcInstance)(_npc.getTarget()), i[0], (int) Config.RATE_DROP_ITEMS);
+						{
+							((L2Attackable) _npc).dropItem((L2PcInstance) (_npc.getTarget()), i[0], (int) Config.RATE_DROP_ITEMS);
 							break;
 						}
 					}
 				}
-
+				
 				_npc.setAutoAttackable(false);
 				_npc.deleteMe();
 				_npc.getSpawn().decreaseCount(_npc);
@@ -181,7 +201,7 @@ public class Quarry extends Quest
 			}
 		}
 	}
-
+	
 	public Quarry(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -192,9 +212,9 @@ public class Quarry extends Quest
 		addKillId(SLAVE);
 		addEnterZoneId(ZONE);
 	}
-
+	
 	public static void main(String[] args)
 	{
-		new Quarry(-1, Quarry.class.getSimpleName(), "hellbound");
+		new Quarry(-1, "Quarry", "hellbound");
 	}
 }

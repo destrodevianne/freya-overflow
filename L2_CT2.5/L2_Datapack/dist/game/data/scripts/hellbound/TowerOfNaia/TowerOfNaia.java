@@ -12,10 +12,17 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package hellbound.TowerOfNaia;
 
-//import com.l2jserver.gameserver.Announcements;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import com.l2jserver.gameserver.ThreadPoolManager;
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.datatables.DoorTable;
@@ -40,30 +47,20 @@ import com.l2jserver.gameserver.util.MinionList;
 import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.Rnd;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 /**
- * 
  * @author GKR
- *
  */
-
 public class TowerOfNaia extends Quest
 {
-	//Challenge states
+	// Challenge states
 	private static final int STATE_SPORE_CHALLENGE_IN_PROGRESS = 1;
 	private static final int STATE_SPORE_CHALLENGE_SUCCESSFULL = 2;
 	private static final int STATE_SPORE_IDLE_TOO_LONG = 3;
-
-	//Some constants
-	private static final int SELF_DESPAWN_LIMIT = 600; //Challenge discontinues after 600 self-despawns by timer
-	private static final int ELEMENT_INDEX_LIMIT = 120; //Epidos spawns when index reaches 120 points
-
+	
+	// Some constants
+	private static final int SELF_DESPAWN_LIMIT = 600; // Challenge discontinues after 600 self-despawns by timer
+	private static final int ELEMENT_INDEX_LIMIT = 120; // Epidos spawns when index reaches 120 points
+	
 	private static final int LOCK = 18491;
 	private static final int CONTROLLER = 18492;
 	private static final int ROOM_MANAGER_FIRST = 18494;
@@ -73,62 +70,135 @@ public class TowerOfNaia extends Quest
 	private static final int SPORE_FIRE = 25605;
 	private static final int SPORE_WATER = 25606;
 	private static final int SPORE_WIND = 25607;
-	private static final int SPORE_EARTH = 25608;	
+	private static final int SPORE_EARTH = 25608;
 	private static final int DWARVEN_GHOST = 32370;
-	private static final int[] EPIDOSES = { 25610, 25609, 25612, 25611 }; // Order is important!
-	private static final int[] TOWER_MONSTERS = { 18490, 22393, 22394, 22395, 22411, 22412, 22413, 22439, 22440, 22441, 22442 };
-	private static final int[] ELEMENTS = { 25605, 25606, 25607, 25608 };
-	private static final int[] OPPOSITE_ELEMENTS = { 25606, 25605, 25608, 25607 };
-	private static final String[] ELEMENTS_NAME = { "Fire", "Water", "Wind", "Earth" };
-	private static final int[][] SPORES_MOVE_POINTS = 
+	private static final int[] EPIDOSES =
 	{
-		{ -46080, 246368, -14183 },
-		{ -44816, 246368, -14183 },
-		{ -44224, 247440, -14184 },
-		{ -44896, 248464, -14183 },
-		{ -46064, 248544, -14183 },
-		{ -46720, 247424, -14183 },
+		25610, 25609, 25612, 25611
+	}; // Order is important!
+	private static final int[] TOWER_MONSTERS =
+	{
+		18490, 22393, 22394, 22395, 22411, 22412, 22413, 22439, 22440, 22441, 22442
 	};
-	
+	private static final int[] ELEMENTS =
+	{
+		25605, 25606, 25607, 25608
+	};
+	private static final int[] OPPOSITE_ELEMENTS =
+	{
+		25606, 25605, 25608, 25607
+	};
+	private static final String[] ELEMENTS_NAME =
+	{
+		"Fire", "Water", "Wind", "Earth"
+	};
+	private static final int[][] SPORES_MOVE_POINTS =
+	{
+		{
+			-46080, 246368, -14183
+		},
+		{
+			-44816, 246368, -14183
+		},
+		{
+			-44224, 247440, -14184
+		},
+		{
+			-44896, 248464, -14183
+		},
+		{
+			-46064, 248544, -14183
+		},
+		{
+			-46720, 247424, -14183
+		}
+	};
 	private static final int[][] SPORES_MERGE_POSITION =
 	{
-		{ -45488, 246768, -14183 },
-		{ -44767, 247419, -14183 },
-		{ -46207, 247417, -14183 },
-		{ -45462, 248174, -14183 }
+		{
+			-45488, 246768, -14183
+		},
+		{
+			-44767, 247419, -14183
+		},
+		{
+			-46207, 247417, -14183
+		},
+		{
+			-45462, 248174, -14183
+		}
 	};
 	
-	private static Map<Integer, int[]> DOORS = new FastMap<Integer, int[]>();
-	private static Map<Integer, Integer> ZONES = new FastMap<Integer, Integer>();
-	private static Map<Integer, int[][]> SPAWNS = new FastMap<Integer, int[][]>();
+	private static Map<Integer, int[]> DOORS = new HashMap<Integer, int[]>();
+	private static Map<Integer, Integer> ZONES = new HashMap<Integer, Integer>();
+	private static Map<Integer, int[][]> SPAWNS = new HashMap<Integer, int[][]>();
 	
 	private L2MonsterInstance _lock;
-	private L2Npc _controller;
+	private final L2Npc _controller;
 	private int _counter;
 	private int _despawnedSporesCount;
-	private int[] _indexCount = { 0, 0 };
+	private final int[] _indexCount =
+	{
+		0, 0
+	};
 	private int _challengeState;
 	private int _winIndex;
-
-	private Map<Integer, Boolean> _activeRooms = new FastMap<Integer, Boolean>();
-	private Map<Integer, List<L2Npc>> _spawns = new FastMap<Integer, List<L2Npc>>();
-	private FastList<L2Npc> _sporeSpawn = new FastList<L2Npc>().shared();	
+	
+	private final Map<Integer, Boolean> _activeRooms = new FastMap<Integer, Boolean>();
+	private final Map<Integer, List<L2Npc>> _spawns = new FastMap<Integer, List<L2Npc>>();
+	private final FastList<L2Npc> _sporeSpawn = new FastList<L2Npc>().shared();
 	
 	static
 	{
-		//Format: entrance_door, exit_door
-		DOORS.put(18494, new int[] { 18250001, 18250002 });
-		DOORS.put(18495, new int[] { 18250003, 18250004 });
-		DOORS.put(18496, new int[] { 18250005, 18250006 });
-		DOORS.put(18497, new int[] { 18250007, 18250008 });
-		DOORS.put(18498, new int[] { 18250009, 18250010 });
-		DOORS.put(18499, new int[] { 18250011, 18250101 });
-		DOORS.put(18500, new int[] { 18250013, 18250014 });
-		DOORS.put(18501, new int[] { 18250015, 18250102 });
-		DOORS.put(18502, new int[] { 18250017, 18250018 });
-		DOORS.put(18503, new int[] { 18250019, 18250103 });
-		DOORS.put(18504, new int[] { 18250021, 18250022 });
-		DOORS.put(18505, new int[] { 18250023, 18250024 });
+		// Format: entrance_door, exit_door
+		DOORS.put(18494, new int[]
+		{
+			18250001, 18250002
+		});
+		DOORS.put(18495, new int[]
+		{
+			18250003, 18250004
+		});
+		DOORS.put(18496, new int[]
+		{
+			18250005, 18250006
+		});
+		DOORS.put(18497, new int[]
+		{
+			18250007, 18250008
+		});
+		DOORS.put(18498, new int[]
+		{
+			18250009, 18250010
+		});
+		DOORS.put(18499, new int[]
+		{
+			18250011, 18250101
+		});
+		DOORS.put(18500, new int[]
+		{
+			18250013, 18250014
+		});
+		DOORS.put(18501, new int[]
+		{
+			18250015, 18250102
+		});
+		DOORS.put(18502, new int[]
+		{
+			18250017, 18250018
+		});
+		DOORS.put(18503, new int[]
+		{
+			18250019, 18250103
+		});
+		DOORS.put(18504, new int[]
+		{
+			18250021, 18250022
+		});
+		DOORS.put(18505, new int[]
+		{
+			18250023, 18250024
+		});
 		
 		ZONES.put(18494, 200020);
 		ZONES.put(18495, 200021);
@@ -143,112 +213,248 @@ public class TowerOfNaia extends Quest
 		ZONES.put(18504, 200030);
 		ZONES.put(18505, 200031);
 		
-		SPAWNS.put(18494, new int[][] 
+		SPAWNS.put(18494, new int[][]
 		{
-			{ 22393, -46371, 246400, -9120, 0 },
-			{ 22394, -46435, 245830, -9120, 0 },
-			{ 22394, -46536, 246275, -9120, 0 },
-			{ 22393, -46239, 245996, -9120, 0 },
-			{ 22394, -46229, 246347, -9120, 0 },
-			{ 22394, -46019, 246198, -9120, 0 }
+			{
+				22393, -46371, 246400, -9120, 0
+			},
+			{
+				22394, -46435, 245830, -9120, 0
+			},
+			{
+				22394, -46536, 246275, -9120, 0
+			},
+			{
+				22393, -46239, 245996, -9120, 0
+			},
+			{
+				22394, -46229, 246347, -9120, 0
+			},
+			{
+				22394, -46019, 246198, -9120, 0
+			}
 		});
-		SPAWNS.put(18495, new int[][] 
+		SPAWNS.put(18495, new int[][]
 		{
-			{22439, -48146, 249597, -9124, -16280 },
-			{22439, -48144, 248711, -9124, 16368 },	
-			{22439, -48704, 249597, -9104, -16380 },
-			{22439, -49219, 249596, -9104, -16400 },
-			{22439, -49715, 249601, -9104, -16360 },
-			{22439, -49714, 248696, -9104, 15932 },	
-			{22439, -49225, 248710, -9104, 16512 },	
-			{22439, -48705, 248708, -9104, 16576 }		
+			{
+				22439, -48146, 249597, -9124, -16280
+			},
+			{
+				22439, -48144, 248711, -9124, 16368
+			},
+			{
+				22439, -48704, 249597, -9104, -16380
+			},
+			{
+				22439, -49219, 249596, -9104, -16400
+			},
+			{
+				22439, -49715, 249601, -9104, -16360
+			},
+			{
+				22439, -49714, 248696, -9104, 15932
+			},
+			{
+				22439, -49225, 248710, -9104, 16512
+			},
+			{
+				22439, -48705, 248708, -9104, 16576
+			}
 		});
-		SPAWNS.put(18496, new int[][] 
+		SPAWNS.put(18496, new int[][]
 		{
-			{ 22441, -51176, 246055, -9984, 0 },
-			{ 22441, -51699, 246190, -9984, 0 },
-			{ 22442, -52060, 245956, -9984, 0 },
-			{ 22442, -51565, 246433, -9984, 0 },		
+			{
+				22441, -51176, 246055, -9984, 0
+			},
+			{
+				22441, -51699, 246190, -9984, 0
+			},
+			{
+				22442, -52060, 245956, -9984, 0
+			},
+			{
+				22442, -51565, 246433, -9984, 0
+			}
 		});
 		SPAWNS.put(18497, new int[][]
 		{
-			{22440, -49754, 243866, -9968, -16328},
-			{22440, -49754, 242940, -9968, 16336},
-			{22440, -48733, 243858, -9968, -16208},
-			{22440, -48745, 242936, -9968, 16320},
-			{22440, -49264, 242946, -9968, 16312},
-			{22440, -49268, 243869, -9968, -16448},
-			{22440, -48186, 242934, -9968, 16576},
-			{22440, -48185, 243855, -9968, -16448}
+			{
+				22440, -49754, 243866, -9968, -16328
+			},
+			{
+				22440, -49754, 242940, -9968, 16336
+			},
+			{
+				22440, -48733, 243858, -9968, -16208
+			},
+			{
+				22440, -48745, 242936, -9968, 16320
+			},
+			{
+				22440, -49264, 242946, -9968, 16312
+			},
+			{
+				22440, -49268, 243869, -9968, -16448
+			},
+			{
+				22440, -48186, 242934, -9968, 16576
+			},
+			{
+				22440, -48185, 243855, -9968, -16448
+			}
 		});
-  	SPAWNS.put(18498, new int[][] 
+		SPAWNS.put(18498, new int[][]
 		{
-			{ 22411, -46355, 246375, -9984, 0 },
-			{ 22411, -46167, 246160, -9984, 0 },
-			{ 22393, -45952, 245748, -9984, 0 },
-			{ 22394, -46428, 246254, -9984, 0 },
-			{ 22393, -46490, 245871, -9984, 0 },
-			{ 22394, -45877, 246309, -9984, 0 }
+			{
+				22411, -46355, 246375, -9984, 0
+			},
+			{
+				22411, -46167, 246160, -9984, 0
+			},
+			{
+				22393, -45952, 245748, -9984, 0
+			},
+			{
+				22394, -46428, 246254, -9984, 0
+			},
+			{
+				22393, -46490, 245871, -9984, 0
+			},
+			{
+				22394, -45877, 246309, -9984, 0
+			}
 		});
-  	SPAWNS.put(18499, new int[][] 
+		SPAWNS.put(18499, new int[][]
 		{
-			{ 22395, -48730, 248067, -9984, 0 },
-			{ 22395, -49112, 248250, -9984, 0 }
+			{
+				22395, -48730, 248067, -9984, 0
+			},
+			{
+				22395, -49112, 248250, -9984, 0
+			}
 		});
-  	SPAWNS.put(18500, new int[][] 
+		SPAWNS.put(18500, new int[][]
 		{
-			{ 22393, -51954, 246475, -10848, 0 },
-			{ 22394, -51421, 246512, -10848, 0 },
-			{ 22394, -51404, 245951, -10848, 0 },
-			{ 22393, -51913, 246206, -10848, 0 },
-			{ 22394, -51663, 245979, -10848, 0 },
-			{ 22394, -51969, 245809, -10848, 0 },
-			{ 22412, -51259, 246357, -10848, 0 }	
+			{
+				22393, -51954, 246475, -10848, 0
+			},
+			{
+				22394, -51421, 246512, -10848, 0
+			},
+			{
+				22394, -51404, 245951, -10848, 0
+			},
+			{
+				22393, -51913, 246206, -10848, 0
+			},
+			{
+				22394, -51663, 245979, -10848, 0
+			},
+			{
+				22394, -51969, 245809, -10848, 0
+			},
+			{
+				22412, -51259, 246357, -10848, 0
+			}
 		});
-  	SPAWNS.put(18501, new int[][] 
+		SPAWNS.put(18501, new int[][]
 		{
-			{ 22395, -48856, 243949, -10848, 0 },
-			{ 22395, -49144, 244190, -10848, 0 }
+			{
+				22395, -48856, 243949, -10848, 0
+			},
+			{
+				22395, -49144, 244190, -10848, 0
+			}
 		});
-  	SPAWNS.put(18502, new int[][] 
+		SPAWNS.put(18502, new int[][]
 		{
-			{ 22441, -46471, 246135, -11704, 0 },
-			{ 22441, -46449, 245997, -11704, 0 },
-			{ 22441, -46235, 246187, -11704, 0 },
-			{ 22441, -46513, 246326, -11704, 0 },
-			{ 22441, -45889, 246313, -11704, 0 }
-		});	
-  	SPAWNS.put(18503, new int[][] 
-		{
-			{ 22395, -49067, 248050, -11712, 0 },
-			{ 22395, -48957, 248223, -11712, 0 }
+			{
+				22441, -46471, 246135, -11704, 0
+			},
+			{
+				22441, -46449, 245997, -11704, 0
+			},
+			{
+				22441, -46235, 246187, -11704, 0
+			},
+			{
+				22441, -46513, 246326, -11704, 0
+			},
+			{
+				22441, -45889, 246313, -11704, 0
+			}
 		});
-  	SPAWNS.put(18504, new int[][]
-  	{
-			{ 22413, -51748, 246138, -12568, 0 },
-			{ 22413, -51279, 246200, -12568, 0 },
-			{ 22413, -51787, 246594, -12568, 0 },
-			{ 22413, -51892, 246544, -12568, 0 },
-			{ 22413, -51500, 245781, -12568, 0 },
-			{ 22413, -51941, 246045, -12568, 0 }  
-  	});
-  	SPAWNS.put(18505, new int[][]
-  	{
-			{ 18490, -48238, 243347, -13376, 0 },
-			{ 18490, -48462, 244022, -13376, 0 },
-			{ 18490, -48050, 244045, -13376, 0 },
-			{ 18490, -48229, 243823, -13376, 0 },
-			{ 18490, -47871, 243208, -13376, 0 },
-			{ 18490, -48255, 243528, -13376, 0 },
-			{ 18490, -48461, 243780, -13376, 0 },
-			{ 18490, -47983, 243197, -13376, 0 },
-			{ 18490, -47841, 243819, -13376, 0 },
-			{ 18490, -48646, 243764, -13376, 0 },
-			{ 18490, -47806, 243850, -13376, 0 },
-			{ 18490, -48456, 243447, -13376, 0 }
+		SPAWNS.put(18503, new int[][]
+		{
+			{
+				22395, -49067, 248050, -11712, 0
+			},
+			{
+				22395, -48957, 248223, -11712, 0
+			}
+		});
+		SPAWNS.put(18504, new int[][]
+		{
+			{
+				22413, -51748, 246138, -12568, 0
+			},
+			{
+				22413, -51279, 246200, -12568, 0
+			},
+			{
+				22413, -51787, 246594, -12568, 0
+			},
+			{
+				22413, -51892, 246544, -12568, 0
+			},
+			{
+				22413, -51500, 245781, -12568, 0
+			},
+			{
+				22413, -51941, 246045, -12568, 0
+			}
+		});
+		SPAWNS.put(18505, new int[][]
+		{
+			{
+				18490, -48238, 243347, -13376, 0
+			},
+			{
+				18490, -48462, 244022, -13376, 0
+			},
+			{
+				18490, -48050, 244045, -13376, 0
+			},
+			{
+				18490, -48229, 243823, -13376, 0
+			},
+			{
+				18490, -47871, 243208, -13376, 0
+			},
+			{
+				18490, -48255, 243528, -13376, 0
+			},
+			{
+				18490, -48461, 243780, -13376, 0
+			},
+			{
+				18490, -47983, 243197, -13376, 0
+			},
+			{
+				18490, -47841, 243819, -13376, 0
+			},
+			{
+				18490, -48646, 243764, -13376, 0
+			},
+			{
+				18490, -47806, 243850, -13376, 0
+			},
+			{
+				18490, -48456, 243447, -13376, 0
+			}
 		});
 	}
-
+	
 	public TowerOfNaia(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -264,7 +470,7 @@ public class TowerOfNaia extends Quest
 		addSpawnId(MUTATED_ELPY);
 		addKillId(SPORE_BASIC);
 		addSpawnId(SPORE_BASIC);
-
+		
 		for (int npcId = SPORE_FIRE; npcId <= SPORE_EARTH; npcId++)
 		{
 			addKillId(npcId);
@@ -280,8 +486,10 @@ public class TowerOfNaia extends Quest
 		}
 		
 		for (int npcId : TOWER_MONSTERS)
+		{
 			addKillId(npcId);
-
+		}
+		
 		_lock = (L2MonsterInstance) addSpawn(LOCK, 16409, 244438, 11620, -1048, false, 0, false);
 		_controller = addSpawn(CONTROLLER, 16608, 244420, 11620, 31264, false, 0, false);
 		_counter = 90;
@@ -291,21 +499,25 @@ public class TowerOfNaia extends Quest
 		initSporeChallenge();
 		spawnElpy();
 	}
-
+	
 	@Override
 	public final String onFirstTalk(L2Npc npc, L2PcInstance player)
 	{
 		int npcId = npc.getNpcId();
-
+		
 		if (npcId == CONTROLLER)
 		{
 			if (_lock == null)
+			{
 				return "18492-02.htm";
+			}
 			else
+			{
 				return "18492-01.htm";
+			}
 		}
 		
-		else if (npcId >= ROOM_MANAGER_FIRST && npcId <= ROOM_MANAGER_LAST)
+		else if ((npcId >= ROOM_MANAGER_FIRST) && (npcId <= ROOM_MANAGER_LAST))
 		{
 			if (_activeRooms.containsKey(npcId) && !_activeRooms.get(npcId))
 			{
@@ -320,7 +532,7 @@ public class TowerOfNaia extends Quest
 		
 		return null;
 	}
-
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
@@ -331,36 +543,39 @@ public class TowerOfNaia extends Quest
 		{
 			htmltext = null;
 			_lock = (L2MonsterInstance) addSpawn(LOCK, 16409, 244438, 11620, -1048, false, 0, false);
-			_counter = 90;			
+			_counter = 90;
 		}
 		
-		//Timer. Depending of _challengeState despans all spawned spores, or spores, reached assembly point
-		else if  (event.equalsIgnoreCase("despawn_total"))
+		// Timer. Depending of _challengeState despans all spawned spores, or spores, reached assembly point
+		else if (event.equalsIgnoreCase("despawn_total"))
 		{
-			//Spores is not attacked too long - despawn them all, reinit values
+			// Spores is not attacked too long - despawn them all, reinit values
 			if (_challengeState == STATE_SPORE_IDLE_TOO_LONG)
 			{
 				for (L2Npc spore : _sporeSpawn)
 				{
-					if (spore != null && !spore.isDead())
+					if ((spore != null) && !spore.isDead())
+					{
 						spore.deleteMe();
+					}
 				}
 				_sporeSpawn.clear();
 				initSporeChallenge();
 			}
-			
-			//Spores are moving to assembly point. Despawn all reached, check for reached spores count.
-			else if (_challengeState == STATE_SPORE_CHALLENGE_SUCCESSFULL && _winIndex >= 0)
+			// Spores are moving to assembly point. Despawn all reached, check for reached spores count.
+			else if ((_challengeState == STATE_SPORE_CHALLENGE_SUCCESSFULL) && (_winIndex >= 0))
 			{
-				//Requirements are met, despawn all spores, spawn Epidos
-				if (_despawnedSporesCount >= 10 || _sporeSpawn.isEmpty())
+				// Requirements are met, despawn all spores, spawn Epidos
+				if ((_despawnedSporesCount >= 10) || _sporeSpawn.isEmpty())
 				{
 					if (!_sporeSpawn.isEmpty())
 					{
 						for (L2Npc spore : _sporeSpawn)
 						{
-							if (spore != null && !spore.isDead())
+							if ((spore != null) && !spore.isDead())
+							{
 								spore.deleteMe();
+							}
 						}
 					}
 					_sporeSpawn.clear();
@@ -369,39 +584,37 @@ public class TowerOfNaia extends Quest
 					addSpawn(EPIDOSES[_winIndex], coords[0], coords[1], coords[2], 0, false, 0, false);
 					initSporeChallenge();
 				}
-				
-				//Requirements aren't met, despawn reached spores
+				// Requirements aren't met, despawn reached spores
 				else
 				{
 					Iterator<L2Npc> it = _sporeSpawn.iterator();
 					while (it.hasNext())
 					{
 						L2Npc spore = it.next();
-						if (spore != null && !spore.isDead() && spore.getX() == spore.getSpawn().getLocx() && spore.getY() == spore.getSpawn().getLocy())
-						{ 
+						if ((spore != null) && !spore.isDead() && (spore.getX() == spore.getSpawn().getLocx()) && (spore.getY() == spore.getSpawn().getLocy()))
+						{
 							spore.deleteMe();
 							it.remove();
-							_despawnedSporesCount ++;
+							_despawnedSporesCount++;
 						}
 					}
 					
 					startQuestTimer("despawn_total", 3000, null, null);
 				}
 			}
-			
-
-				
 		}
-
+		
 		if (npc == null)
+		{
 			return null;
-
+		}
+		
 		int npcId = npc.getNpcId();
-
-		if (event.equalsIgnoreCase("despawn_spore") && !npc.isDead() && _challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS)
+		
+		if (event.equalsIgnoreCase("despawn_spore") && !npc.isDead() && (_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS))
 		{
 			htmltext = null;
-
+			
 			_sporeSpawn.remove(npc);
 			npc.deleteMe();
 			
@@ -410,19 +623,19 @@ public class TowerOfNaia extends Quest
 				spawnRandomSpore();
 				spawnRandomSpore();
 			}
-
-			else if (npcId >= SPORE_FIRE && npcId <= SPORE_EARTH)
+			
+			else if ((npcId >= SPORE_FIRE) && (npcId <= SPORE_EARTH))
 			{
 				_despawnedSporesCount++;
-					
-				/*if (_despawnedSporesCount % 20 == 0)
-				{
-					Announcements.getInstance().announceToAll("Despawned " + Integer.toString(_despawnedSporesCount) + " creatures");
-				}*/
-
+				
+				/*
+				 * if (_despawnedSporesCount % 20 == 0) { Announcements.getInstance().announceToAll("Despawned " + Integer.toString(_despawnedSporesCount) + " creatures"); }
+				 */
+				
 				if (_despawnedSporesCount < SELF_DESPAWN_LIMIT)
+				{
 					spawnOppositeSpore(npcId);
-
+				}
 				else
 				{
 					_challengeState = STATE_SPORE_IDLE_TOO_LONG;
@@ -430,10 +643,9 @@ public class TowerOfNaia extends Quest
 				}
 			}
 		}
-		
 		else if (event.equalsIgnoreCase("18492-05.htm"))
 		{
-			if (_lock == null || _lock.getCurrentHp() > _lock.getMaxHp() / 10)
+			if ((_lock == null) || (_lock.getCurrentHp() > (_lock.getMaxHp() / 10)))
 			{
 				htmltext = null;
 				_lock.deleteMe();
@@ -444,8 +656,7 @@ public class TowerOfNaia extends Quest
 				npc.doCast(SkillTable.getInstance().getInfo(5527, 1));
 			}
 		}
-		
-		else if (event.equalsIgnoreCase("teleport") && _lock != null)
+		else if (event.equalsIgnoreCase("teleport") && (_lock != null))
 		{
 			htmltext = null;
 			L2Party party = player.getParty();
@@ -456,7 +667,9 @@ public class TowerOfNaia extends Quest
 					for (L2PcInstance partyMember : party.getPartyMembers())
 					{
 						if (Util.checkIfInRange(2000, partyMember, npc, true))
+						{
 							partyMember.teleToLocation(-47271, 246098, -9120, true);
+						}
 					}
 					_lock.deleteMe();
 					_lock = null;
@@ -478,8 +691,7 @@ public class TowerOfNaia extends Quest
 				startQuestTimer("spawn_lock", 1200000, null, null);
 			}
 		}
-		
-		else if (event.equalsIgnoreCase("go") && _activeRooms.containsKey(npcId) && !_activeRooms.get(npcId) )
+		else if (event.equalsIgnoreCase("go") && _activeRooms.containsKey(npcId) && !_activeRooms.get(npcId))
 		{
 			htmltext = null;
 			L2Party party = player.getParty();
@@ -491,20 +703,22 @@ public class TowerOfNaia extends Quest
 				ThreadPoolManager.getInstance().scheduleGeneral(new StopRoomTask(npcId), 300000);
 			}
 			else
+			{
 				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CAN_OPERATE_MACHINE_WHEN_IN_PARTY));
+			}
 		}
 		
 		return htmltext;
 	}
-
+	
 	@Override
-	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
 	{
-		if (_lock != null && npc.getObjectId() == _lock.getObjectId())
+		if ((_lock != null) && (npc.getObjectId() == _lock.getObjectId()))
 		{
-			int remaindedHpPercent = (int) (npc.getCurrentHp() * 100 / npc.getMaxHp());
+			int remaindedHpPercent = (int) ((npc.getCurrentHp() * 100) / npc.getMaxHp());
 			
-			if (remaindedHpPercent <= _counter && _controller != null)
+			if ((remaindedHpPercent <= _counter) && (_controller != null))
 			{
 				if (_counter == 50)
 				{
@@ -514,9 +728,9 @@ public class TowerOfNaia extends Quest
 				else if (_counter == 10)
 				{
 					MinionList.spawnMinion(_lock, 18493);
-					MinionList.spawnMinion(_lock, 18493);				
+					MinionList.spawnMinion(_lock, 18493);
 				}
-
+				
 				_controller.broadcastPacket(new NpcSay(_controller.getObjectId(), Say2.ALL, _controller.getNpcId(), 1800197)); //Emergency! Emergency! The outer wall is weakening rapidly!
 				_counter -= 10;
 			}
@@ -526,7 +740,7 @@ public class TowerOfNaia extends Quest
 	}
 	
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
 		
@@ -540,7 +754,7 @@ public class TowerOfNaia extends Quest
 		else if (Arrays.binarySearch(TOWER_MONSTERS, npcId) >= 0)
 		{
 			int managerId = 0;
-
+			
 			for (L2ZoneType zone : ZoneManager.getInstance().getZones(npc.getX(), npc.getY(), npc.getZ()))
 			{
 				if (ZONES.containsValue(zone.getId()))
@@ -552,11 +766,11 @@ public class TowerOfNaia extends Quest
 							managerId = i;
 							break;
 						}
-					}  
-				} 
+					}
+				}
 			}
 			
-			if (managerId > 0 && _spawns.containsKey(managerId))
+			if ((managerId > 0) && _spawns.containsKey(managerId))
 			{
 				List<L2Npc> spawned = _spawns.get(managerId);
 				spawned.remove(npc);
@@ -568,89 +782,92 @@ public class TowerOfNaia extends Quest
 				}
 			}
 		}
-		
 		else if (npcId == MUTATED_ELPY)
 		{
-			_challengeState = STATE_SPORE_CHALLENGE_IN_PROGRESS; 
+			_challengeState = STATE_SPORE_CHALLENGE_IN_PROGRESS;
 			markElpyRespawn();
 			DoorTable.getInstance().getDoor(18250025).closeMe();
 			((L2EffectZone) ZoneManager.getInstance().getZoneById(200100)).setZoneEnabled(true);
 			
 			for (int i = 0; i < 10; i++)
+			{
 				addSpawn(SPORE_BASIC, -45474, 247450, -13994, 49152, false, 0, false);
+			}
 		}
-		
-		else if (npcId == SPORE_BASIC && _challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS)
+		else if ((npcId == SPORE_BASIC) && (_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS))
 		{
 			_sporeSpawn.remove(npc);
 			spawnRandomSpore();
 			spawnRandomSpore();
 		}
-		
-		else if (npcId >= SPORE_FIRE && npcId <= SPORE_EARTH && (_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS || _challengeState == STATE_SPORE_CHALLENGE_SUCCESSFULL))
+		else if ((npcId >= SPORE_FIRE) && (npcId <= SPORE_EARTH) && ((_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS) || (_challengeState == STATE_SPORE_CHALLENGE_SUCCESSFULL)))
 		{
 			_sporeSpawn.remove(npc);
-
+			
 			if (_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS)
 			{
 				_despawnedSporesCount--;
 				int sporeGroup = getSporeGroup(npcId);
-			
+				
 				if (sporeGroup >= 0)
 				{
-					if (npcId == SPORE_FIRE || npcId == SPORE_WIND)
-						_indexCount[sporeGroup] += 2;
-					else
-						_indexCount[sporeGroup] -= 2;
-				
-					if (_indexCount[Math.abs(sporeGroup - 1)] > 0)
-						_indexCount[Math.abs(sporeGroup - 1)]--;
-					else if (_indexCount[Math.abs(sporeGroup - 1)] < 0)
-						_indexCount[Math.abs(sporeGroup - 1)]++;
-
-					//Announcements.getInstance().announceToAll("Fire/water index = " + Integer.toString(_indexCount[0]));
-					//Announcements.getInstance().announceToAll("Wind/earth index = " + Integer.toString(_indexCount[1]));
-			
-					if (Math.abs(_indexCount[sporeGroup]) < ELEMENT_INDEX_LIMIT && Math.abs(_indexCount[sporeGroup]) > 0 && _indexCount[sporeGroup] % 20 == 0 && Rnd.get(100) < 50)
+					if ((npcId == SPORE_FIRE) || (npcId == SPORE_WIND))
 					{
-						//TODO: Is it possible to combine npcstrings?
+						_indexCount[sporeGroup] += 2;
+					}
+					else
+					{
+						_indexCount[sporeGroup] -= 2;
+					}
+					
+					if (_indexCount[Math.abs(sporeGroup - 1)] > 0)
+					{
+						_indexCount[Math.abs(sporeGroup - 1)]--;
+					}
+					else if (_indexCount[Math.abs(sporeGroup - 1)] < 0)
+					{
+						_indexCount[Math.abs(sporeGroup - 1)]++;
+					}
+					
+					if ((Math.abs(_indexCount[sporeGroup]) < ELEMENT_INDEX_LIMIT) && (Math.abs(_indexCount[sporeGroup]) > 0) && ((_indexCount[sporeGroup] % 20) == 0) && (Rnd.get(100) < 50))
+					{
 						String el = ELEMENTS_NAME[Arrays.binarySearch(ELEMENTS, npcId)];
 						for (L2Npc spore : _sporeSpawn)
 						{
-							if (spore != null && !spore.isDead() && spore.getNpcId() == npcId)
+							if ((spore != null) && !spore.isDead() && (spore.getNpcId() == npcId))
 							{
-								/*
-								* 1800214 - ...It's %s...
-								* 1800215 - ...%s is strong...
-								* 1800216 - ...It's always %s...
-								* 1800217 - ...%s won't do...						 
-								*/
 								NpcSay ns = new NpcSay(spore.getObjectId(), Say2.ALL, spore.getNpcId(), 1800214 + Rnd.get(4));
 								ns.addStringParameter(el);
 								spore.broadcastPacket(ns);
 							}
-						}  
+						}
 					}
 					if (Math.abs(_indexCount[sporeGroup]) < ELEMENT_INDEX_LIMIT)
 					{
-						if (((_indexCount[sporeGroup] > 0 && (npcId == SPORE_FIRE || npcId == SPORE_WIND)) || 
-								(_indexCount[sporeGroup] <= 0 && (npcId == SPORE_WATER || npcId == SPORE_EARTH))) && Rnd.get(1000) > 200)
+						if ((((_indexCount[sporeGroup] > 0) && ((npcId == SPORE_FIRE) || (npcId == SPORE_WIND))) || ((_indexCount[sporeGroup] <= 0) && ((npcId == SPORE_WATER) || (npcId == SPORE_EARTH)))) && (Rnd.get(1000) > 200))
+						{
 							spawnOppositeSpore(npcId);
+						}
 						else
+						{
 							spawnRandomSpore();
+						}
 					}
-				
-					else //index value was reached 
+					
+					else
+					// index value was reached
 					{
 						_challengeState = STATE_SPORE_CHALLENGE_SUCCESSFULL;
 						_despawnedSporesCount = 0;
 						_winIndex = Arrays.binarySearch(ELEMENTS, npcId);
 						int[] coord = SPORES_MERGE_POSITION[_winIndex];
-
+						
 						for (L2Npc spore : _sporeSpawn)
 						{
-							if (spore != null && !spore.isDead())
+							if ((spore != null) && !spore.isDead())
+							{
 								moveTo(spore, coord);
+							}
 						}
 						
 						startQuestTimer("despawn_total", 3000, null, null);
@@ -658,7 +875,6 @@ public class TowerOfNaia extends Quest
 				}
 			}
 		}
-	
 		return super.onKill(npc, killer, isPet);
 	}
 	
@@ -667,15 +883,14 @@ public class TowerOfNaia extends Quest
 	{
 		int npcId = npc.getNpcId();
 		
-		if (npcId == MUTATED_ELPY && !npc.isTeleporting())
+		if ((npcId == MUTATED_ELPY) && !npc.isTeleporting())
 		{
 			DoorTable.getInstance().getDoor(18250025).openMe();
-			((L2EffectZone)ZoneManager.getInstance().getZoneById(200100)).setZoneEnabled(false);
-			((L2EffectZone)ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(true);
-			((L2EffectZone)ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(false);
+			((L2EffectZone) ZoneManager.getInstance().getZoneById(200100)).setZoneEnabled(false);
+			((L2EffectZone) ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(true);
+			((L2EffectZone) ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(false);
 		}
-		
-		else if ((npcId == SPORE_BASIC || (npcId >= SPORE_FIRE && npcId <= SPORE_EARTH)) && _challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS)
+		else if (((npcId == SPORE_BASIC) || ((npcId >= SPORE_FIRE) && (npcId <= SPORE_EARTH))) && (_challengeState == STATE_SPORE_CHALLENGE_IN_PROGRESS))
 		{
 			_sporeSpawn.add(npc);
 			npc.setIsRunning(false);
@@ -686,14 +901,13 @@ public class TowerOfNaia extends Quest
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(coord[0], coord[1], coord[2], 0));
 			startQuestTimer("despawn_spore", 60000, npc, null);
 		}
-
 		return super.onSpawn(npc);
 	}
-
+	
 	private int getSporeGroup(int sporeId)
 	{
 		int ret;
-		switch(sporeId)
+		switch (sporeId)
 		{
 			case SPORE_FIRE:
 			case SPORE_WATER:
@@ -706,33 +920,34 @@ public class TowerOfNaia extends Quest
 			default:
 				ret = -1;
 		}
-		
 		return ret;
 	}
-
+	
 	private void initRoom(int managerId)
 	{
 		removeAllPlayers(managerId);
 		_activeRooms.put(managerId, false);
-
+		
 		if (DOORS.containsKey(managerId))
 		{
-			int[] doorList = DOORS.get(managerId); 
+			int[] doorList = DOORS.get(managerId);
 			DoorTable.getInstance().getDoor(doorList[0]).openMe();
 			DoorTable.getInstance().getDoor(doorList[1]).closeMe();
 		}
 		
-		if (_spawns.containsKey(managerId) && _spawns.get(managerId) != null)
+		if (_spawns.containsKey(managerId) && (_spawns.get(managerId) != null))
 		{
 			for (L2Npc npc : _spawns.get(managerId))
 			{
-				if (npc != null && !npc.isDead())
+				if ((npc != null) && !npc.isDead())
+				{
 					npc.deleteMe();
+				}
 			}
 			
 			_spawns.get(managerId).clear();
 			_spawns.remove(managerId);
-		} 
+		}
 	}
 	
 	private void initSporeChallenge()
@@ -742,69 +957,74 @@ public class TowerOfNaia extends Quest
 		_winIndex = -1;
 		_indexCount[0] = 0;
 		_indexCount[1] = 0;
-		((L2EffectZone)ZoneManager.getInstance().getZoneById(200100)).setZoneEnabled(false);
-		((L2EffectZone)ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(false);
-		((L2EffectZone)ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(true);
+		((L2EffectZone) ZoneManager.getInstance().getZoneById(200100)).setZoneEnabled(false);
+		((L2EffectZone) ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(false);
+		((L2EffectZone) ZoneManager.getInstance().getZoneById(200101)).setZoneEnabled(true);
 		
 	}
-
+	
 	private void markElpyRespawn()
 	{
-		long respawnTime = (long) (Rnd.get(43200, 216000) * 1000);
-		GlobalVariablesManager.getInstance().storeVariable("elpy_respawn_time" , Long.toString(respawnTime + System.currentTimeMillis()));
+		long respawnTime = (Rnd.get(43200, 216000) * 1000);
+		GlobalVariablesManager.getInstance().storeVariable("elpy_respawn_time", Long.toString(respawnTime + System.currentTimeMillis()));
 	}
-
+	
 	private int moveTo(L2Npc npc, int[] coords)
 	{
 		int time = 0;
-    if (npc != null)
-    {
-      double distance = Util.calculateDistance(coords[0], coords[1], coords[2], npc.getX(), npc.getY(), npc.getZ(), true);
-      int heading = Util.calculateHeadingFrom(npc.getX(), npc.getY(), coords[0], coords[1]);
-      time = (int) (distance / npc.getWalkSpeed() * 1000);
-      npc.setIsRunning(false);
-      npc.disableCoreAI(true);
-      npc.setIsNoRndWalk(true);
-      npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(coords[0], coords[1], coords[2], heading));
-      npc.getSpawn().setLocx(coords[0]);
-      npc.getSpawn().setLocy(coords[1]);
-      npc.getSpawn().setLocz(coords[2]);
-    }
-    
+		if (npc != null)
+		{
+			double distance = Util.calculateDistance(coords[0], coords[1], coords[2], npc.getX(), npc.getY(), npc.getZ(), true);
+			int heading = Util.calculateHeadingFrom(npc.getX(), npc.getY(), coords[0], coords[1]);
+			time = (int) ((distance / npc.getWalkSpeed()) * 1000);
+			npc.setIsRunning(false);
+			npc.disableCoreAI(true);
+			npc.setIsNoRndWalk(true);
+			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(coords[0], coords[1], coords[2], heading));
+			npc.getSpawn().setLocx(coords[0]);
+			npc.getSpawn().setLocy(coords[1]);
+			npc.getSpawn().setLocz(coords[2]);
+		}
 		return time == 0 ? 100 : time;
-  }
+	}
 	
 	private void spawnElpy()
 	{
 		String tmp = GlobalVariablesManager.getInstance().getStoredVariable("elpy_respawn_time");
-		long respawnTime = tmp == null ? 0 : Long.parseLong(tmp) * 1000;  
-
+		long respawnTime = tmp == null ? 0 : Long.parseLong(tmp) * 1000;
+		
 		if (respawnTime <= System.currentTimeMillis())
+		{
 			addSpawn(MUTATED_ELPY, 45474, 247450, -13994, 49152, false, 0, false);
+		}
 		else
-			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+		{
+			ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				@Override
 				public void run()
 				{
 					addSpawn(MUTATED_ELPY, 45474, 247450, -13994, 49152, false, 0, false);
 				}
 			}, respawnTime - System.currentTimeMillis());
+		}
 	}
 	
 	private L2Npc spawnRandomSpore()
 	{
 		return addSpawn(Rnd.get(SPORE_FIRE, SPORE_EARTH), -45474, 247450, -13994, 49152, false, 0, false);
 	}
-
+	
 	private L2Npc spawnOppositeSpore(int srcSporeId)
 	{
 		int idx = Arrays.binarySearch(ELEMENTS, srcSporeId);
-		return idx >= 0 ? addSpawn(OPPOSITE_ELEMENTS[idx], -45474, 247450, -13994, 49152, false, 0, false) : null;  
+		return idx >= 0 ? addSpawn(OPPOSITE_ELEMENTS[idx], -45474, 247450, -13994, 49152, false, 0, false) : null;
 	}
-
+	
 	private void startRoom(int managerId)
 	{
 		_activeRooms.put(managerId, true);
-	
+		
 		if (DOORS.containsKey(managerId))
 		{
 			int[] doorList = DOORS.get(managerId);
@@ -821,48 +1041,55 @@ public class TowerOfNaia extends Quest
 				spawned.add(spawnedNpc);
 			}
 			if (!spawned.isEmpty())
+			{
 				_spawns.put(managerId, spawned);
+			}
 		}
 	}
 	
 	private void removeForeigners(int managerId, L2Party party)
 	{
-		if (party != null && ZONES.containsKey(managerId) && ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null)
+		if ((party != null) && ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
 		{
 			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
 			for (L2Character ch : zone.getCharactersInside().values())
 			{
 				if (ch instanceof L2PcInstance)
 				{
-					L2Party charParty = ((L2PcInstance)ch).getParty();
-					if (charParty == null || charParty.getPartyLeaderOID() != party.getPartyLeaderOID())
+					L2Party charParty = ((L2PcInstance) ch).getParty();
+					if ((charParty == null) || (charParty.getPartyLeaderOID() != party.getPartyLeaderOID()))
+					{
 						ch.teleToLocation(16110, 243841, 11616);
+					}
 				}
-			} 
+			}
 		}
 	}
 	
 	private void removeAllPlayers(int managerId)
 	{
-		if (ZONES.containsKey(managerId) && ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null)
+		if (ZONES.containsKey(managerId) && (ZoneManager.getInstance().getZoneById(ZONES.get(managerId)) != null))
 		{
 			L2ZoneType zone = ZoneManager.getInstance().getZoneById(ZONES.get(managerId));
 			for (L2Character ch : zone.getCharactersInside().values())
 			{
 				if (ch instanceof L2PcInstance)
+				{
 					ch.teleToLocation(16110, 243841, 11616);
+				}
 			}
 		}
 	}
-
-  private class StopRoomTask implements Runnable
+	
+	private class StopRoomTask implements Runnable
 	{
-		private int _managerId;
+		private final int _managerId;
 		
 		public StopRoomTask(int managerId)
 		{
 			_managerId = managerId;
 		}
+		
 		@Override
 		public void run()
 		{
@@ -872,6 +1099,6 @@ public class TowerOfNaia extends Quest
 	
 	public static void main(String[] args)
 	{
-		new TowerOfNaia(-1, TowerOfNaia.class.getSimpleName(), "hellbound");
+		new TowerOfNaia(-1, "TowerOfNaia", "hellbound");
 	}
 }

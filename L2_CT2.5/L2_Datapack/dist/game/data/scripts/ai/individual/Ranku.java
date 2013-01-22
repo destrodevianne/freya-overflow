@@ -12,26 +12,23 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package ai.individual;
 
+import gnu.trove.TIntHashSet;
 import ai.group_template.L2AttackableAIScript;
 
 import com.l2jserver.gameserver.model.L2Skill;
 import com.l2jserver.gameserver.model.actor.L2Npc;
-import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 import com.l2jserver.gameserver.util.MinionList;
 import com.l2jserver.util.Rnd;
 
-import gnu.trove.TIntHashSet;
-
 /**
  * @author GKR
  */
-
 public class Ranku extends L2AttackableAIScript
 {
 	private static final int RANKU = 25542;
@@ -41,46 +38,34 @@ public class Ranku extends L2AttackableAIScript
 	private static final int MINIONS_FSTRING_ID = 1800136; //Don't kill me please.. Something's strangling me... 
 	
 	private static TIntHashSet myTrackingSet = new TIntHashSet();
-
-	public Ranku (int id, String name, String descr)
-	{
-		super(id,name,descr);
-		
-		addAttackId(RANKU);
-		addKillId(RANKU);
-		addKillId(MINION);
-	}
-
+	
 	@Override
 	public final String onAdvEvent(String event, L2Npc npc, L2PcInstance player)
 	{
-		
-		if (event.equalsIgnoreCase("checkup") && npc.getNpcId() == RANKU && !npc.isDead())
+		if (event.equalsIgnoreCase("checkup") && (npc.getNpcId() == RANKU) && !npc.isDead())
 		{
 			for (L2MonsterInstance minion : ((L2MonsterInstance) npc).getMinionList().getSpawnedMinions())
 			{
-				if (minion != null && !minion.isDead() && myTrackingSet.contains(minion.getObjectId()))
+				if ((minion != null) && !minion.isDead() && myTrackingSet.contains(minion.getObjectId()))
 				{
 					L2PcInstance[] players = minion.getKnownList().getKnownPlayers().values().toArray(new L2PcInstance[minion.getKnownList().getKnownPlayers().size()]);
 					L2PcInstance killer = players[Rnd.get(players.length)];
 					minion.reduceCurrentHp(minion.getMaxHp() / 100, killer, null);
 				}
 			}
-			
 			startQuestTimer("checkup", 1000, npc, null);
 		}
-	
 		return null;
 	}
-
+	
 	@Override
-	public String onAttack (L2Npc npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
+	public String onAttack(L2Npc npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
 	{
 		if (npc.getNpcId() == RANKU)
 		{
 			for (L2MonsterInstance minion : ((L2MonsterInstance) npc).getMinionList().getSpawnedMinions())
 			{
-				if (minion != null && !minion.isDead() && !myTrackingSet.contains(minion.getObjectId()))
+				if ((minion != null) && !minion.isDead() && !myTrackingSet.contains(minion.getObjectId()))
 				{
 					minion.broadcastPacket(new NpcSay(minion.getObjectId(), Say2.ALL, minion.getNpcId(), MINIONS_FSTRING_ID));
 					startQuestTimer("checkup", 1000, npc, null);
@@ -89,8 +74,7 @@ public class Ranku extends L2AttackableAIScript
 						myTrackingSet.add(minion.getObjectId());
 					}
 				}
-			} 
-		
+			}
 		}
 		return super.onAttack(npc, attacker, damage, isPet, skill);
 	}
@@ -108,15 +92,13 @@ public class Ranku extends L2AttackableAIScript
 				}
 			}
 			
-			L2MonsterInstance master = ((L2MonsterInstance) npc).getLeader();
-			
-			if (master != null && !master.isDead())
+			final L2MonsterInstance master = ((L2MonsterInstance) npc).getLeader();
+			if ((master != null) && !master.isDead())
 			{
 				L2MonsterInstance minion2 = MinionList.spawnMinion(master, MINION_2);
 				minion2.teleToLocation(npc.getX(), npc.getY(), npc.getZ());
 			}
 		}
-		
 		else if (npc.getNpcId() == RANKU)
 		{
 			for (L2MonsterInstance minion : ((L2MonsterInstance) npc).getMinionList().getSpawnedMinions())
@@ -128,15 +110,22 @@ public class Ranku extends L2AttackableAIScript
 						myTrackingSet.remove(minion.getObjectId());
 					}
 				}
-			} 
+			}
 		}
-		
 		return super.onKill(npc, killer, isPet);
 	}
-
+	
+	public Ranku(int id, String name, String descr)
+	{
+		super(id, name, descr);
+		
+		addAttackId(RANKU);
+		addKillId(RANKU);
+		addKillId(MINION);
+	}
+	
 	public static void main(String[] args)
 	{
-		new Ranku(-1,"Ranku","ai");
+		new Ranku(-1, "Ranku", "ai");
 	}
 }
-	

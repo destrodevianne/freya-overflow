@@ -52,10 +52,14 @@ public class NpcKnownList extends CharKnownList
 	// =========================================================
 	// Property - Public
 	@Override
-	public L2Npc getActiveChar() { return (L2Npc)super.getActiveChar(); }
+	public L2Npc getActiveChar() { 
+	return (L2Npc) super.getActiveChar(); 
+	}
 	
 	@Override
-	public int getDistanceToForgetObject(L2Object object) { return 2 * getDistanceToWatchObject(object); }
+	public int getDistanceToForgetObject(L2Object object) { 
+	return 2 * getDistanceToWatchObject(object);
+	}
 	
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
@@ -63,7 +67,7 @@ public class NpcKnownList extends CharKnownList
 		if (object instanceof L2FestivalGuideInstance)
 			return 4000;
 		
-		if (object instanceof L2NpcInstance || !(object instanceof L2Character))
+		if ((object instanceof L2NpcInstance) || !(object instanceof L2Character))
 			return 0;
 		
 		if (object instanceof L2CabaleBufferInstance)
@@ -78,7 +82,7 @@ public class NpcKnownList extends CharKnownList
 	//L2Master mod - support for Walking monsters aggro
 	public void startTrackingTask()
 	{
-		if (_trackingTask == null && getActiveChar().getAggroRange() > 0)
+		if ((_trackingTask == null) && (getActiveChar().getAggroRange() > 0))
 			_trackingTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new TrackingTask(), 2000, 2000);
 	}
 
@@ -105,10 +109,10 @@ public class NpcKnownList extends CharKnownList
 		{
 			if (getActiveChar() instanceof L2Attackable)
 			{
-				L2Attackable monster = (L2Attackable) getActiveChar();
+				final L2Attackable monster = (L2Attackable) getActiveChar();
 				if (monster.getAI().getIntention() == CtrlIntention.AI_INTENTION_MOVE_TO)
 				{
-					Collection<L2PcInstance> players = getKnownPlayers().values();
+					final Collection<L2PcInstance> players = getKnownPlayers().values();
 					if (players != null)
 					{
 						for (L2PcInstance pl : players)

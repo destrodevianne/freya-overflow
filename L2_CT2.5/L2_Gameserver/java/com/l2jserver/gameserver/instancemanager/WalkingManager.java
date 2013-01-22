@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.l2jserver.gameserver.instancemanager;
 
 import com.l2jserver.Config;
@@ -23,6 +22,7 @@ import com.l2jserver.gameserver.model.L2CharPosition;
 import com.l2jserver.gameserver.model.L2NpcWalkerNode;
 import com.l2jserver.gameserver.model.L2WalkRoute;
 import com.l2jserver.gameserver.model.actor.L2Npc;
+import com.l2jserver.gameserver.network.NpcStringId;
 import com.l2jserver.util.Rnd;
 
 import java.io.File;
@@ -40,8 +40,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
- * This class manages walking monsters
- * 
+ * This class manages walking monsters.
  * @author GKR
  */
 public class WalkingManager
@@ -55,8 +54,8 @@ public class WalkingManager
 	private static final byte REPEAT_RANDOM = 3;
 	
 	private Map<Integer, L2WalkRoute> _routes; //all available routes
-	private Map<Integer, WalkInfo> _activeRoutes; //each record represents NPC, moving by predefined route from _routes, and moving progress  
-
+	private Map<Integer, WalkInfo> _activeRoutes; //each record represents NPC, moving by predefined route from _routes, and moving progress
+	
 	private class WalkInfo
 	{
 		private ScheduledFuture<?> _walkCheckTask;
@@ -66,8 +65,7 @@ public class WalkingManager
 		private int _currentNode  = 0;
 		private boolean _forward = true; //Determines first --> last or first <-- last direction
 		private int _routeId;
-		//private long _lastActionTime = 0; //just debug field
-
+		
 		public WalkInfo(int routeId)
 		{
 			_routeId = routeId;
@@ -88,14 +86,14 @@ public class WalkingManager
 	{
 		return SingletonHolder._instance;
 	}
-
+	
 	private WalkingManager()
 	{
 		_routes = new FastMap<Integer, L2WalkRoute>();
 		_activeRoutes = new FastMap<Integer, WalkInfo>();
 		load();
 	}
-
+	
 	private final void load()
 	{
 		_log.info("WalkingManager: Loading walking routes...");
@@ -114,7 +112,7 @@ public class WalkingManager
 			{
 				_log.log(Level.WARNING, "Could not parse Routes.xml file: " + e.getMessage(), e);
 			}
-
+			
 			Node n = doc.getFirstChild();
 			for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 			{
@@ -125,7 +123,7 @@ public class WalkingManager
 					boolean repeat = Boolean.parseBoolean(d.getAttributes().getNamedItem("repeat").getNodeValue());
 					String repeatStyle = d.getAttributes().getNamedItem("repeatStyle").getNodeValue();
 					byte repeatType;
-
+					
 					if (repeatStyle.equalsIgnoreCase("back"))
 						repeatType = REPEAT_GO_BACK;
 					else if (repeatStyle.equalsIgnoreCase("cycle"))
@@ -136,7 +134,7 @@ public class WalkingManager
 						repeatType = REPEAT_RANDOM;
 					else
 						repeatType = -1;
-
+					
 					List<L2NpcWalkerNode> list = new FastList<L2NpcWalkerNode>();
 					for (Node r = d.getFirstChild(); r != null; r = r.getNextSibling())
 					{
@@ -147,6 +145,39 @@ public class WalkingManager
 							int y = Integer.parseInt(attrs.getNamedItem("Y").getNodeValue());
 							int z = Integer.parseInt(attrs.getNamedItem("Z").getNodeValue());
 							int delay = Integer.parseInt(attrs.getNamedItem("delay").getNodeValue());
+							
+							NpcStringId npcString = null;
+							Node node = attrs.getNamedItem("string");
+							if (node != null)
+							{
+							}
+							else
+							{
+								node = attrs.getNamedItem("npcString");
+								if (node != null)
+								{
+									npcString = NpcStringId.getNpcStringId(node.getNodeValue());
+									if (npcString == null)
+									{
+										_log.log(Level.WARNING, "NpcWalkerRoutersTable: Unknown npcstring '" + node.getNodeValue() + ".");
+										continue;
+									}
+								}
+								else
+								{
+									node = attrs.getNamedItem("npcStringId");
+									if (node != null)
+									{
+										npcString = NpcStringId.getNpcStringId(Integer.parseInt(node.getNodeValue()));
+										if (npcString == null)
+										{
+											_log.log(Level.WARNING, "NpcWalkerRoutersTable: Unknown npcstring '" + node.getNodeValue() + ".");
+											continue;
+										}
+									}
+								}
+							}
+							
 							String chat = attrs.getNamedItem("string").getNodeValue();
 							boolean running = Boolean.parseBoolean(attrs.getNamedItem("run").getNodeValue());
 							list.add(new L2NpcWalkerNode(0, chat, x, y, z, delay, running));
@@ -160,7 +191,7 @@ public class WalkingManager
 							if (name.equalsIgnoreCase("debug"))
 								debug = Boolean.parseBoolean(val);
 						}
-
+					
 					}
 					L2WalkRoute newRoute = new L2WalkRoute(routeId, list, repeat, false, repeatType);
 					newRoute.setDebug(debug);
@@ -170,12 +201,12 @@ public class WalkingManager
 		}
 		_log.info("WalkingManager: loaded " + _routes.size() + " walking routes.");
 	}
-
+	
 	public boolean isRegistered(L2Npc npc)
 	{
 		return _activeRoutes.containsKey(npc.getObjectId());
 	}
-
+	
 	public void startMoving(final L2Npc npc, final int routeId)
 	{
 		if (_routes.containsKey(routeId) && npc != null && !npc.isDead()) //check, if these route and NPC present
@@ -188,7 +219,7 @@ public class WalkingManager
 					WalkInfo walk = new WalkInfo(routeId);
 					//walk._lastActionTime = System.currentTimeMillis();
 					L2NpcWalkerNode node = walk.getCurrentNode();
-
+					
 					if (!npc.isInsideRadius(node.getMoveX(), node.getMoveY(), node.getMoveZ(), 3000, true, false)) //too far from first point, decline further operations
 						return;
 					
@@ -224,11 +255,11 @@ public class WalkingManager
 					//Announcements.getInstance().announceToAll("Here_2!");
 					WalkInfo walk = _activeRoutes.get(npc.getObjectId());
 					//Announcements.getInstance().announceToAll("X = " + Integer.toString(npc.getX()) + ", Y = " +  Integer.toString(npc.getY()) + ", node = " + Integer.toString(walk._currentNode));
-
+					
 					//Prevent call simultaneosly from scheduled task and onArrived() or temporarily stop walking for resuming in future
 					if (walk._blocked || walk._suspended)
 						return;
-
+					
 					//Announcements.getInstance().announceToAll("Continue move!");
 					walk._blocked = true;
 					//Check this first, within the bounds of random moving, we have no conception of "first" or "last" node
@@ -247,7 +278,7 @@ public class WalkingManager
 					{
 						if (walk.getRoute().debug())
 							Announcements.getInstance().announceToAll("Last node arrived!");
-
+						
 						if (!walk.getRoute().repeatWalk())
 						{
 							//Announcements.getInstance().announceToAll("Stoppping!");
@@ -280,8 +311,8 @@ public class WalkingManager
 					npc.setIsRunning(node.getRunning());
 					
 					if (walk.getRoute().debug())
-							Announcements.getInstance().announceToAll("Continue to node " + Integer.toString(walk._currentNode));
-
+						Announcements.getInstance().announceToAll("Continue to node " + Integer.toString(walk._currentNode));
+					
 					npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(node.getMoveX(), node.getMoveY(), node.getMoveZ(), 0));
 					walk._blocked = false;
 				}
@@ -306,12 +337,12 @@ public class WalkingManager
 			return;
 		
 		WalkInfo walk = _activeRoutes.get(npc.getObjectId());
-		walk._suspended = false;		
+		walk._suspended = false;
 		startMoving(npc, walk.getRoute().getId());
 	}
-
-  public void stopMoving(L2Npc npc, boolean suspend)
-  {
+	
+	public void stopMoving(L2Npc npc, boolean suspend)
+	{
 		if (!_activeRoutes.containsKey(npc.getObjectId()))
 			return; 
 		
@@ -320,7 +351,7 @@ public class WalkingManager
 		npc.stopMove(null);
 		npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 	}
-
+	
 	public void onArrived(final L2Npc npc)
 	{
 		if (_activeRoutes.containsKey(npc.getObjectId()))
@@ -334,8 +365,10 @@ public class WalkingManager
 				if (node.getMoveX() == npc.getX() && node.getMoveY() == npc.getY())
 				{ 
 					if (walk.getRoute().debug())
+					{
 						Announcements.getInstance().announceToAll("Arrived to node " + Integer.toString(walk._currentNode));
-					//Announcements.getInstance().announceToAll("Done in " + Integer.toString((int)((System.currentTimeMillis() - walk._lastActionTime) / 1000)) + " s.");
+						//Announcements.getInstance().announceToAll("Done in " + Long.toString((System.currentTimeMillis() - walk._lastActionTime) / 1000) + " s.");
+					}
 					
 					walk._nodeArrived = true;
 					if (walk.getRoute().getRepeatType() != REPEAT_RANDOM)
@@ -345,16 +378,16 @@ public class WalkingManager
 						else
 							walk._currentNode--;
 					}
-
+					
 					int delay;
-
+					
 					if (walk._currentNode >= walk.getRoute().getNodesCount())
 						delay = walk.getRoute().getLastNode().getDelay();
 					else if (walk._currentNode < 0)
 						delay = walk.getRoute().getNodeList().get(0).getDelay();
 					else
 						delay = walk.getCurrentNode().getDelay();
- 
+					
 					walk._blocked = true; //prevents to be ran from walk check task, if there is delay in this node.
 					//walk._lastActionTime = System.currentTimeMillis();
 					ThreadPoolManager.getInstance().scheduleGeneral(new ArrivedTask(npc, walk), 100 + delay * 1000L);
@@ -368,7 +401,7 @@ public class WalkingManager
 		if (_activeRoutes.containsKey(npc.getObjectId()))
 			cancelMoving(npc);
 	}
-
+	
 	private class ArrivedTask implements Runnable
 	{
 		WalkInfo _walk;
@@ -387,7 +420,7 @@ public class WalkingManager
 			startMoving(_npc,_walk. getRoute().getId());
 		}
 	}
-
+	
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

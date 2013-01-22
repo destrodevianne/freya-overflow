@@ -46,12 +46,12 @@ public class Warpgate extends Quest
 		if (!HellboundManager.getInstance().isLocked())
 		{
 			st = player.getQuestState(PATH_TO_HELLBOUND);
-			if (st != null && st.getState() == State.COMPLETED)
+			if ((st != null) && (st.getState() == State.COMPLETED))
 				return true;
 		}
 		
 		st = player.getQuestState(THATS_BLOODY_HOT);
-		if (st != null && st.getState() == State.COMPLETED)
+		if ((st != null) && (st.getState() == State.COMPLETED))
 			return true;
 		
 		return false;
@@ -76,6 +76,7 @@ public class Warpgate extends Quest
 			return "warpgate-no.htm";
 		
 		player.teleToLocation(-11272, 236464, -3248, true);
+		HellboundManager.getInstance().unlock();
 		return null;
 	}
 	
@@ -84,18 +85,18 @@ public class Warpgate extends Quest
 	{
 		if (character instanceof L2PcInstance)
 		{
-			if (!canEnter((L2PcInstance)character) && !character.isGM())
+			if (!canEnter((L2PcInstance) character) && !character.isGM())
 				ThreadPoolManager.getInstance().scheduleGeneral(new Teleport(character), 1000);
-			else if (!((L2PcInstance)character).isMinimapAllowed())
+			else if (!((L2PcInstance) character).isMinimapAllowed())
 			{
 				if (character.getInventory().getItemByItemId(MAP) != null)
-					((L2PcInstance)character).setMinimapAllowed(true);
+					((L2PcInstance) character).setMinimapAllowed(true);
 			}
 		}
 		return null;
 	}
 	
-	static final class Teleport implements Runnable
+	private static final class Teleport implements Runnable
 	{
 		private final L2Character _char;
 		
@@ -104,6 +105,7 @@ public class Warpgate extends Quest
 			_char = c;
 		}
 		
+		@Override
 		public void run()
 		{
 			try

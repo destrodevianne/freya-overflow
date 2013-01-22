@@ -3072,9 +3072,9 @@ public final class L2PcInstance extends L2Playable
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
-					PreparedStatement statement = con.prepareStatement(UPDATE_ZONE_RESTART_LIMIT);
+					final PreparedStatement statement = con.prepareStatement(UPDATE_ZONE_RESTART_LIMIT);
 					statement.setInt(1, getObjectId());
-					statement.setLong(2, System.currentTimeMillis() + (long) (zone.getRestartAllowedTime() * 1000));
+					statement.setLong(2, System.currentTimeMillis() + (zone.getRestartAllowedTime() * 1000));
 					statement.execute();
 					statement.close();
 				}
@@ -3096,13 +3096,10 @@ public final class L2PcInstance extends L2Playable
 		
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement;
-			ResultSet rset;
-			
-			statement = con.prepareStatement(LOAD_ZONE_RESTART_LIMIT);
-			statement.setInt(1, getObjectId());
-			rset = statement.executeQuery();
+			con = L2DatabaseFactory.getInstance().getConnection(); 
+ 		    PreparedStatement statement = con.prepareStatement(LOAD_ZONE_RESTART_LIMIT); 
+ 		    statement.setInt(1, getObjectId()); 
+ 		    final ResultSet rset = statement.executeQuery(); 
 			
 			if (rset.next())
 			{
@@ -3112,7 +3109,6 @@ public final class L2PcInstance extends L2Playable
 				statement.setInt(1, getObjectId());
 				statement.executeUpdate();
 			}
-			
 			rset.close();
 			statement.close();
 		}

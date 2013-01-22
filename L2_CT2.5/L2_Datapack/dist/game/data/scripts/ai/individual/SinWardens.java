@@ -12,9 +12,11 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package ai.individual;
 
+import java.util.Map;
+
+import javolution.util.FastMap;
 import ai.group_template.L2AttackableAIScript;
 
 import com.l2jserver.gameserver.model.actor.L2Npc;
@@ -23,35 +25,26 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.clientpackets.Say2;
 import com.l2jserver.gameserver.network.serverpackets.NpcSay;
 
-import java.util.Map;
-import javolution.util.FastMap;
-
 /**
- * Manages Sin Wardens disappearing and chat 
+ * Manages Sin Wardens disappearing and chat
  * @author GKR
  */
-
 public class SinWardens extends L2AttackableAIScript
 {
-	private static final int[] SIN_WARDEN_MINIONS = { 22424, 22425, 22426, 22427, 22428, 22429, 22430, 22432, 22433, 22434, 22435, 22436, 22437, 22438};
-	
-	private Map<Integer, Integer> killedMinionsCount = new FastMap<Integer, Integer>();
-
-	public SinWardens (int id, String name, String descr)
+	private static final int[] SIN_WARDEN_MINIONS =
 	{
-		super(id,name,descr);
-		
-		for (int monsterId : SIN_WARDEN_MINIONS)
-			addKillId(monsterId);
-	}
-
+		22424, 22425, 22426, 22427, 22428, 22429, 22430, 22432, 22433, 22434, 22435, 22436, 22437, 22438
+	};
+	
+	private final Map<Integer, Integer> killedMinionsCount = new FastMap<Integer, Integer>();
+	
 	@Override
-	public String onKill (L2Npc npc, L2PcInstance killer, boolean isPet)
+	public String onKill(L2Npc npc, L2PcInstance killer, boolean isPet)
 	{
 		if (npc.isMinion())
 		{
-			L2MonsterInstance master = ((L2MonsterInstance)npc).getLeader();
-			if (master != null && !master.isDead())
+			L2MonsterInstance master = ((L2MonsterInstance) npc).getLeader();
+			if ((master != null) && !master.isDead())
 			{
 				int killedCount = killedMinionsCount.containsKey(master.getObjectId()) ? killedMinionsCount.get(master.getObjectId()) : 0;
 				killedCount++;
@@ -63,13 +56,24 @@ public class SinWardens extends L2AttackableAIScript
 					killedMinionsCount.remove(master.getObjectId());
 				}
 				else
+				{
 					killedMinionsCount.put(master.getObjectId(), killedCount);
+				}
 			}
 		}
-		
-		return super.onKill(npc, killer, isPet); 
+		return super.onKill(npc, killer, isPet);
 	}
-
+	
+	public SinWardens(int id, String name, String descr)
+	{
+		super(id, name, descr);
+		
+		for (int monsterId : SIN_WARDEN_MINIONS)
+		{
+			addKillId(monsterId);
+		}
+	}
+	
 	public static void main(String[] args)
 	{
 		new SinWardens(-1, "SinWardens", "ai");
