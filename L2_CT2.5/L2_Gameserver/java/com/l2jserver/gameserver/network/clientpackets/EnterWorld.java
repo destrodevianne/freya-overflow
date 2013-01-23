@@ -371,6 +371,7 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(SystemMessage.getSystemMessage(SystemMessageId.WELCOME_TO_LINEAGE));
 		
 		activeChar.sendMessage(getText("RXN0ZSBzZXJ2aWRvciBlc3RhIGNvZGlmaWNhZG8gZW4gYmFzZSBhIEwySiBzZXJ2ZXIgQ1QyLjU="));
+		activeChar.sendMessage(getText("VmVyc2lvbiBkZSBMaW5la2tpdDogMS4x"));
 		
 		if (Config.DISPLAY_SERVER_VERSION)
 		{
@@ -380,7 +381,8 @@ public class EnterWorld extends L2GameClientPacket
 			if (Config.DATAPACK_VERSION != null)
 				activeChar.sendMessage(getText("TDJKIERhdGFwYWNrIFZlcnNpb246")+" "+getText("ODQwNA=="));
 		}
-		activeChar.sendMessage(getText("Q29weXJpZ2h0IDIwMDQtMjAxMQ==\n"));
+		activeChar.sendMessage(getText("RXNwZXJhbW9zIHF1ZSBkaXNmcnV0ZW4gZGVsIHNlcnZpZG9yIQ=="));
+		activeChar.sendMessage(getText("Q29weXJpZ2h0IDIwMTM="));
 		
 		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
 		Announcements.getInstance().showAnnouncements(activeChar);
