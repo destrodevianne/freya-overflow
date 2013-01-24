@@ -19,7 +19,7 @@ public class CastleStatus
                loadFromDB();
        }
       
-       @SuppressWarnings("null")
+//       @SuppressWarnings("null")
        private void loadFromDB()
        {
                Connection con = null;
