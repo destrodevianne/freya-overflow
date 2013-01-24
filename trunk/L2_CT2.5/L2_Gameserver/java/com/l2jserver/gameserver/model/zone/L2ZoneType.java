@@ -14,6 +14,7 @@
  */
 package com.l2jserver.gameserver.model.zone;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -401,6 +402,29 @@ public abstract class L2ZoneType
 	{
 		return _characterList;
 	}
+	
+	//----Agregado---- 
+	
+	public Collection<L2Character> getCharactersInsideValues()
+	{
+		return _characterList.values();
+	}
+	
+	//public List<L2PcInstance> getPlayersInside()
+	//{
+	//	List<L2PcInstance> players = new ArrayList<>();
+	//	for (L2Character ch : _characterList.values())
+	//	{
+	//		if (ch != null && ch.isPlayer())
+	//		{
+	//			players.add(ch.getActingPlayer());
+	//		}
+	//	}
+	//	
+	//	return players;
+	//}
+	
+	//-----------/
 	
 	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
 	{

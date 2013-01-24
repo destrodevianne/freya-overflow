@@ -82,6 +82,7 @@ public final class Config
 	public static final String GRACIASEEDS_CONFIG_FILE = "./config/GraciaSeeds.properties";
 	public static final String CHAT_FILTER_FILE = "./config/chatfilter.txt";
 	public static final String SMART_CB = "./config/SmartCB.properties";
+	public static final String CH_SIEGE_FILE = "./config/ConquerableHallSiege.properties";
        
     // --------------------------------------------------
     // Smart Community Board Definitions
@@ -1050,6 +1051,14 @@ public final class Config
 	
 	//chatfilter
 	public static ArrayList<String>	FILTER_LIST;
+	
+	// Conquerable Halls Settings
+	public static int CHS_CLAN_MINLEVEL;
+	public static int CHS_MAX_ATTACKERS;
+	public static int CHS_MAX_FLAGS_PER_CLAN;
+	public static boolean CHS_ENABLE_FAME;
+	public static int CHS_FAME_AMOUNT;
+	public static int CHS_FAME_FREQUENCY;
 	
 	/**
 	 * This class initializes all global variables for configuration.<br>
@@ -2846,6 +2855,23 @@ public final class Config
 				{
 					e.printStackTrace();
 					throw new Error("Failed to Load " + CHAT_FILTER_FILE + " File.");
+				}
+				try
+				{
+					L2Properties chSiege = new L2Properties();
+					is = new FileInputStream(new File(CH_SIEGE_FILE));
+					chSiege.load(is);
+					
+					CHS_MAX_ATTACKERS = Integer.parseInt(chSiege.getProperty("MaxAttackers", "500"));
+					CHS_CLAN_MINLEVEL = Integer.parseInt(chSiege.getProperty("MinClanLevel", "4"));
+					CHS_MAX_FLAGS_PER_CLAN = Integer.parseInt(chSiege.getProperty("MaxFlagsPerClan", "1"));
+					CHS_ENABLE_FAME = Boolean.parseBoolean(chSiege.getProperty("EnableFame", "false"));
+					CHS_FAME_AMOUNT = Integer.parseInt(chSiege.getProperty("FameAmount", "0"));
+					CHS_FAME_FREQUENCY = Integer.parseInt(chSiege.getProperty("FameFrequency", "0"));
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
 				}
 			}
 			finally

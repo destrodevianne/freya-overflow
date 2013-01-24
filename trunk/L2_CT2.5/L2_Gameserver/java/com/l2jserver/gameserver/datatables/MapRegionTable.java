@@ -39,6 +39,7 @@ import com.l2jserver.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import com.l2jserver.gameserver.model.entity.Castle;
 import com.l2jserver.gameserver.model.entity.ClanHall;
 import com.l2jserver.gameserver.model.entity.Fort;
+import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
 import com.l2jserver.gameserver.model.entity.Instance;
 import com.l2jserver.gameserver.model.zone.type.L2ArenaZone;
 import com.l2jserver.gameserver.model.zone.type.L2ClanHallZone;
@@ -372,7 +373,7 @@ public class MapRegionTable
 				if (teleportWhere == TeleportWhereType.ClanHall)
 				{
 					
-					clanhall = ClanHallManager.getInstance().getClanHallByOwner(player.getClan());
+					clanhall = ClanHallManager.getInstance().getAbstractHallByOwner(player.getClan());
 					if (clanhall != null)
 					{
 						L2ClanHallZone zone = clanhall.getZone();
@@ -420,6 +421,7 @@ public class MapRegionTable
 				{
 					castle = CastleManager.getInstance().getCastle(player);
 					fort = FortManager.getInstance().getFort(player);
+					clanhall = ClanHallManager.getInstance().getNearbyAbstractHall(activeChar.getX(), activeChar.getY(), 10000);
 					L2SiegeFlagInstance tw_flag = TerritoryWarManager.getInstance().getFlagForClan(player.getClan());
 					if (tw_flag != null)
 						return new Location(tw_flag.getX(), tw_flag.getY(), tw_flag.getZ());
@@ -450,6 +452,16 @@ public class MapRegionTable
 								L2Npc flag = flags.get(0);
 								return new Location(flag.getX(), flag.getY(), flag.getZ());
 							}
+						}
+					}
+					else if(clanhall != null && clanhall.isSiegableHall())
+					{
+						SiegableHall sHall = (SiegableHall)clanhall;
+						List<L2Npc> flags = sHall.getSiege().getFlag(player.getClan());
+						if(flags != null && !flags.isEmpty())
+						{
+							L2Npc flag = flags.get(0);
+							return new Location(flag.getX(), flag.getY(), flag.getZ());
 						}
 					}
 				}

@@ -19,7 +19,7 @@ public class HeroeList
                loadFromDB();
        }
       
-       @SuppressWarnings("null")
+ //      @SuppressWarnings("null")
        private void loadFromDB()
        {
                java.sql.Connection con = null;

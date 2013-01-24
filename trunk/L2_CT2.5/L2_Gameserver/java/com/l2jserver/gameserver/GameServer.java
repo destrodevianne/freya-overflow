@@ -84,6 +84,7 @@ import com.l2jserver.gameserver.instancemanager.AntiFeedManager;
 import com.l2jserver.gameserver.instancemanager.AuctionManager;
 import com.l2jserver.gameserver.instancemanager.AutoVoteRewardManager;
 import com.l2jserver.gameserver.instancemanager.BoatManager;
+import com.l2jserver.gameserver.instancemanager.CHSiegeManager;
 import com.l2jserver.gameserver.instancemanager.BonusExpManager;
 import com.l2jserver.gameserver.instancemanager.CastleManager;
 import com.l2jserver.gameserver.instancemanager.CastleManorManager;
@@ -248,6 +249,7 @@ public class GameServer
 		
 		printSection("Clans");
 		ClanTable.getInstance();
+		CHSiegeManager.getInstance();
 		ClanHallManager.getInstance();
 		AuctionManager.getInstance();
 		

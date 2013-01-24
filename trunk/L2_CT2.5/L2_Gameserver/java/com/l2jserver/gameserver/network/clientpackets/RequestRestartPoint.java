@@ -17,6 +17,7 @@ package com.l2jserver.gameserver.network.clientpackets;
 import java.util.logging.Logger;
 
 import com.l2jserver.gameserver.ThreadPoolManager;
+import com.l2jserver.gameserver.instancemanager.CHSiegeManager;
 import com.l2jserver.gameserver.datatables.MapRegionTable;
 import com.l2jserver.gameserver.instancemanager.CastleManager;
 import com.l2jserver.gameserver.instancemanager.ClanHallManager;
@@ -30,6 +31,7 @@ import com.l2jserver.gameserver.model.entity.Castle;
 import com.l2jserver.gameserver.model.entity.ClanHall;
 import com.l2jserver.gameserver.model.entity.Fort;
 import com.l2jserver.gameserver.model.entity.TvTEvent;
+import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
 
 
 /**
@@ -66,6 +68,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			Location loc = null;
 			Castle castle = null;
 			Fort fort = null;
+			SiegableHall hall = null;
 			boolean isInDefense = false;
 			int instanceId = 0;
 			
@@ -146,13 +149,16 @@ public final class RequestRestartPoint extends L2GameClientPacket
 					L2SiegeClan siegeClan = null;
 					castle = CastleManager.getInstance().getCastle(activeChar);
 					fort = FortManager.getInstance().getFort(activeChar);
+					hall = CHSiegeManager.getInstance().getNearbyClanHall(activeChar);
 					L2SiegeFlagInstance flag = TerritoryWarManager.getInstance().getFlagForClan(activeChar.getClan());
 					
 					if (castle != null && castle.getSiege().getIsInProgress())
 						siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
 					else if (fort != null && fort.getSiege().getIsInProgress())
 						siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
-					
+						
+					else if (hall != null && hall.isInSiege())
+						siegeClan = hall.getSiege().getAttackerClan(activeChar.getClan());
 					if ((siegeClan == null || siegeClan.getFlag().isEmpty()) && flag == null)
 					{
 						_log.warning("Player ["+activeChar.getName()+"] called RestartPointPacket - To Siege HQ and he doesn't have Siege HQ!");

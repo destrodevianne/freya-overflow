@@ -22,7 +22,7 @@ public class TopPlayers
                loadDB(file);
        }
       
-       @SuppressWarnings("null")
+ //      @SuppressWarnings("null")
        private void loadDB(String file)
        {
                Connection con = null;
