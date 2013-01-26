@@ -571,7 +571,7 @@
 		<set name="item_skill" val="22039-2" />
 		<set name="time" val="600" />
 	</item>
-	<item id="20339" type="EtcItem" name="Rune of Exp. Points 30% - 7 Day Expiration Period">
+	<item id="20339" type="EtcItem" name="Rune of Exp. and SP Points 30% - 7 Day Expiration Period">
 		<set name="icon" val="br_cashtex.item.br_cash_rune_of_exp_i00" />
 		<set name="etcitem_type" val="rune" />
 		<set name="immediate_effect" val="1" />

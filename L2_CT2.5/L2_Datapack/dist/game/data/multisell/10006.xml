@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Sealed Boots of Doom -->
+  <item id="1">
+    <ingredient id="9143" count="5"/>
+    <production id="5737" count="1"/>
+  </item>
+
+  <!-- Sealed Doom Gloves -->
+  <item id="2">
+    <ingredient id="9143" count="5"/>
+    <production id="5721" count="1"/>
+  </item>
+
+  <!-- Doom Helmet -->
+  <item id="3">
+    <ingredient id="9143" count="6"/>
+    <production id="2417" count="1"/>
+  </item>
+
+  <!-- Tunic of Doom -->
+  <item id="4">
+    <ingredient id="9143" count="7"/>
+    <production id="2399" count="1"/>
+  </item>
+
+  <!-- Stockings of Doom -->
+  <item id="5">
+    <ingredient id="9143" count="7"/>
+    <production id="2404" count="1"/>
+  </item>
+
+  <!-- Leather Armor of Doom -->
+  <item id="6">
+    <ingredient id="9143" count="14"/>
+    <production id="2392" count="1"/>
+  </item>
+
+  <!-- Doom Plate Armor -->
+  <item id="7">
+    <ingredient id="9143" count="14"/>
+    <production id="2381" count="1"/>
+  </item>
+
+  <!-- Doom Shield -->
+  <item id="8">
+    <ingredient id="9143" count="5"/>
+    <production id="110" count="1"/>
+  </item>
+
+
+</list>

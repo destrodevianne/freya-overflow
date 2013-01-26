@@ -1,73 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Armaduras -->
-<list xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:noNamespaceSchemaLocation="multisell.xsd">
+<?xml version='1.0' encoding='utf-8'?>
 
-  <!-- Tallum Plate Armor -->
-   <item id="1">
-    <ingredient id="9143" count="22"/>
-    <production id="2382" count="1"/>
-   </item>
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
 
-  <!-- Tallum Helmet -->
+<list maintainEnchantment="true">
+
+  <!-- Sealed Boots of Nightmare -->
+  <item id="1">
+    <ingredient id="9143" count="10"/>
+    <production id="5314" count="1"/>
+  </item>
+
+  <!-- Sealed Gauntlets of Nightmare -->
   <item id="2">
-    <ingredient id="9143" count="6"/>
-    <production id="547" count="1"/>
+    <ingredient id="9143" count="10"/>
+    <production id="5313" count="1"/>
   </item>
 
-  <!-- Tallum Boots -->
+  <!-- Sealed Helm of Nightmare -->
   <item id="3">
-    <ingredient id="9143" count="6"/>
-    <production id="5780" count="1"/>
+    <ingredient id="9143" count="11"/>
+    <production id="5312" count="1"/>
   </item>
 
-  <!-- Tallum Gloves -->
+  <!-- Sealed Armor of Nightmare -->
   <item id="4">
-    <ingredient id="9143" count="6"/>
-    <production id="5768" count="1"/>
+    <ingredient id="9143" count="29"/>
+    <production id="5311" count="1"/>
   </item>
 
-  <!-- Tallum Leather Armor -->
+  <!-- Sealed Leather Armor of Nightmare -->
   <item id="5">
-    <ingredient id="9143" count="22"/>
-    <production id="2393" count="1"/>
+    <ingredient id="9143" count="29"/>
+    <production id="5320" count="1"/>
   </item>
 
-  <!-- Tallum Boots -->
+  <!-- Sealed Nightmare Robe -->
   <item id="6">
-    <ingredient id="9143" count="6"/>
-    <production id="5781" count="1"/>
+    <ingredient id="9143" count="29"/>
+    <production id="5326" count="1"/>
   </item>
 
-
-  <!-- Tallum Gloves -->
+  <!-- Sealed Shield of Nightmare -->
   <item id="7">
-    <ingredient id="9143" count="6"/>
-    <production id="5769" count="1"/>
+    <ingredient id="9143" count="10"/>
+    <production id="5315" count="1"/>
   </item>
 
-    <!-- Tallum Tunic -->
-  <item id="8">
-    <ingredient id="9143" count="13"/>
-    <production id="2400" count="1"/>
-  </item>
-
-  <!-- Tallum Stockings -->
-  <item id="9">
-    <ingredient id="9143" count="9"/>
-    <production id="2405" count="1"/>
-  </item>
-
-  <!-- Tallum Boots -->
-  <item id="6">
-    <ingredient id="9143" count="6"/>
-    <production id="5782" count="1"/>
-  </item>
-
-
-  <!-- Tallum Gloves -->
-  <item id="7">
-    <ingredient id="9143" count="6"/>
-    <production id="5770" count="1"/>
-  </item>
 
 </list>
