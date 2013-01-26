@@ -1,103 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Armas -->
-<list xmlns:ns0="http://www.w3.org/2001/XMLSchema-instance" ns0:noNamespaceSchemaLocation="multisell.xsd">
-	<item id="1">
-		<ingredient id="9143" count="40" />
-		<production id="0080" count="1" />
-	</item>
-	<item id="2">
-		<ingredient id="9143" count="40" />
-		<production id="0098" count="1" />
-	</item>
-	<item id="3">
-		<ingredient id="9143" count="40" />
-		<production id="0150" count="1" />
-	</item>
-	<item id="4">
-		<ingredient id="9143" count="40" />>
-		<production id="0212" count="1" />
-	</item>
-	<item id="5">
-		<ingredient id="9143" count="40" />
-		<production id="0235" count="1" />
-	</item>
-	<item id="6">
-		<ingredient id="9143" count="40" />
-		<production id="0269" count="1" />
-	</item>
-	<item id="7">
-		<ingredient id="9143" count="40" />
-		<production id="0288" count="1" />
-	</item>
-	<item id="8">
-		<ingredient id="9143" count="40" />
-		<production id="2504" count="1" />
-	</item>
-	<item id="9">
-		<ingredient id="9143" count="40" />
-		<production id="7884" count="1" />
-	</item>
-	<item id="10">
-		<ingredient id="9143" count="40" />
-		<production id="7894" count="1" />
-	</item>
-	<item id="11">
-		<ingredient id="9143" count="40" />
-		<production id="7899" count="1" />
-	</item>
+<?xml version='1.0' encoding='utf-8'?>
 
-  <!-- Sword of Miracles -->
-  <item id="12">
-    <ingredient id="9143" count="50"/>
-    <production id="151" count="1"/>
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Ring of Black Ore -->
+  <item id="1">
+    <ingredient id="9143" count="2"/>
+    <production id="895" count="1"/>
   </item>
 
-  <!-- Soul Separator -->
-  <item id="13">
-    <ingredient id="9143" count="50"/>
-    <production id="236" count="1"/>
+  <!-- Earring of Black Ore -->
+  <item id="2">
+    <ingredient id="9143" count="3"/>
+    <production id="864" count="1"/>
   </item>
 
-  <!-- Dragon Grinder -->
-  <item id="14">
-    <ingredient id="9143" count="50"/>
-    <production id="270" count="1"/>
+  <!-- Necklace of Black Ore -->
+  <item id="3">
+    <ingredient id="9143" count="5"/>
+    <production id="926" count="1"/>
   </item>
 
-  <!-- Tallum Glaive -->
-  <item id="15">
-    <ingredient id="9143" count="50"/>
-    <production id="305" count="1"/>
-  </item>
-
-  <!-- Tallum Blade*Damascus -->
-  <item id="16">
-    <ingredient id="9143" count="50"/>
-    <production id="8938" count="1"/>
-  </item>
-
-  <!-- Branch of the Mother Tree -->
-  <item id="17">
-    <ingredient id="9143" count="50"/>
-    <production id="213" count="1"/>
-  </item>
-
-  <!-- Dragon Slayer -->
-  <item id="18">
-    <ingredient id="9143" count="50"/>
-    <production id="81" count="1"/>
-  </item>
-
-  <!-- Elysian -->
-  <item id="20">
-    <ingredient id="9143" count="50"/>
-    <production id="164" count="1"/>
-  </item>
-
-  <!-- Soul Bow -->
-  <item id="21">
-    <ingredient id="9143" count="50"/>
-    <production id="289" count="1"/>
-  </item>
 
 </list>
