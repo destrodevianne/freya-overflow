@@ -7,7 +7,7 @@
 
 <!-- Santa's Antlers -->
   <item id="1">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8936" count="1"/>
   </item>
 
@@ -15,7 +15,7 @@
   <item id="2">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="6846" count="1"/>
   </item>
 
@@ -23,7 +23,7 @@
   <item id="3">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="6845" count="1"/>
   </item>
 
@@ -31,7 +31,7 @@
   <item id="4">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="7681" count="1"/>
   </item>
 
@@ -39,7 +39,7 @@
   <item id="5">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8916" count="1"/>
   </item>
 
@@ -47,7 +47,7 @@
   <item id="6">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="7060" count="1"/>
   </item>
 
@@ -55,7 +55,7 @@
   <item id="7">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="6843" count="1"/>
   </item>
 
@@ -63,7 +63,7 @@
   <item id="8">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="7680" count="1"/>
   </item>
 
@@ -71,7 +71,7 @@
   <item id="9">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="7683" count="1"/>
   </item>
 
@@ -79,7 +79,7 @@
   <item id="10">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8189" count="1"/>
   </item>
 
@@ -87,7 +87,7 @@
   <item id="11">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8187" count="1"/>
   </item>
 
@@ -95,7 +95,7 @@
   <item id="12">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8188" count="1"/>
   </item>
 
@@ -103,7 +103,7 @@
   <item id="13">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8184" count="1"/>
   </item>
 
@@ -111,7 +111,7 @@
   <item id="14">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8557" count="1"/>
   </item>
 
@@ -119,7 +119,7 @@
   <item id="15">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8565" count="1"/>
   </item>
 
@@ -127,7 +127,7 @@
   <item id="16">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8185" count="1"/>
   </item>
 
@@ -135,7 +135,7 @@
   <item id="17">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8564" count="1"/>
   </item>
 
@@ -143,7 +143,7 @@
   <item id="18">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8186" count="1"/>
   </item>
 
@@ -151,7 +151,7 @@
   <item id="19">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8563" count="1"/>
   </item>
 
@@ -159,7 +159,7 @@
   <item id="20">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8562" count="1"/>
   </item>
 
@@ -167,7 +167,7 @@
   <item id="21">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8559" count="1"/>
   </item>
 
@@ -175,7 +175,7 @@
   <item id="22">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10240" count="1"/>
   </item>
 
@@ -183,7 +183,7 @@
   <item id="23">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8558" count="1"/>
   </item>
 
@@ -191,7 +191,7 @@
   <item id="24">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8920" count="1"/>
   </item>
 
@@ -199,7 +199,7 @@
   <item id="25">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10250" count="1"/>
   </item>
 
@@ -207,7 +207,7 @@
   <item id="26">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10248" count="1"/>
   </item>
 
@@ -215,7 +215,7 @@
   <item id="27">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8922" count="1"/>
   </item>
 
@@ -223,7 +223,7 @@
   <item id="28">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8919" count="1"/>
   </item>
 
@@ -231,7 +231,7 @@
   <item id="29">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8918" count="1"/>
   </item>
 
@@ -239,7 +239,7 @@
   <item id="30">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8923" count="1"/>
   </item>
 
@@ -247,7 +247,7 @@
   <item id="31">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8561" count="1"/>
   </item>
 
@@ -255,7 +255,7 @@
   <item id="32">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="8560" count="1"/>
   </item>
 
@@ -263,7 +263,7 @@
   <item id="33">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10249" count="1"/>
   </item>
 
@@ -271,7 +271,7 @@
   <item id="34">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10247" count="1"/>
   </item>
 
@@ -279,7 +279,7 @@
   <item id="35">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10246" count="1"/>
   </item>
 
@@ -287,7 +287,7 @@
   <item id="36">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10245" count="1"/>
   </item>
 
@@ -295,7 +295,7 @@
   <item id="37">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10244" count="1"/>
   </item>
 
@@ -303,7 +303,7 @@
   <item id="38">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="10243" count="1"/>
   </item>
 
@@ -311,7 +311,7 @@
   <item id="39">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="12372" count="1"/>
   </item>
 
@@ -319,7 +319,7 @@
   <item id="40">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="12373" count="1"/>
   </item>
 
@@ -327,7 +327,7 @@
   <item id="41">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13505" count="1"/>
   </item>
 
@@ -335,7 +335,7 @@
   <item id="42">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="15221" count="1"/>
   </item>
 
@@ -343,7 +343,7 @@
   <item id="43">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="16102" count="1"/>
   </item>
 
@@ -351,7 +351,7 @@
   <item id="44">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="16105" count="1"/>
   </item>
 
@@ -359,7 +359,7 @@
   <item id="45">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="16108" count="1"/>
   </item>
 
@@ -367,7 +367,7 @@
   <item id="46">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="16109" count="1"/>
   </item>
 
@@ -375,7 +375,7 @@
   <item id="47">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13497" count="1"/>
   </item>
 
@@ -383,7 +383,7 @@
   <item id="48">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13496" count="1"/>
   </item>
 
@@ -391,7 +391,7 @@
   <item id="49">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13488" count="1"/>
   </item>
 
@@ -399,221 +399,221 @@
   <item id="50">
     
     
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13489" count="1"/>
   </item>
 
     <!-- Refined Carnival Circlet -->
   <item id="1">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13493" count="1"/>
   </item>
 
   <!-- Refined Carnival Circlet -->
   <item id="2">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13502" count="1"/>
   </item>
 
   <!-- Search Hat -->
   <item id="3">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13515" count="1"/>
   </item>
 
   <!-- Improved Search Hat -->
   <item id="4">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13516" count="1"/>
   </item>
 
   <!-- Mining Hat -->
   <item id="5">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13513" count="1"/>
   </item>
 
   <!-- Improved Mining Hat -->
   <item id="6">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13514" count="1"/>
   </item>
 
   <!-- Refined Angel Ring -->
   <item id="7">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13494" count="1"/>
   </item>
 
   <!-- Refined Devil Horn -->
   <item id="8">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13495" count="1"/>
   </item>
 
   <!-- Event - Rider Goggles -->
   <item id="9">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13522" count="1"/>
   </item>
 
   <!-- Refined Jester Hat -->
   <item id="10">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13499" count="1"/>
   </item>
   
     <item id="15">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13498" count="1"/>
   </item>
 
   <!-- Laborer Hat -->
   <item id="11">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20401" count="1"/>
   </item>
 
   <!-- Ol Mahum Hat -->
   <item id="12">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="12781" count="1"/>
   </item>
 
   <!-- Wolf Hat -->
   <item id="13">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="12785" count="1"/>
   </item>
 
   <!-- Ant Hat -->
   <item id="14">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="12784" count="1"/>
   </item>
 
   <!-- Kat the Cat Hat -->
   <item id="22">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20031" count="1"/>
   </item>
 
   <!-- Skull Hat -->
   <item id="23">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20032" count="1"/>
   </item>
 
   <!-- Visor -->
   <item id="24">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20024" count="1"/>
   </item>
 
   <!-- Ribbon Hairband -->
   <item id="26">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20023" count="1"/>
   </item>
 
   <!-- Assassin's Bamboo Hat -->
   <item id="27">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20021" count="1"/>
   </item>
 
   <!-- Uniform Hat -->
   <item id="28">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20020" count="1"/>
   </item>
 
   <!-- Afro Hair -->
   <item id="29">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20017" count="1"/>
   </item>
 
   <!-- Gold Afro -->
   <item id="30">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20275" count="1"/>
   </item>
 
   <!-- Red Flame of Valakas -->
   <item id="31">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20725" count="1"/>
   </item>
 
   <!-- Golden Jack O'Lantern Mask. -->
   <item id="37">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20723" count="1"/>
   </item>
 
 	<!-- Flavorful Cheese Hat -->
   <item id="41">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20792" count="1"/>
   </item>
 
   <!-- Sweet Cheese Hat -->
   <item id="42">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20793" count="1"/>
   </item>
 
   <!-- Tiger Hat -->
   <item id="44">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20668" count="1"/>
   </item>
 
   <!-- Valkyrie Hat -->
   <item id="45">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20666" count="1"/>
   </item>
 
   <!-- Maid's Hairband -->
   <item id="46">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20670" count="1"/>
   </item>
 
   <!-- Baby Panda Hat -->
   <item id="47">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20672" count="1"/>
   </item>
 
   <!-- Bamboo Panda Hat -->
   <item id="48">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20674" count="1"/>
   </item>
 
   <!-- Sexy Panda Hat -->
   <item id="49">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20676" count="1"/>
   </item>
 
   <!-- Ruthless Tribe Mask -->
   <item id="50">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20678" count="1"/>
   </item>
   
     <item id="40">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="20022" count="1"/>
   </item>
 
   <!-- Event - Top Hat -->
   <item id="51">
-    <ingredient id="9142" count="50"/>
+    <ingredient id="9142" count="30"/>
     <production id="13518" count="1"/>
   </item>
 

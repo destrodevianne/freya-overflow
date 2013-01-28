@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Fresh Fruit Cocktail -->
+  <item id="1">
+    <ingredient id="9142" count="12"/>
+    <production id="10179" count="5"/>
+  </item>
+
+  <!-- Sweet Fruit Cocktail -->
+  <item id="2">
+    <ingredient id="9142" count="12"/>
+    <production id="10178" count="5"/>
+  </item>
+
+
+</list>
