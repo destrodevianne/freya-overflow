@@ -7,43 +7,43 @@
 
   <!-- Sealed Boots of Nightmare -->
   <item id="1">
-    <ingredient id="9143" count="10"/>
+    <ingredient id="9143" count="15"/>
     <production id="5314" count="1"/>
   </item>
 
   <!-- Sealed Gauntlets of Nightmare -->
   <item id="2">
-    <ingredient id="9143" count="10"/>
+    <ingredient id="9143" count="15"/>
     <production id="5313" count="1"/>
   </item>
 
   <!-- Sealed Helm of Nightmare -->
   <item id="3">
-    <ingredient id="9143" count="11"/>
+    <ingredient id="9143" count="17"/>
     <production id="5312" count="1"/>
   </item>
 
   <!-- Sealed Armor of Nightmare -->
   <item id="4">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5311" count="1"/>
   </item>
 
   <!-- Sealed Leather Armor of Nightmare -->
   <item id="5">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5320" count="1"/>
   </item>
 
   <!-- Sealed Nightmare Robe -->
   <item id="6">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5326" count="1"/>
   </item>
 
   <!-- Sealed Shield of Nightmare -->
   <item id="7">
-    <ingredient id="9143" count="10"/>
+    <ingredient id="9143" count="15"/>
     <production id="5315" count="1"/>
   </item>
 

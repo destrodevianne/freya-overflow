@@ -7,43 +7,43 @@
 
   <!-- Sealed Tallum Boots -->
   <item id="1">
-    <ingredient id="9143" count="7"/>
+    <ingredient id="9143" count="11"/>
     <production id="5296" count="1"/>
   </item>
 
   <!-- Sealed Tallum Gloves -->
   <item id="2">
-    <ingredient id="9143" count="7"/>
+    <ingredient id="9143" count="11"/>
     <production id="5295" count="1"/>
   </item>
 
   <!-- Sealed Tallum Helmet -->
   <item id="3">
-    <ingredient id="9143" count="8"/>
+    <ingredient id="9143" count="12"/>
     <production id="5294" count="1"/>
   </item>
 
   <!-- Sealed Tallum Leather Armor -->
   <item id="4">
-    <ingredient id="9143" count="23"/>
+    <ingredient id="9143" count="31"/>
     <production id="5301" count="1"/>
   </item>
 
   <!-- Sealed Tallum Plate Armor -->
   <item id="5">
-    <ingredient id="9143" count="23"/>
+    <ingredient id="9143" count="31"/>
     <production id="5293" count="1"/>
   </item>
 
   <!-- Sealed Tallum Tunic -->
   <item id="6">
-    <ingredient id="9143" count="12"/>
+    <ingredient id="9143" count="17"/>
     <production id="5304" count="1"/>
   </item>
 
   <!-- Sealed Tallum Stockings -->
   <item id="7">
-    <ingredient id="9143" count="11"/>
+    <ingredient id="9143" count="14"/>
     <production id="5305" count="1"/>
   </item>
 
