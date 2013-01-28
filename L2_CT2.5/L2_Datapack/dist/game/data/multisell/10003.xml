@@ -7,37 +7,37 @@
 
   <!-- Sealed Majestic Boots -->
   <item id="1">
-    <ingredient id="9143" count="10"/>
+    <ingredient id="9143" count="15"/>
     <production id="5319" count="1"/>
   </item>
 
   <!-- Sealed Majestic Circlet -->
   <item id="2">
-    <ingredient id="9143" count="11"/>
+    <ingredient id="9143" count="17"/>
     <production id="5317" count="1"/>
   </item>
 
   <!-- Sealed Majestic Gauntlets -->
   <item id="3">
-    <ingredient id="9143" count="10"/>
+    <ingredient id="9143" count="15"/>
     <production id="5318" count="1"/>
   </item>
 
   <!-- Sealed Majestic Leather Armor -->
   <item id="4">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5323" count="1"/>
   </item>
 
   <!-- Sealed Majestic Plate Armor -->
   <item id="5">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5316" count="1"/>
   </item>
 
   <!-- Sealed Majestic Robe -->
   <item id="6">
-    <ingredient id="9143" count="29"/>
+    <ingredient id="9143" count="38"/>
     <production id="5329" count="1"/>
   </item>
 

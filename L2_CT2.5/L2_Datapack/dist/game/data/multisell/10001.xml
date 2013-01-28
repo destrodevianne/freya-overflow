@@ -7,55 +7,55 @@
 
   <!-- Sealed Dark Crystal Boots -->
   <item id="1">
-    <ingredient id="9143" count="6"/>
+    <ingredient id="9143" count="11"/>
     <production id="5291" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Gloves -->
   <item id="2">
-    <ingredient id="9143" count="7"/>
+    <ingredient id="9143" count="11"/>
     <production id="5290" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Helmet -->
   <item id="3">
-    <ingredient id="9143" count="8"/>
+    <ingredient id="9143" count="12"/>
     <production id="5289" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal breastplate -->
   <item id="4">
-    <ingredient id="9143" count="12"/>
+    <ingredient id="9143" count="17"/>
     <production id="5287" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Gaiters -->
   <item id="5">
-    <ingredient id="9143" count="11"/>
+    <ingredient id="9143" count="14"/>
     <production id="5288" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Leather Armor -->
   <item id="6">
-    <ingredient id="9143" count="12"/>
+    <ingredient id="9143" count="17"/>
     <production id="5297" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Leggings -->
   <item id="7">
-    <ingredient id="9143" count="11"/>
+    <ingredient id="9143" count="14"/>
     <production id="5298" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Robe -->
   <item id="8">
-    <ingredient id="9143" count="23"/>
+    <ingredient id="9143" count="31"/>
     <production id="5308" count="1"/>
   </item>
 
   <!-- Sealed Dark Crystal Shield -->
   <item id="9">
-    <ingredient id="9143" count="7"/>
+    <ingredient id="9143" count="11"/>
     <production id="5292" count="1"/>
   </item>
 

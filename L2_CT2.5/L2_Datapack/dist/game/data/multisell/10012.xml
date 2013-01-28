@@ -7,73 +7,73 @@
 
   <!-- Sword of Miracles -->
   <item id="1">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="151" count="1"/>
   </item>
 
   <!-- Soul Separator -->
   <item id="2">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="236" count="1"/>
   </item>
 
   <!-- Dragon Grinder -->
   <item id="3">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="270" count="1"/>
   </item>
 
   <!-- Tallum Glaive -->
   <item id="4">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="305" count="1"/>
   </item>
 
   <!-- Elemental Sword -->
   <item id="5">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="150" count="1"/>
   </item>
 
   <!-- Destroyer Hammer -->
   <item id="6">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="7899" count="1"/>
   </item>
 
   <!-- Dragon Slayer -->
   <item id="7">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="81" count="1"/>
   </item>
 
   <!-- Tallum Blade -->
   <item id="8">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="80" count="1"/>
   </item>
 
   <!-- Elysian -->
   <item id="9">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="164" count="1"/>
   </item>
 
   <!-- Soul Bow -->
   <item id="10">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="289" count="1"/>
   </item>
 
   <!-- Tallum Blade*Damascus -->
   <item id="11">
-    <ingredient id="9143" count="80"/>
+    <ingredient id="9143" count="115"/>
     <production id="8938" count="1"/>
   </item>
 
   <!-- Branch of the Mother Tree -->
   <item id="12">
-    <ingredient id="9143" count="60"/>
+    <ingredient id="9143" count="85"/>
     <production id="213" count="1"/>
   </item>
 
