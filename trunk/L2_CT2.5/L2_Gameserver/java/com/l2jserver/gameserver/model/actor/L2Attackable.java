@@ -724,6 +724,17 @@ public class L2Attackable extends L2Npc
 								sp *= Config.L2JMOD_CHAMPION_REWARDS;
 							}
 							
+							//Exp on/off
+							
+							if (attacker instanceof L2PcInstance)
+							{
+								if (((L2PcInstance) attacker).canGetExpAndSp() == false)
+								{
+									exp = 0;
+									sp = 0;
+								}
+							}
+							
 							// Check for an over-hit enabled strike
 							if (attacker instanceof L2PcInstance)
 							{

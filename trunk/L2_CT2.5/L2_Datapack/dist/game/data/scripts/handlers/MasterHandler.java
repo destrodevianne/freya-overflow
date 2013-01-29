@@ -241,6 +241,7 @@ import handlers.usercommandhandlers.Mount;
 import handlers.usercommandhandlers.OlympiadStat;
 import handlers.usercommandhandlers.PartyInfo;
 import handlers.usercommandhandlers.Time;
+import handlers.voicedcommandhandlers.AllowExpAndSp;
 import handlers.voicedcommandhandlers.Banking;
 import handlers.voicedcommandhandlers.ChatAdmin;
 import handlers.voicedcommandhandlers.Debug;
@@ -555,6 +556,7 @@ public class MasterHandler
 			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Debug());
 		if (Config.L2JMOD_HELLBOUND_STATUS)
 			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Hellbound());
+		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new AllowExpAndSp());
 		_log.config("Loaded " + VoicedCommandHandler.getInstance().size() + " VoicedHandlers");
 	}
 	
