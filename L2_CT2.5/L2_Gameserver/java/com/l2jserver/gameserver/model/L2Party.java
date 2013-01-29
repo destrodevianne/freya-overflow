@@ -694,7 +694,7 @@ public class L2Party
 		{
 			for (L2Character member : rewardedMembers)
 			{
-				if(member.isDead()) continue;
+				if(member.isDead() || !((L2PcInstance) member).canGetExpAndSp()) continue;
 				
 				penalty = 0;
 				

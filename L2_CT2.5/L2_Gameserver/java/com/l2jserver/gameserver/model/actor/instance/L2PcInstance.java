@@ -878,6 +878,11 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 	
+	//Exp on/off
+	
+	/** Allow Player to receive Exp and Sp */
+	private boolean _canGetExpAndSp = true;
+	
 	// Character UI
 	private L2UIKeysSettings _uiKeySettings;
 	
@@ -15167,4 +15172,15 @@ public final class L2PcInstance extends L2Playable
 		// Maintain = 1
 		return 0;
 	}
+	
+    public final boolean canGetExpAndSp()
+	{
+		return _canGetExpAndSp;
+	}
+	
+	public final void setCanGetExpAndSp(boolean b)
+	{
+		_canGetExpAndSp = b;
+	}
+	
 }
