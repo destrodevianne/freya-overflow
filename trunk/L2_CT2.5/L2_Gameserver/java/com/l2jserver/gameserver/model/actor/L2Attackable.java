@@ -65,6 +65,8 @@ import com.l2jserver.gameserver.templates.item.L2EtcItemType;
 import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+
 public class L2Attackable extends L2Npc
 {
 	private boolean _isRaid = false;
@@ -544,6 +546,11 @@ public class L2Attackable extends L2Npc
 			
 			if (player != null)
 			{
+				if(NexusEvents.isInEvent(player))
+				{
+					NexusEvents.onKill(player, this);
+				}
+				
 				if (getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL) != null)
 					for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL))
 						ThreadPoolManager.getInstance().scheduleEffect(new OnKillNotifyTask(this, quest, player, killer instanceof L2Summon), _onKillDelay);
@@ -1192,6 +1199,7 @@ public class L2Attackable extends L2Npc
 			ai.stopHate();
 			return 0;
 		}
+		
 		return ai.getHate();
 	}
 	
@@ -2435,5 +2443,10 @@ public class L2Attackable extends L2Npc
 	public boolean isChampion()
 	{
 		return _champion;
+	}
+	
+	public boolean canShowLevelInTitle()
+	{
+		return !(getName().equals("Chest"));
 	}
 }

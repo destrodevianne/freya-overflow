@@ -130,6 +130,16 @@ public class CharInfo extends L2GameServerPacket
 	{
 		boolean gmSeeInvis = false;
 		
+		boolean antifeed;
+		try
+		{
+			antifeed = _activeChar.getEventInfo().hasAntifeedProtection();
+		}
+		catch (NullPointerException e)
+		{
+			antifeed = false;
+		}
+		
 		if (_invisible)
 		{
 			L2PcInstance tmp = getClient().getActiveChar();
@@ -236,14 +246,27 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_z);
 			writeD(_vehicleId);
 			writeD(_objId);
-			writeS(_activeChar.getAppearance().getVisibleName());
-			writeD(_activeChar.getRace().ordinal());
-			writeD(_activeChar.getAppearance().getSex() ? 1 : 0);
 			
-			if (_activeChar.getClassIndex() == 0)
-				writeD(_activeChar.getClassId().getId());
+			if(antifeed)
+			{
+				writeS("Unknown"); // visible name
+				
+				writeD(_activeChar.getAntifeedTemplate().race.ordinal()); // race
+				writeD(_activeChar.getAntifeedSex() ? 0 : 1); // sex
+
+				writeD(_activeChar.getAntifeedTemplate().classId.getId()); // class
+			}
 			else
-				writeD(_activeChar.getBaseClass());
+			{
+				writeS(_activeChar.getAppearance().getVisibleName());
+				writeD(_activeChar.getRace().ordinal());
+				writeD(_activeChar.getAppearance().getSex() ? 1 : 0);
+				
+				if (_activeChar.getClassIndex() == 0)
+					writeD(_activeChar.getClassId().getId());
+				else
+					writeD(_activeChar.getBaseClass());
+			}
 			
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
@@ -344,13 +367,38 @@ public class CharInfo extends L2GameServerPacket
 			}
 			else
 			{
-				writeF(_activeChar.getCollisionRadius());
-				writeF(_activeChar.getCollisionHeight());
+				if(antifeed)
+            	{
+					if(_activeChar.getAntifeedSex())
+					{
+						writeF(_activeChar.getAntifeedTemplate().fCollisionRadius_female);
+	            		writeF(_activeChar.getAntifeedTemplate().fCollisionHeight_female);
+					}
+					else
+					{
+						writeF(_activeChar.getAntifeedTemplate().fCollisionRadius);
+	            		writeF(_activeChar.getAntifeedTemplate().fCollisionHeight);
+					}
+            	}
+            	else
+            	{
+            		writeF(_activeChar.getCollisionRadius());
+    				writeF(_activeChar.getCollisionHeight());
+            	}
 			}
 			
-			writeD(_activeChar.getAppearance().getHairStyle());
-			writeD(_activeChar.getAppearance().getHairColor());
-			writeD(_activeChar.getAppearance().getFace());
+			if(antifeed)
+			{
+				writeD(0);
+				writeD(0);
+				writeD(0);
+			}
+			else
+			{
+				writeD(_activeChar.getAppearance().getHairStyle());
+				writeD(_activeChar.getAppearance().getHairColor());
+				writeD(_activeChar.getAppearance().getFace());
+			}
 			
 			if (gmSeeInvis)
 			{
@@ -358,10 +406,13 @@ public class CharInfo extends L2GameServerPacket
 			}
 			else
 			{
-				writeS(_activeChar.getAppearance().getVisibleTitle());
+				if(antifeed)
+					writeS("");
+				else
+					writeS(_activeChar.getAppearance().getVisibleTitle());
 			}
 			
-			if (!_activeChar.isCursedWeaponEquipped())
+			if (!_activeChar.isCursedWeaponEquipped() && !antifeed)
 			{
 				writeD(_activeChar.getClanId());
 				writeD(_activeChar.getClanCrestId());
@@ -414,9 +465,22 @@ public class CharInfo extends L2GameServerPacket
 			
 			writeC(_activeChar.isFlyingMounted() ? 2 : 0);
 			
-			writeH(_activeChar.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+			if(antifeed)
+			{
+				writeH(0);
+			}
+			else
+			{
+				writeH(_activeChar.getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
+			}
+			
 			writeD(_activeChar.getMountNpcId() + 1000000);
-			writeD(_activeChar.getClassId().getId());
+			
+			if(antifeed)
+				writeD(_activeChar.getAntifeedTemplate().classId.getId());
+			else
+				writeD(_activeChar.getClassId().getId());
+			
 			writeD(0x00); //?
 			writeC(_activeChar.isMounted() || _airShipHelm != 0 ? 0 : _activeChar.getEnchantEffect());
 			
@@ -427,23 +491,46 @@ public class CharInfo extends L2GameServerPacket
 			else
 				writeC(0x00); //team circle around feet 1= Blue, 2 = red
 			
-			writeD(_activeChar.getClanCrestLargeId());
-			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
-			writeC(_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA) ? 1 : 0); // Hero Aura
+			if(antifeed)
+	        {
+	        	writeD(0);
+				writeC(1); // Symbol on char menu ctrl+I
+				writeC(0); // Hero Aura
+	        }
+	        else
+	        {
+	        	writeD(_activeChar.getClanCrestLargeId());
+				writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I
+				writeC(_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA) ? 1 : 0); // Hero Aura
+			}
 			
 			writeC(_activeChar.isFishing() ? 1 : 0); //0x01: Fishing Mode (Cant be undone by setting back to 0)
 			writeD(_activeChar.getFishx());
 			writeD(_activeChar.getFishy());
 			writeD(_activeChar.getFishz());
 			
-			writeD(_activeChar.getAppearance().getNameColor());
+			if(antifeed)
+			{
+				writeD(0xFFFFFF);
+			}
+			else
+			{
+				writeD(_activeChar.getAppearance().getNameColor());
+			}
 			
 			writeD(_heading);
 			
 			writeD(_activeChar.getPledgeClass());
 			writeD(_activeChar.getPledgeType());
 			
-			writeD(_activeChar.getAppearance().getTitleColor());
+			if(antifeed)
+			{
+	        	writeD(0xFFFF77);
+			}
+			else
+			{
+				writeD(_activeChar.getAppearance().getTitleColor());
+			}
 			
 			if (_activeChar.isCursedWeaponEquipped())
 				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquippedId()));

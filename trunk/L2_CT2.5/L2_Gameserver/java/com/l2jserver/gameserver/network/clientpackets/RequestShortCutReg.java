@@ -18,6 +18,8 @@ import com.l2jserver.gameserver.model.L2ShortCut;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.serverpackets.ShortCutRegister;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * This class ...
  *
@@ -57,13 +59,21 @@ public final class RequestShortCutReg extends L2GameClientPacket
 		if (_page > 10 || _page < 0)
 			return;
 		
+		boolean saveToDb = true;
+		
+		if(NexusEvents.isInEvent(activeChar))
+		{
+			if(!NexusEvents.canSaveShortcuts(activeChar))
+				saveToDb = false;
+		}
+		
 		switch (_type)
 		{
 			case 0x01: // item
 			case 0x02: // skill
 			{
 				L2ShortCut sc = new L2ShortCut(_slot, _page, _type, _id, _lvl, _characterType);
-				activeChar.registerShortCut(sc);
+				activeChar.registerShortCut(sc, saveToDb);
 				sendPacket(new ShortCutRegister(sc));
 				break;
 			}
@@ -72,14 +82,14 @@ public final class RequestShortCutReg extends L2GameClientPacket
 			case 0x05: // recipe
 			{
 				L2ShortCut sc = new L2ShortCut(_slot, _page, _type, _id, _lvl, _characterType);
-				activeChar.registerShortCut(sc);
+				activeChar.registerShortCut(sc, saveToDb);
 				sendPacket(new ShortCutRegister(sc));
 				break;
 			}
 			case 0x06: // Teleport Bookmark
 			{
 				L2ShortCut sc = new L2ShortCut(_slot, _page, _type, _id, _lvl, _characterType);
-				activeChar.registerShortCut(sc);
+				activeChar.registerShortCut(sc, saveToDb);
 				sendPacket(new ShortCutRegister(sc));
 				break;
 			}

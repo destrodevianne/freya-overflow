@@ -27,6 +27,8 @@ import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.taskmanager.AttackStanceTaskManager;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -77,6 +79,13 @@ public final class Logout extends L2GameClientPacket
 		}
 		
 		if(player.atEvent)
+		{
+			player.sendMessage("A superior power doesn't allow you to leave the event");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
+		if(NexusEvents.isInEvent(player))
 		{
 			player.sendMessage("A superior power doesn't allow you to leave the event");
 			player.sendPacket(ActionFailed.STATIC_PACKET);

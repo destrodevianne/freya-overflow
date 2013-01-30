@@ -41,6 +41,8 @@ import com.l2jserver.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jserver.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * 
  * @author godson, GodKratos, Pere, DS
@@ -116,6 +118,9 @@ public abstract class AbstractOlympiadGame
 
 		// safety precautions
 		if (player.inObserverMode() || TvTEvent.isPlayerParticipant(player.getObjectId()))
+			return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME);
+
+		if(NexusEvents.isInEvent(player))
 			return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME);
 
 		SystemMessage sm;

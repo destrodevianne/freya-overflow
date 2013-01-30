@@ -265,7 +265,7 @@ public abstract class L2Object
 	
 	// =========================================================
 	// Event - Public
-	public final void onAction(L2PcInstance player)
+	public void onAction(L2PcInstance player)
 	{
 		onAction(player, true);
 	}

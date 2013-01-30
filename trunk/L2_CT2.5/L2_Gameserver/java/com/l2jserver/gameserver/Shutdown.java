@@ -45,6 +45,8 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.util.Broadcast;
 import com.l2jserver.gameserver.instancemanager.AutoVoteRewardManager;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  *
@@ -564,6 +566,8 @@ public class Shutdown extends Thread
 		
 		// Save all global variables data
 		GlobalVariablesManager.getInstance().saveVars();
+		
+		NexusEvents.serverShutDown();
 		
 		//Save items on ground before closing
 		if (Config.SAVE_DROPPED_ITEM)

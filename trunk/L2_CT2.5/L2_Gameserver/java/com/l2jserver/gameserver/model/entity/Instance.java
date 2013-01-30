@@ -68,6 +68,8 @@ public class Instance
 	private boolean _isTimerIncrease = true;
 	private String _timerText = "";
 	
+	private boolean _disableMessages = false;
+	
 	protected ScheduledFuture<?> _CheckTimeUpTask = null;
 	
 	public Instance(int id)
@@ -228,7 +230,7 @@ public class Instance
 	 * @param doorId - from doors.csv
 	 * @param open - initial state of the door
 	 */
-	private void addDoor(int doorId, boolean open)
+	public void addDoor(int doorId, boolean open)
 	{
 		if (_doors == null)
 			_doors = new ArrayList<L2DoorInstance>(2);
@@ -590,32 +592,48 @@ public class Instance
 		{
 			timeLeft = remaining / 60000;
 			interval = 300000;
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
-			sm.addString(Integer.toString(timeLeft));
-			Announcements.getInstance().announceToInstance(sm, getId());
+			
+			if(!_disableMessages)
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
+				sm.addString(Integer.toString(timeLeft));
+				Announcements.getInstance().announceToInstance(sm, getId());
+			}
+			
 			remaining = remaining - 300000;
 		}
 		else if (remaining > 60000)
 		{
 			timeLeft = remaining / 60000;
 			interval = 60000;
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
-			sm.addString(Integer.toString(timeLeft));
-			Announcements.getInstance().announceToInstance(sm, getId());
+			
+			if(!_disableMessages)
+			{
+				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.DUNGEON_EXPIRES_IN_S1_MINUTES);
+				sm.addString(Integer.toString(timeLeft));
+				Announcements.getInstance().announceToInstance(sm, getId());
+			}
+			
 			remaining = remaining - 60000;
 		}
 		else if (remaining > 30000)
 		{
 			timeLeft = remaining / 1000;
 			interval = 30000;
-			cs = new CreatureSay(0, Say2.ALLIANCE, "Notice", timeLeft + " seconds left.");
+			
+			if(!_disableMessages)
+				cs = new CreatureSay(0, Say2.ALLIANCE, "Notice", timeLeft + " seconds left.");
+			
 			remaining = remaining - 30000;
 		}
 		else
 		{
 			timeLeft = remaining / 1000;
 			interval = 10000;
-			cs = new CreatureSay(0, Say2.ALLIANCE, "Notice", timeLeft + " seconds left.");
+			
+			if(!_disableMessages)
+				cs = new CreatureSay(0, Say2.ALLIANCE, "Notice", timeLeft + " seconds left.");
+			
 			remaining = remaining - 10000;
 		}
 		if (cs != null)
@@ -632,6 +650,11 @@ public class Instance
 	{
 		if (_CheckTimeUpTask != null)
 			_CheckTimeUpTask.cancel(true);
+	}
+	
+	public void disableMessages()
+	{
+		_disableMessages = true;
 	}
 	
 	public class CheckTimeUp implements Runnable

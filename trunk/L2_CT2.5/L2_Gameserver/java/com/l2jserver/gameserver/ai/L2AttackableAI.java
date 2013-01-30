@@ -39,6 +39,7 @@ import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.L2Playable;
 import com.l2jserver.gameserver.model.actor.L2Summon;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2EventMapGuardInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2FriendlyMobInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2GrandBossInstance;
@@ -225,9 +226,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if the actor is a L2GuardInstance
 		if (getActiveChar() instanceof L2GuardInstance)
 		{
-			
 			// Check if the L2PcInstance target has karma (=PK)
-			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
+			if (target instanceof L2PcInstance && (((L2PcInstance) target).getKarma() > 0 || getActiveChar() instanceof L2EventMapGuardInstance))
 				// Los Check
 				return GeoData.getInstance().canSeeTarget(me, target);
 			

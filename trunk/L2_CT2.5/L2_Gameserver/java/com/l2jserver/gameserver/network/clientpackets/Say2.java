@@ -30,6 +30,8 @@ import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.util.Util;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -171,6 +173,9 @@ public final class Say2 extends L2GameClientPacket
 				return;
 			}
 		}
+		
+		if(!NexusEvents.onSay(activeChar, _text, _type))
+			return;
 		
 		if (_type == PETITION_PLAYER && activeChar.isGM())
 			_type = PETITION_GM;

@@ -26,10 +26,13 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.L2GameClient;
 import com.l2jserver.gameserver.network.L2GameClient.GameClientState;
 import com.l2jserver.gameserver.network.SystemMessageId;
+import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.network.serverpackets.CharSelectionInfo;
 import com.l2jserver.gameserver.network.serverpackets.RestartResponse;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.taskmanager.AttackStanceTaskManager;
+
+import cz.nxs.interf.NexusEvents;
 
 
 /**
@@ -84,6 +87,13 @@ public final class RequestRestart extends L2GameClientPacket
 			
 			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANT_RESTART_WHILE_FIGHTING));
 			sendPacket(RestartResponse.valueOf(false));
+			return;
+		}
+		
+		if(NexusEvents.isInEvent(player) && !player.isGM())
+		{
+			player.sendMessage("A superior power doesn't allow you to leave the event");
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		

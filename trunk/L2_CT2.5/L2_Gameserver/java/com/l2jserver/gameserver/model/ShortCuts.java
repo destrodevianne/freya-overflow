@@ -83,6 +83,24 @@ public class ShortCuts
 		registerShortCutInDb(shortcut, oldShortCut);
 	}
 	
+    public synchronized void registerShortCut(L2ShortCut shortcut, boolean storeToDb)
+    {
+    	// verify shortcut
+		if (shortcut.getType() == L2ShortCut.TYPE_ITEM)
+		{
+			L2ItemInstance item = _owner.getInventory().getItemByObjectId(shortcut.getId());
+			if (item == null)
+				return;
+			if (item.isEtcItem())
+				shortcut.setSharedReuseGroup(item.getEtcItem().getSharedReuseGroup());
+		}
+		
+    	L2ShortCut oldShortCut = _shortCuts.put(shortcut.getSlot() + 12 * shortcut.getPage(), shortcut);
+    	
+        if(storeToDb)
+        	registerShortCutInDb(shortcut, oldShortCut);
+    }
+	
 	private void registerShortCutInDb(L2ShortCut shortcut, L2ShortCut oldShortCut)
 	{
 		if (oldShortCut != null)
@@ -141,6 +159,33 @@ public class ShortCuts
 		for (int shotId : _owner.getAutoSoulShot())
 			_owner.sendPacket(new ExAutoSoulShot(shotId, 1));
 	}
+	
+	public synchronized void deleteShortCut(int slot, int page, boolean fromDb)
+    {
+		L2ShortCut old = _shortCuts.remove(slot+page*12);
+		
+		if (old == null || _owner == null)
+			return;
+		
+		if(fromDb)
+			deleteShortCutFromDb(old);
+		
+		if (old.getType() == L2ShortCut.TYPE_ITEM)
+		{
+			L2ItemInstance item = _owner.getInventory().getItemByObjectId(old.getId());
+			
+			if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
+			{
+				if (_owner.removeAutoSoulShot(item.getItemId()))
+					_owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0));
+			}
+		}
+		
+		_owner.sendPacket(new ShortCutInit(_owner));
+		
+		for (int shotId : _owner.getAutoSoulShot())
+			_owner.sendPacket(new ExAutoSoulShot(shotId, 1));
+    }
 	
 	public synchronized void deleteShortCutByObjectId(int objectId)
 	{
@@ -239,4 +284,9 @@ public class ShortCuts
 			}
 		}
 	}
+	
+	public synchronized void tempRemoveAll()
+    {
+    	_shortCuts.clear();
+    }
 }

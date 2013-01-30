@@ -64,6 +64,7 @@ import com.l2jserver.gameserver.model.L2World;
 import com.l2jserver.gameserver.model.L2WorldRegion;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2EventMapGuardInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance.SkillDat;
@@ -118,6 +119,8 @@ import com.l2jserver.gameserver.templates.skills.L2SkillType;
 import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.Point3D;
 import com.l2jserver.util.Rnd;
+
+import cz.nxs.interf.NexusEvents;
 /**
  * Mother class of all character objects of the world (PC, NPC...)<BR><BR>
  *
@@ -747,6 +750,20 @@ public abstract class L2Character extends L2Object
 		if (isAttackingDisabled())
 			return;
 		
+		if(getActingPlayer() != null)
+		{
+			L2PcInstance owner = getActingPlayer();
+			
+			if(NexusEvents.isInEvent(owner))
+			{
+				if(!NexusEvents.canAttack(owner, target))
+				{
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+			}
+		}
+		
 		if (this instanceof L2PcInstance)
 		{
 			if (((L2PcInstance)this).inObserverMode())
@@ -867,9 +884,19 @@ public abstract class L2Character extends L2Object
 						
 						sendPacket(ActionFailed.STATIC_PACKET);
 						return;
-					}
 				}
 			}
+		}
+		
+		if(NexusEvents.isInEvent(this) && NexusEvents.isInEvent(target))
+		{
+			if(!NexusEvents.onAttack(this, target))
+			{
+				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+		}
 			if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
 			{
 				//Check for bolts
@@ -1546,7 +1573,29 @@ public abstract class L2Character extends L2Object
 	
 	private void beginCast(L2Skill skill, boolean simultaneously)
 	{
-		if (!checkDoCastConditions(skill))
+		boolean abort = false;
+		
+		if(getActingPlayer() != null)
+		{
+			L2PcInstance owner = getActingPlayer();
+			
+			if(NexusEvents.isInEvent(owner) && getTarget() instanceof L2Character)
+			{
+				if(!NexusEvents.isSkillNeutral(owner, skill))
+				{
+					if(NexusEvents.isSkillOffensive(owner, skill) && !NexusEvents.canAttack(owner, (L2Character)getTarget()) && owner != getTarget())
+					{
+						abort = true;
+					}
+					else if(!NexusEvents.isSkillOffensive(owner, skill) && !NexusEvents.canSupport(owner, (L2Character)getTarget()))
+					{
+						abort = true;
+					}
+				}
+			}
+		}
+		
+		if (!checkDoCastConditions(skill) || abort)
 		{
 			if (simultaneously)
 				setIsCastingSimultaneouslyNow(false);
@@ -2576,7 +2625,7 @@ public abstract class L2Character extends L2Object
 		if (value == null)
 			_title = "";
 		else
-			_title = value.length() > 16 ? value.substring(0,15) : value;
+			_title = value.length() > 21 ? value.substring(0,20) : value;
 	}
 	
 	/** Set the L2Character movement type to walk and send Server->Client packet ChangeMoveType to all others L2PcInstance. */
@@ -5275,6 +5324,9 @@ public abstract class L2Character extends L2Object
 			if (activeWeapon != null)
 				activeWeapon.getSkillEffects(this, target, crit);
 			
+            if(this instanceof L2EventMapGuardInstance && target instanceof L2PcInstance)
+            	target.doDie(this);
+			
 			/* COMMENTED OUT BY nexus - 2006-08-17
 			 *
 			 * We must not discharge the soulshouts at the onHitTimer method,
@@ -6170,6 +6222,11 @@ public abstract class L2Character extends L2Object
 						abortCast();
 						return;
 					}
+				}
+				
+				if(NexusEvents.isInEvent((L2PcInstance)this))
+				{
+					NexusEvents.onUseSkill((L2PcInstance)this, skill);
 				}
 			}
 			

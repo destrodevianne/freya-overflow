@@ -18,6 +18,7 @@ import com.l2jserver.Config;
 import com.l2jserver.gameserver.datatables.ClanTable;
 import com.l2jserver.gameserver.instancemanager.TownManager;
 import com.l2jserver.gameserver.model.L2Clan;
+import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Character;
 import com.l2jserver.gameserver.model.actor.L2Npc;
 import com.l2jserver.gameserver.model.actor.L2Summon;
@@ -113,7 +114,7 @@ public abstract class AbstractNpcInfo extends L2GameServerPacket
 			else
 				_title = cha.getTitle(); // On every subclass
 			
-			if (Config.SHOW_NPC_LVL && _npc instanceof L2MonsterInstance)
+			if (Config.SHOW_NPC_LVL && _npc instanceof L2MonsterInstance && ((L2Attackable)_npc).canShowLevelInTitle())
 			{
 				String t = "Lv " + cha.getLevel() + (cha.getAggroRange() > 0 ? "*" : "");
 				if (_title != null)

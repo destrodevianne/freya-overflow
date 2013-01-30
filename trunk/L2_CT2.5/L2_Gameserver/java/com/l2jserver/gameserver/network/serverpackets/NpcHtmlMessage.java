@@ -203,9 +203,30 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 		return true;
 	}
 	
+	public boolean setFile(String path)
+	{
+		return setFile(null, path);
+	}
+	
 	public void replace(String pattern, String value)
 	{
 		_html = _html.replaceAll(pattern, value.replaceAll("\\$", "\\\\\\$"));
+	}
+	
+	public void replace2(String pattern, String value)
+	{
+		_html = _html.replaceAll(pattern, value);
+	}
+	
+	public boolean setEventHtml(String path)
+	{
+        String content = HtmCache.getInstance().getHtm(path);
+
+		if (content == null)
+			return false;
+
+        setHtml(content);
+        return true;
 	}
 	
 	private final void buildBypassCache(L2PcInstance activeChar)
@@ -254,5 +275,9 @@ public final class NpcHtmlMessage extends L2GameServerPacket
 	{
 		return _S__1B_NPCHTMLMESSAGE;
 	}
-	
+
+	public String getText()
+	{
+		return _html;
+	}
 }

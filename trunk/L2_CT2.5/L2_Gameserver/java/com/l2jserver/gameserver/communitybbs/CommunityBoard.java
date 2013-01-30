@@ -26,6 +26,8 @@ import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.ShowBoard;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
+import cz.nxs.interf.NexusEvents;
+
 public class CommunityBoard
 {
 	private CommunityBoard()
@@ -41,6 +43,9 @@ public class CommunityBoard
 	{
 		L2PcInstance activeChar = client.getActiveChar();
 		if (activeChar == null)
+			return;
+		
+		if(NexusEvents.cbBypass(activeChar, command))
 			return;
 		
 		switch (Config.COMMUNITY_TYPE)

@@ -309,6 +309,7 @@ public class L2Party
 		msg.addString(player.getName());
 		broadcastToPartyMembers(msg);
 		broadcastToPartyMembers(new PartySmallWindowAdd(player, this));
+		
 		// send the position of all party members to the new party member
 		//player.sendPacket(new PartyMemberPosition(this));
 		// send the position of the new party member to all party members (except the new one - he knows his own position)
