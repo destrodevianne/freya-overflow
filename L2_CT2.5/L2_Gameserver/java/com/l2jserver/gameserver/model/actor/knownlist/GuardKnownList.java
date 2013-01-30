@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import com.l2jserver.Config;
 import com.l2jserver.gameserver.ai.CtrlIntention;
 import com.l2jserver.gameserver.model.L2Object;
+import com.l2jserver.gameserver.model.actor.instance.L2EventMapGuardInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2GuardInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
@@ -42,7 +43,7 @@ public class GuardKnownList extends AttackableKnownList
 		if (object instanceof L2PcInstance)
 		{
 			// Check if the object added is a L2PcInstance that owns Karma
-			if (((L2PcInstance)object).getKarma() > 0)
+			if (((L2PcInstance)object).getKarma() > 0 || getActiveChar() instanceof L2EventMapGuardInstance)
 			{
 				if (Config.DEBUG)
 					_log.fine(getActiveChar().getObjectId()+": PK "+object.getObjectId()+" entered scan range");

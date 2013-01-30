@@ -43,6 +43,8 @@ import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.util.GMAudit;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -82,6 +84,9 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		
 		try
 		{
+			if (NexusEvents.onBypass(activeChar, _command))
+				return;
+			
 			if (_command.startsWith("admin_")) //&& activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 			{
 				String command = _command.split(" ")[0];
@@ -101,6 +106,15 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				{
 					activeChar.sendMessage("You don't have the access rights to use this command!");
 					_log.warning("Character " + activeChar.getName() + " tried to use admin command " + command + ", without proper access level!");
+					return;
+				}
+				
+				if(NexusEvents.adminCommandRequiresConfirm(_command))
+				{
+					activeChar.setAdminConfirmCmd(_command);
+					ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.S1);
+					dlg.addString("Are you sure you want execute command "+ _command.split(" ")[1] +" ?");
+					activeChar.sendPacket(dlg);
 					return;
 				}
 				

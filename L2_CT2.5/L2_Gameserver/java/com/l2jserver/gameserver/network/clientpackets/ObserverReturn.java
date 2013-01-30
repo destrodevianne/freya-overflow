@@ -16,6 +16,8 @@ package com.l2jserver.gameserver.network.clientpackets;
 
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * This class ...
  *
@@ -37,7 +39,11 @@ public final class ObserverReturn extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		if (activeChar.inObserverMode()) activeChar.leaveObserverMode();
+		
+		if(NexusEvents.isObserving(activeChar))
+			NexusEvents.endObserving(activeChar);
+		else if (activeChar.inObserverMode()) 
+			activeChar.leaveObserverMode();
 		//activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(), activeChar.getObsZ());
 	}
 	

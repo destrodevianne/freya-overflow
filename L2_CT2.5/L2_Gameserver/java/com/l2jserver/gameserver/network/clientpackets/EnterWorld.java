@@ -87,6 +87,8 @@ import com.l2jserver.gameserver.network.serverpackets.ShortCutInit;
 import com.l2jserver.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * Enter World Packet Handler<p>
@@ -484,6 +486,8 @@ public class EnterWorld extends L2GameClientPacket
 		CommunityServerThread.getInstance().sendPacket(new WorldInfo(activeChar, null, WorldInfo.TYPE_UPDATE_PLAYER_STATUS));
 		
 		TvTEvent.onLogin(activeChar);
+		
+		NexusEvents.onLogin(activeChar);
 		
 		if (Config.WELCOME_MESSAGE_ENABLED)
 			activeChar.sendPacket(new ExShowScreenMessage(Config.WELCOME_MESSAGE_TEXT, Config.WELCOME_MESSAGE_TIME));

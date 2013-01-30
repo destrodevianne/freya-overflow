@@ -68,7 +68,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			if (triggersOnActionRequest())
 			{
 				final L2PcInstance actor = getClient().getActiveChar();
-				if(actor != null && (actor.isSpawnProtected() || actor.isInvul()))
+				if(actor != null && (actor.isSpawnProtected() || actor.isInvul() || actor.getEventInfo().isInEvent()))
 				{
 					actor.onActionRequest();
 					if (Config.DEBUG)

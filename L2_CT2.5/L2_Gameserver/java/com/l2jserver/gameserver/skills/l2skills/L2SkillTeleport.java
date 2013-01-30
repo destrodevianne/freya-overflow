@@ -30,6 +30,8 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.templates.StatsSet;
 import com.l2jserver.gameserver.templates.skills.L2SkillType;
 
+import cz.nxs.interf.NexusEvents;
+
 public class L2SkillTeleport extends L2Skill
 {
 	private final String _recallType;
@@ -59,6 +61,12 @@ public class L2SkillTeleport extends L2Skill
 		{
 			// Thanks nbd
 			if (!TvTEvent.onEscapeUse(((L2PcInstance) activeChar).getObjectId()))
+			{
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+			
+			if(NexusEvents.isInEvent((L2PcInstance) activeChar))
 			{
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
@@ -116,6 +124,12 @@ public class L2SkillTeleport extends L2Skill
 					{
 						targetChar.sendMessage("You cannot use escape skills during a duel.");
 						continue;
+					}
+					
+					if(NexusEvents.isInEvent(targetChar))
+					{
+						activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+						return;
 					}
 					
 					if (targetChar != activeChar)

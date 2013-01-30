@@ -100,6 +100,8 @@ DROP TABLE IF EXISTS merchant_lease;
 DROP TABLE IF EXISTS merchant_shopids;
 DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS minions;
+DROP TABLE IF EXISTS nexus_fullpatch;
+DROP TABLE IF EXISTS nexus_npcs_OLD-L2J;
 DROP TABLE IF EXISTS npc;
 DROP TABLE IF EXISTS npc_buffer;
 DROP TABLE IF EXISTS npcaidata;

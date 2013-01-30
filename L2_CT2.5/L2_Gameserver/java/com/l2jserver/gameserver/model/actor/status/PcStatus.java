@@ -33,6 +33,8 @@ import com.l2jserver.gameserver.skills.Stats;
 import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+
 public class PcStatus extends PlayableStatus
 {
 	private double _currentCp = 0; //Current CP of the L2PcInstance
@@ -114,6 +116,14 @@ public class PcStatus extends PlayableStatus
 					// cancel duel if player got hit by another player, that is not part of the duel
 					if (attackerPlayer.getDuelId() != getActiveChar().getDuelId())
 						getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
+				}
+			}
+			
+			if(attackerPlayer != null)
+			{
+				if(NexusEvents.isInEvent(attackerPlayer))
+				{
+					NexusEvents.onHit(attackerPlayer, getActiveChar(), fullValue, isDOT);
 				}
 			}
 			

@@ -25,6 +25,8 @@ import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.templates.item.L2EtcItem;
 import com.l2jserver.gameserver.templates.item.L2Item;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -95,6 +97,15 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		{
 			activeChar.sendMessage("Cannot use this item.");
 			return;
+		}
+		
+		if(NexusEvents.isInEvent(activeChar))
+		{
+			if(!NexusEvents.canUseItem(activeChar, item))
+			{
+				activeChar.sendMessage("Cannot use this item.");
+				return;
+			}
 		}
 		
 		L2ItemInstance[] unequiped =

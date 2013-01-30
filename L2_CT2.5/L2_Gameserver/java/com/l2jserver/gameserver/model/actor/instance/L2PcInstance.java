@@ -268,6 +268,9 @@ import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.Point3D;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+import cz.nxs.interf.PlayerEventInfo;
+
 /**
  * This class represents all player characters in the world.
  * There is always a client-thread connected to this (except if a player-store is activated upon logout).<BR><BR>
@@ -1021,6 +1024,70 @@ public final class L2PcInstance extends L2Playable
 			return _target;
 		}
 	}
+	
+	private PlayerEventInfo _eventInfo = new PlayerEventInfo(this);
+	
+	// Nexus Events antifeed protection
+	
+	private L2PcTemplate _antifeedTemplate = null;
+	private boolean _antifeedSex;
+	
+	private L2PcTemplate createRandomAntifeedTemplate()
+	{
+		Race race = null;
+		
+		while(race == null)
+		{
+			race = Race.values()[Rnd.get(Race.values().length)];
+			if(race == getRace() || race == Race.Kamael)
+				race = null;
+		}
+		
+		PlayerClass p;
+		for(ClassId c : ClassId.values())
+		{
+			p = PlayerClass.values()[c.getId()];
+			if(p.isOfRace(race) && p.isOfLevel(ClassLevel.Fourth))
+			{
+				_antifeedTemplate = CharTemplateTable.getInstance().getTemplate(c);
+				break;
+			}
+		}
+		
+		if(getRace() == Race.Kamael)
+			_antifeedSex = getAppearance().getSex();
+		
+		_antifeedSex = Rnd.get(2) == 0 ? true : false;
+		
+		return _antifeedTemplate;
+	}
+	
+	public void startAntifeedProtection(boolean start, boolean broadcast)
+	{
+		if(!start)
+		{
+			getAppearance().setVisibleName(getName());
+			_antifeedTemplate = null;
+		}
+		else
+		{
+			getAppearance().setVisibleName("Unknown");
+			createRandomAntifeedTemplate();
+		}
+	}
+	
+	public L2PcTemplate getAntifeedTemplate()
+	{
+		return _antifeedTemplate;
+	}
+	
+	public boolean getAntifeedSex()
+	{
+		return _antifeedSex;
+	}
+	
+	// Nexus Events antifeed protection end
+	
 	/**
 	 * Create a new L2PcInstance and add it in the characters table of the database.<BR><BR>
 	 *
@@ -1871,6 +1938,11 @@ public final class L2PcInstance extends L2Playable
 		_shortCuts.registerShortCut(shortcut);
 	}
 	
+	public void registerShortCut(L2ShortCut shortcut, boolean storeToDb)
+	{
+		_shortCuts.registerShortCut(shortcut, storeToDb);
+	}
+	
 	/**
 	 * Delete the L2ShortCut corresponding to the position (page-slot) from the L2PcInstance _shortCuts.<BR><BR>
 	 */
@@ -1879,12 +1951,27 @@ public final class L2PcInstance extends L2Playable
 		_shortCuts.deleteShortCut(slot, page);
 	}
 	
+	public void deleteShortCut(int slot, int page, boolean fromDb)
+	{
+		_shortCuts.deleteShortCut(slot, page, fromDb);
+	}
+	
 	/**
 	 * Add a L2Macro to the L2PcInstance _macroses<BR><BR>
 	 */
 	public void registerMacro(L2Macro macro)
 	{
 		_macroses.registerMacro(macro);
+	}
+	
+	public void restoreShortCuts()
+	{
+		_shortCuts.restore();
+	}
+	
+	public void removeAllShortcuts()
+	{
+		_shortCuts.tempRemoveAll();
 	}
 	
 	/**
@@ -3215,7 +3302,7 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void standUp()
 	{
-		if (L2Event.active && eventSitForced)
+		if (((L2Event.active && L2Event.isOnEvent(this)) || NexusEvents.isInEvent(this)) && eventSitForced)
 		{
 			sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
 		}
@@ -5141,6 +5228,14 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 		
+		if(NexusEvents.isInEvent(this) && newTarget != null)
+		{
+			if(NexusEvents.canTarget(this, newTarget))
+			{
+				
+			}
+		}
+		
 		// Get the current target
 		L2Object oldTarget = getTarget();
 		
@@ -5435,6 +5530,13 @@ public final class L2PcInstance extends L2Playable
 			
 			TvTEvent.onKill(killer, this);
 			
+			if(NexusEvents.isInEvent(this))
+			{
+				NexusEvents.onDie(this, killer);
+				if(pk != null && NexusEvents.isInEvent(pk))
+					NexusEvents.onKill(pk, this);
+			}
+			
 			if (atEvent && pk != null)
 			{
 				pk.kills.add(getName());
@@ -5545,15 +5647,18 @@ public final class L2PcInstance extends L2Playable
 		// Unsummon Cubics
 		if (!_cubics.isEmpty())
 		{
-			for (L2CubicInstance cubic : _cubics.values())
+			if(!NexusEvents.isInEvent(this) || NexusEvents.removeCubics())
 			{
-				cubic.stopAction();
-				cubic.cancelDisappear();
+				for (L2CubicInstance cubic : _cubics.values())
+				{
+					cubic.stopAction();
+					cubic.cancelDisappear();
+				}
+				
+				_cubics.clear();
 			}
-			
-			_cubics.clear();
 		}
-		
+				
 		if (_fusionSkill != null)
 			abortCast();
 		
@@ -5586,6 +5691,9 @@ public final class L2PcInstance extends L2Playable
 	
 	private void onDieDropItem(L2Character killer)
 	{
+		if(NexusEvents.isInEvent(this))
+			return;
+		
 		if (atEvent || killer == null)
 			return;
 		
@@ -5704,6 +5812,12 @@ public final class L2PcInstance extends L2Playable
 		if (targetPlayer == null) return;                                          // Target player is null
 		if (targetPlayer == this) return;                                          // Target player is self
 		
+		if(NexusEvents.isInEvent(this) && NexusEvents.canAttack(this, target) && NexusEvents.gainPvpPointsOnEvents())
+		{
+			increasePvpKills(targetPlayer, true);
+			return;
+		}
+		
 		if (isCursedWeaponEquipped())
 		{
 			CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquippedId);
@@ -5766,21 +5880,28 @@ public final class L2PcInstance extends L2Playable
 		}
 	}
 	
+	public void increasePvpKills(L2Character target)
+	{
+		increasePvpKills(target, false);
+	}
+	
 	/**
 	 * Increase the pvp kills count and send the info to the player
 	 *
 	 */
-	public void increasePvpKills(L2Character target)
+	public void increasePvpKills(L2Character target, boolean event)
 	{
-		if (target instanceof L2PcInstance
-				&& AntiFeedManager.getInstance().check(this, target))
+		if (target instanceof L2PcInstance)
 		{
-			// Add karma to attacker and increase its PK counter
-			setPvpKills(getPvpKills() + 1);
-			
-			// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
-			sendPacket(new UserInfo(this));
-			sendPacket(new ExBrExtraUserInfo(this));
+			if(event || AntiFeedManager.getInstance().check(this, target))
+			{
+				// Add karma to attacker and increase its PK counter
+				setPvpKills(getPvpKills() + 1);
+				
+				// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
+				sendPacket(new UserInfo(this));
+				sendPacket(new ExBrExtraUserInfo(this));
+			}
 		}
 	}
 	
@@ -5792,6 +5913,9 @@ public final class L2PcInstance extends L2Playable
 	 */
 	public void increasePkKillsAndKarma(L2Character target)
 	{
+		if(NexusEvents.isInEvent(this))
+			return;
+		
 		int baseKarma           = Config.KARMA_MIN_KARMA;
 		int newKarma            = baseKarma;
 		int karmaLimit          = Config.KARMA_MAX_KARMA;
@@ -6012,6 +6136,11 @@ public final class L2PcInstance extends L2Playable
 			}
 			else if (killed_by_pc)
 				lostExp = 0;
+		}
+		
+		if(NexusEvents.isInEvent(this))
+		{
+			lostExp = 0;
 		}
 		
 		if (Config.DEBUG)
@@ -6560,6 +6689,12 @@ public final class L2PcInstance extends L2Playable
 		
 		// Don't allow disarming a Combat Flag or Territory Ward
 		if (isCombatFlagEquipped()) return false;
+		
+		if(NexusEvents.isInEvent(this))
+		{
+			if(!NexusEvents.canBeDisarmed(this))
+				return false;
+		}
 		
 		// Unequip the weapon
 		L2ItemInstance wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
@@ -8566,6 +8701,14 @@ public final class L2PcInstance extends L2Playable
 		if (attacker instanceof L2MonsterInstance)
 			return true;
 		
+		if(NexusEvents.isInEvent(this))
+		{
+			if(NexusEvents.canAttack(this, attacker))
+				return true;
+			else
+				return false;
+		}
+		
 		// Check if the attacker is not in the same party
 		if (getParty() != null && getParty().getPartyMembers().contains(attacker))
 			return false;
@@ -8676,6 +8819,15 @@ public final class L2PcInstance extends L2Playable
 			// Send a Server->Client packet ActionFailed to the L2PcInstance
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
+		}
+		
+		if(NexusEvents.isInEvent(this))
+		{
+			if(!NexusEvents.canUseSkill(this, skill))
+			{
+				sendPacket(ActionFailed.STATIC_PACKET);
+				return false;
+			}
 		}
 		
 		//************************************* Check Casting in Progress *******************************************
@@ -9409,6 +9561,22 @@ public final class L2PcInstance extends L2Playable
 		// check for PC->PC Pvp status
 		if(target instanceof L2Summon)
 			target = target.getActingPlayer();
+
+		if(NexusEvents.isInEvent(this) && target != null && target instanceof L2PcInstance)
+		{
+			if(!NexusEvents.isInEvent((L2PcInstance) target))
+				return false;
+			
+			if(!NexusEvents.isSkillNeutral(this, skill))
+			{
+				if(NexusEvents.isSkillOffensive(this, skill) && !NexusEvents.canAttack(this, (L2Character) target))
+					return false;
+				
+				if(!NexusEvents.isSkillOffensive(this, skill) && !NexusEvents.canSupport(this, (L2Character) target))
+					return false;
+			}
+		}
+		
 		if (
 				target != null &&                                           			// target not null and
 				target != this &&                                           			// target is not self and
@@ -10475,8 +10643,28 @@ public final class L2PcInstance extends L2Playable
 					continue;
 				if (s.getId() > 9000 && s.getId() < 9007)
 					continue; // Fake skills to change base stats
-				if (_transformation != null && (!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform()))
-					continue;
+				
+				if(_transformation != null)
+				{
+					if(NexusEvents.isInEvent(player))
+					{
+						int canUseSkill = NexusEvents.allowTransformationSkill(player, s);
+						
+						if(canUseSkill == -1)
+							continue;
+						else if(canUseSkill == 0)
+						{
+							if(!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform())
+								continue;
+						}
+					}
+					else 
+					{
+						if(!containsAllowedTransformSkill(s.getId()) && !s.allowOnTransform())
+							continue;
+					}
+				}
+				
 				if (player.getClan() != null)
 					isDisabled = s.isClanSkill() && player.getClan().getReputationScore() < 0;
 				
@@ -10747,6 +10935,9 @@ public final class L2PcInstance extends L2Playable
 		
 		try
 		{
+			if(NexusEvents.isRegistered(this))
+				return false;
+			
 			// Cannot switch or change subclasses while transformed
 			if (_transformation != null)
 				return false;
@@ -11153,6 +11344,9 @@ public final class L2PcInstance extends L2Playable
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_ARE_NO_LONGER_PROTECTED_FROM_AGGRESSIVE_MONSTERS));
 		if (isTeleportProtected())
 			sendMessage("Teleport spawn protection ended.");
+		
+		getEventInfo().onAction();
+		
 		setProtection(false);
 		setTeleportProtection(false);
 	}
@@ -11953,6 +12147,15 @@ public final class L2PcInstance extends L2Playable
 		if (getClanId() > 0)
 			getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
 		//ClanTable.getInstance().getClan(getClanId()).broadcastToOnlineMembers(new PledgeShowMemberListAdd(this));
+		
+		try
+		{
+			NexusEvents.onLogout(this);
+		}
+		catch (Exception e)
+		{
+			_log.log(Level.SEVERE, "deleteMe() - nexus events", e);
+		}
 		
 		for (L2PcInstance player : _snoopedPlayer)
 			player.removeSnooper(this);
@@ -14985,6 +15188,11 @@ public final class L2PcInstance extends L2Playable
 		{
 			L2DatabaseFactory.close(con);
 		}
+	}
+	
+	public PlayerEventInfo getEventInfo()
+	{
+		return _eventInfo;
 	}
 
 	public String getAdminConfirmCmd()

@@ -30,6 +30,8 @@ import com.l2jserver.gameserver.model.entity.Fort;
 import com.l2jserver.gameserver.model.entity.TvTEvent;
 import com.l2jserver.gameserver.model.entity.clanhall.SiegableHall;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * sample
  * 0b
@@ -65,6 +67,18 @@ public class Die extends L2GameServerPacket
 		}
 		_charObjId = cha.getObjectId();
 		_canTeleport = !((cha instanceof L2PcInstance && TvTEvent.isStarted() && TvTEvent.isPlayerParticipant(_charObjId)) || cha.isPendingRevive());
+		
+		if(cha instanceof L2PcInstance)
+		{
+			if(NexusEvents.isInEvent((L2PcInstance)cha))
+			{
+				if(!NexusEvents.canShowToVillageWindow((L2PcInstance)cha))
+				{
+					_canTeleport = false;
+				}
+			}
+		}
+		
 		if (cha instanceof L2Attackable)
 			_sweepable = ((L2Attackable)cha).isSweepActive();
 		

@@ -23,6 +23,8 @@ import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.network.serverpackets.ActionFailed;
 import com.l2jserver.gameserver.templates.skills.L2SkillType;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -69,8 +71,26 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 		// Check the validity of the skill
 		if (skill != null)
 		{
-			if ((activeChar.isTransformed() || activeChar.isInStance())
-					&& !activeChar.containsAllowedTransformSkill(skill.getId()))
+			boolean allow = true;
+			if(activeChar.isTransformed() || activeChar.isInStance())
+			{
+				if(NexusEvents.isInEvent(activeChar))
+				{
+					int allowSkill = NexusEvents.allowTransformationSkill(activeChar, skill);
+					
+					if(allowSkill == -1)
+						allow = false;
+					else if(allowSkill == 0)
+					{
+						if(!activeChar.containsAllowedTransformSkill(skill.getId()))
+							allow = false;
+					}
+				}
+				else if(!activeChar.containsAllowedTransformSkill(skill.getId()))
+					allow = false;
+			}
+			
+			if (!allow)
 			{
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;

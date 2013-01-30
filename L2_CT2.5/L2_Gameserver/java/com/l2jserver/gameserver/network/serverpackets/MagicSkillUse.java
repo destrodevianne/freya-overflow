@@ -55,6 +55,23 @@ public final class MagicSkillUse extends L2GameServerPacket
 		//_flags |= 0x20;
 	}
 	
+	public MagicSkillUse(int x, int y, int z, L2Character owner, int skillId, int skillLevel, int hitTime, int reuseDelay)
+	{
+		_charObjId = owner.getObjectId();
+		_targetId = owner.getObjectId();
+		_skillId = skillId;
+		_skillLevel = skillLevel;
+		_hitTime = hitTime;
+		_reuseDelay = reuseDelay;
+		_x = x;
+		_y = y;
+		_z = z;
+		_tx = x;
+		_ty = y;
+		_tz = z;
+		//_flags |= 0x20;
+	}
+	
 	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int hitTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();

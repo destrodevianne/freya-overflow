@@ -29,6 +29,8 @@ import com.l2jserver.gameserver.model.actor.stat.CharStat;
 import com.l2jserver.gameserver.skills.Formulas;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+
 
 public class CharStatus
 {
@@ -174,6 +176,14 @@ public class CharStatus
 				getActiveChar().stopStunning(true);
 		}
 		
+		if(attacker != null)
+		{
+			if(NexusEvents.isInEvent(getActiveChar()) && NexusEvents.isInEvent(attacker))
+			{
+				NexusEvents.onDamageGive(getActiveChar(), attacker, (int)value, isDOT);
+			}
+		}
+		
 		if (value > 0) // Reduce Hp if any, and Hp can't be negative
 			setCurrentHp(Math.max(getCurrentHp() - value, 0));
 		
@@ -186,7 +196,15 @@ public class CharStatus
 			if (Config.DEBUG)
 				_log.fine("char is dead.");
 			
-			getActiveChar().doDie(attacker);
+			boolean allowDie = true;
+			if(NexusEvents.isInEvent(getActiveChar()))
+			{
+				if(!NexusEvents.allowDie(getActiveChar(), attacker))
+				 allowDie = false;
+			}
+			
+			if(allowDie)
+				getActiveChar().doDie(attacker);
 		}
 	}
 	

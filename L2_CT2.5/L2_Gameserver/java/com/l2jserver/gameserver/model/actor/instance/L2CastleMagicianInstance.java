@@ -35,6 +35,8 @@ import com.l2jserver.gameserver.templates.chars.L2NpcTemplate;
 import com.l2jserver.gameserver.templates.skills.L2EffectType;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * @author Kerberos | ZaKaX
  */
@@ -559,6 +561,12 @@ public class L2CastleMagicianInstance extends L2NpcInstance implements L2SquadTr
 					return false;
 				}
 			}
+		}
+		
+		if(NexusEvents.isInEvent(player) || NexusEvents.isInEvent(clanLeader))
+		{
+			player.sendMessage("You or your CL is on an event. You cannot teleport!");
+			return false;
 		}
 		
 		if (!TvTEvent.onEscapeUse(player.getObjectId()))

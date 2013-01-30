@@ -36,6 +36,8 @@ import com.l2jserver.gameserver.templates.item.L2Item;
 import com.l2jserver.gameserver.templates.item.L2Weapon;
 import com.l2jserver.gameserver.templates.item.L2WeaponType;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -67,6 +69,11 @@ public final class UseItem extends L2GameClientPacket
 				return;
 			// Equip or unEquip
 			activeChar.useEquippableItem(item, false);
+			
+			if(NexusEvents.isInEvent(activeChar))
+			{
+				NexusEvents.onUseItem(activeChar, item);
+			}
 		}
 	}
 	
@@ -195,6 +202,12 @@ public final class UseItem extends L2GameClientPacket
 			getClient().getActiveChar().sendPacket(sm);
 			sm = null;
 			return;
+		}
+		
+		if(NexusEvents.isInEvent(activeChar))
+		{
+			if(!NexusEvents.canUseItem(activeChar, item))
+				return;
 		}
 		
 		// No UseItem is allowed while the player is in special conditions
@@ -387,6 +400,11 @@ public final class UseItem extends L2GameClientPacket
 				else
 					handler.useItem(activeChar, item, _ctrlPressed);
 			}
+		}
+		
+		if(NexusEvents.isInEvent(activeChar))
+		{
+			NexusEvents.onUseItem(activeChar, item);
 		}
 		//		}
 	}

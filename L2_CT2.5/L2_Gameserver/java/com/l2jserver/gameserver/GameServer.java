@@ -137,6 +137,8 @@ import com.l2jserver.status.Status;
 import com.l2jserver.util.DeadLockDetector;
 import com.l2jserver.util.IPv4Filter;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * This class ...
  * 
@@ -403,10 +405,13 @@ public class GameServer
 			GeoEditorListener.getInstance();
 		
 		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
-		
+		//
 		_log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 		
 		TvTManager.getInstance();
+		
+		NexusEvents.start();
+		
 		KnownListUpdateTaskManager.getInstance();
 		
 		if ((Config.OFFLINE_TRADE_ENABLE || Config.OFFLINE_CRAFT_ENABLE) && Config.RESTORE_OFFLINERS)

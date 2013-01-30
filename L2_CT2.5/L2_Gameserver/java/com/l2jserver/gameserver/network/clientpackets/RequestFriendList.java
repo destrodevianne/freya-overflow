@@ -44,6 +44,12 @@ public final class RequestFriendList extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
+		if(activeChar.getEventInfo().hasAntifeedProtection())
+		{
+			activeChar.sendMessage("You may not open your friend list while you're on an event.");
+			return;
+		}
+		
 		SystemMessage sm;
 		
 		// ======<Friend List>======

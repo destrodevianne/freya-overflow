@@ -28,6 +28,7 @@ import com.l2jserver.gameserver.model.L2WorldRegion;
 import com.l2jserver.gameserver.model.actor.L2Attackable;
 import com.l2jserver.gameserver.model.actor.L2Character;
 import com.l2jserver.gameserver.model.actor.L2Playable;
+import com.l2jserver.gameserver.model.actor.instance.L2EventMapGuardInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2GuardInstance;
 
 
@@ -113,7 +114,8 @@ public class KnownListUpdateTaskManager
 						continue; // skip dying objects
 					
 					// Some mobs need faster knownlist update
-					final boolean aggro = (Config.GUARD_ATTACK_AGGRO_MOB && object instanceof L2GuardInstance)
+					final boolean aggro = (Config.GUARD_ATTACK_AGGRO_MOB && object instanceof L2GuardInstance) 
+					|| (object instanceof L2EventMapGuardInstance)
 					|| (object instanceof L2Attackable && ((L2Attackable)object).getEnemyClan() != null);
 					
 					if (forgetObjects)

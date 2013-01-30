@@ -44,6 +44,8 @@ import com.l2jserver.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2jserver.gameserver.templates.skills.L2SkillType;
 import com.l2jserver.util.Rnd;
 
+import cz.nxs.interf.NexusEvents;
+
 public class L2CubicInstance
 {
 	protected static final Logger _log = Logger.getLogger(L2CubicInstance.class.getName());
@@ -313,6 +315,17 @@ public class L2CubicInstance
 				}
 				return;
 			}
+			
+			if(NexusEvents.isInEvent(_owner))
+			{
+				if(ownerTarget instanceof L2Character)
+				{
+					if(NexusEvents.canAttack(_owner, (L2Character)ownerTarget))
+						_target = (L2Character) ownerTarget;
+					return;
+				}
+			}
+			
 			// Duel targeting
 			if (_owner.isInDuel())
 			{

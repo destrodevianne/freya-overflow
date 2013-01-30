@@ -54,6 +54,8 @@ import com.l2jserver.gameserver.util.FloodProtectors;
 import com.l2jserver.gameserver.util.Util;
 import com.l2jserver.util.EventData;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * Represents a client connected on Game Server
  * @author  KenM
@@ -714,6 +716,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 							&& !player.isFestivalParticipant()
 							&& !TvTEvent.isPlayerParticipant(player.getObjectId())
 							&& !player.isInJail()
+							&& !NexusEvents.isInEvent(player)
 							&& player.getVehicle() == null)
 					{
 						if ((((player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL) || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY)) && Config.OFFLINE_TRADE_ENABLE) || ((player.isInCraftMode() || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)) && Config.OFFLINE_CRAFT_ENABLE))

@@ -25,6 +25,8 @@ import com.l2jserver.gameserver.network.SystemMessageId;
 import com.l2jserver.gameserver.network.serverpackets.AskJoinParty;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  *  sample
@@ -110,6 +112,12 @@ public final class RequestJoinParty extends L2GameClientPacket
 		if (target.getClient().isDetached())
 		{
 			requestor.sendMessage("Player is in offline mode.");
+			return;
+		}
+		
+		if(NexusEvents.isInEvent(requestor) && !NexusEvents.canInviteToParty(requestor, target))
+		{
+			requestor.sendMessage("You may not invite this player to the party.");
 			return;
 		}
 		

@@ -79,6 +79,8 @@ import com.l2jserver.gameserver.util.Broadcast;
 import com.l2jserver.util.Rnd;
 import com.l2jserver.util.StringUtil;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * This class represents a Non-Player-Character in the world. It can be a monster or a friendly character.
  * It also uses a template to fetch some static values. The templates are hardcoded in the client, so we can rely on them.<BR><BR>
@@ -1330,6 +1332,9 @@ public class L2Npc extends L2Character
 				filename = (getHtmlPath(npcId, val));
 				break;
 		}
+		
+		if(NexusEvents.onNpcAction(player, this))
+			return;
 		
 		// Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());

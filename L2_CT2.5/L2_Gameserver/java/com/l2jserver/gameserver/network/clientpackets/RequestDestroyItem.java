@@ -32,6 +32,8 @@ import com.l2jserver.gameserver.network.serverpackets.StatusUpdate;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.util.Util;
 
+import cz.nxs.interf.NexusEvents;
+
 
 /**
  * This class ...
@@ -116,6 +118,12 @@ public final class RequestDestroyItem extends L2GameClientPacket
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.HERO_WEAPONS_CANT_DESTROYED));
 			else
 				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
+			return;
+		}
+		
+		if(!NexusEvents.canDestroyItem(activeChar, itemToRemove))
+		{
+			activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 			return;
 		}
 		

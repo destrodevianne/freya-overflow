@@ -61,6 +61,8 @@ import com.l2jserver.gameserver.templates.item.L2ArmorType;
 import com.l2jserver.gameserver.templates.skills.L2SkillType;
 import com.l2jserver.gameserver.util.Util;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * This class...
  *
@@ -2501,6 +2503,8 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		if (target == null || target.isDead() || target == caster)
 			return false;
 		
+		boolean geoCanSeeTarget = geoEnabled ? GeoData.getInstance().canSeeTarget(caster, target) : true;
+		
 		final L2PcInstance player = caster.getActingPlayer();
 		final L2PcInstance targetPlayer = target.getActingPlayer();
 		if (player != null)
@@ -2509,6 +2513,23 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			{
 				if (targetPlayer == caster || targetPlayer == player)
 					return false;
+					
+				if(NexusEvents.isInEvent(player))
+				{
+					if(!NexusEvents.isInEvent(targetPlayer))
+						return false;
+					
+					if(!NexusEvents.isSkillNeutral(player, skill))
+					{
+						if(NexusEvents.isSkillOffensive(player, skill) && !NexusEvents.canAttack(player, targetPlayer))
+							return false;
+						
+						if(!NexusEvents.isSkillOffensive(player, skill) && !NexusEvents.canSupport(player, targetPlayer))
+							return false;
+					}
+					
+					return geoCanSeeTarget;
+				}
 				
 				if (targetPlayer.inObserverMode())
 					return false;

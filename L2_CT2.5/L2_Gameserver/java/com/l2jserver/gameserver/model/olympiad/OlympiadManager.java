@@ -33,6 +33,8 @@ import com.l2jserver.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2jserver.gameserver.network.serverpackets.SystemMessage;
 import com.l2jserver.gameserver.templates.StatsSet;
 
+import cz.nxs.interf.NexusEvents;
+
 /**
  * 
  * @author DS
@@ -221,6 +223,12 @@ public class OlympiadManager
 			sm = SystemMessage.getSystemMessage(SystemMessageId.GAME_REQUEST_CANNOT_BE_MADE);
 			player.sendPacket(sm);
 			return false;
+		}
+		
+		if(NexusEvents.isRegistered(player)) 
+		{ 
+			player.sendMessage("You may not join olympiad games since you're already on event."); 
+			return false; 
 		}
 		
 		switch (type)
