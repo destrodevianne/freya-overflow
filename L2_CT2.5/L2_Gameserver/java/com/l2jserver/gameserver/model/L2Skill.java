@@ -253,7 +253,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	private final int _numSouls;
 	private final int _expNeeded;
 	private final int _critChance;
-	private final float _dependOnTargetBuff;
+	private final boolean _dependOnTargetBuff;
 	
 	private final int _transformId;
 	private final int _transformDuration;
@@ -572,7 +572,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		
 		_isClanSkill = set.getBool("isClanSkill", false);
 		_excludedFromCheck = set.getBool("excludedFromCheck", false);
-		_dependOnTargetBuff = set.getFloat("dependOnTargetBuff", 0);
+		_dependOnTargetBuff = set.getBool("dependOnTargetBuff", false);
 		_simultaneousCast = set.getBool("simultaneousCast", false);
 		
 		String capsuled_items = set.getString("capsuled_items_skill", null);
@@ -2992,7 +2992,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		return _excludedFromCheck;
 	}
 	
-	public float getDependOnTargetBuff()
+	public boolean getDependOnTargetBuff()
 	{
 		return _dependOnTargetBuff;
 	}
