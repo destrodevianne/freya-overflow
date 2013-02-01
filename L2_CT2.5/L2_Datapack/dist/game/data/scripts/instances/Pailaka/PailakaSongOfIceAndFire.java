@@ -275,7 +275,8 @@ public class PailakaSongOfIceAndFire extends Quest
                         if (player.getLevel() > MAX_LEVEL)
                             return "32497-no.htm";
 						if (cond > 1)
-							return "32497-03.htm";
+							return "32497-00.htm";
+					return "32497-03.htm";
 					case State.COMPLETED:
 						return "32497-07.htm";
 					default:

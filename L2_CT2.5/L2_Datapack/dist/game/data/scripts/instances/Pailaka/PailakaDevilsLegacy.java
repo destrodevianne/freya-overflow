@@ -348,7 +348,8 @@ public class PailakaDevilsLegacy extends Quest
                         if (player.getLevel() > MAX_LEVEL)
                             return "32498-no.htm";
 						if (cond > 1)
-							return "32498-06.htm";
+							return "32498-08.htm";
+						return "32498-06.htm";
 					case State.COMPLETED:
 						return "32498-10.htm";
 					default:
