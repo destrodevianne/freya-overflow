@@ -96,48 +96,4 @@
 		<!-- Ice Storm Hammer -->
 		<production count="1" id="7900" />
 	</item>
-		<item id="13">
-		<ingredient id="57" count="50000000" />
-		<production id="0080" count="1" />
-	</item>
-	<item id="14">
-		<ingredient id="57" count="50000000" />
-		<production id="0098" count="1" />
-	</item>
-	<item id="15">
-		<ingredient id="57" count="50000000" />
-		<production id="0150" count="1" />
-	</item>
-	<item id="16">
-		<ingredient id="57" count="50000000" />
-		<production id="0212" count="1" />
-	</item>
-	<item id="17">
-		<ingredient id="57" count="50000000" />
-		<production id="0235" count="1" />
-	</item>
-	<item id="18">
-		<ingredient id="57" count="50000000" />
-		<production id="0269" count="1" />
-	</item>
-	<item id="19">
-		<ingredient id="57" count="50000000" />
-		<production id="0288" count="1" />
-	</item>
-	<item id="20">
-		<ingredient id="57" count="50000000" />
-		<production id="2504" count="1" />
-	</item>
-	<item id="21">
-		<ingredient id="57" count="50000000" />
-		<production id="7884" count="1" />
-	</item>
-	<item id="22">
-		<ingredient id="57" count="50000000" />
-		<production id="7894" count="1" />
-	</item>
-	<item id="23">
-		<ingredient id="57" count="50000000" />
-		<production id="7899" count="1" />
-	</item>
 </list>
