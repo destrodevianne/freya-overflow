@@ -7,7 +7,7 @@
 
   <!-- Rune of Exp. Points 30% -->
   <item id="1">
-    <ingredient id="9143" count="25"/>
+    <ingredient id="9143" count="15"/>
     <production id="20339" count="1"/>
   </item>
 
