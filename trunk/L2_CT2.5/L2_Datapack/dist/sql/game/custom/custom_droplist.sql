@@ -26,8 +26,6 @@ CREATE TABLE `custom_droplist` (
 -- Records 
 -- ----------------------------
 
----DC y Tallum
-
 INSERT INTO `custom_droplist` VALUES ('21528', '5426', '1', '1', '-1', '8341');
 INSERT INTO `custom_droplist` VALUES ('21527', '5426', '1', '1', '-1', '8341');
 INSERT INTO `custom_droplist` VALUES ('21510', '5368', '1', '1', '-1', '8341');
@@ -42,9 +40,6 @@ INSERT INTO `custom_droplist` VALUES ('21112', '5418', '1', '1', '-1', '8341');
 INSERT INTO `custom_droplist` VALUES ('21567', '5334', '1', '1', '-1', '8341');
 INSERT INTO `custom_droplist` VALUES ('21108', '5346', '1', '1', '-1', '8341');
 INSERT INTO `custom_droplist` VALUES ('21598', '5354', '1', '1', '-1', '8341');
-
----MJ y NM
-
 INSERT INTO `custom_droplist` VALUES ('21304', '5432', '1', '1', '-1', '3785');
 INSERT INTO `custom_droplist` VALUES ('21587', '5338', '1', '1', '-1', '3785');
 INSERT INTO `custom_droplist` VALUES ('21590', '5422', '1', '1', '-1', '3785');
