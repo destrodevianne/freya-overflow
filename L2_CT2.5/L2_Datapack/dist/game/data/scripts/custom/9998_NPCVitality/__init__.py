@@ -32,48 +32,48 @@ class Quest (JQuest) :
                 return "no.htm"
         else :
             st.getPlayer().setTarget(st.getPlayer())
-        if event == "1":
-            count = st.getQuestItemsCount(EVENTCOIN)
-            if count < 1 :
-                return "malo.htm"
-            else : 
-                 st.takeItems(EVENTCOIN,1)
-    	    st.getPlayer().setVitalityPoints(1999,True)
-            st.playSound("ItemSound.quest_finish")
-            st.setState(State.COMPLETED)
-            st.exitQuest(1)
-            return "up.htm"
+#        if event == "1":
+#            count = st.getQuestItemsCount(EVENTCOIN)
+#            if count < 1 :
+#                return "malo.htm"
+#            else : 
+#                 st.takeItems(EVENTCOIN,1)
+#    	    st.getPlayer().setVitalityPoints(1999,True)
+#            st.playSound("ItemSound.quest_finish")
+#            st.setState(State.COMPLETED)
+#            st.exitQuest(1)
+#            return "up.htm"
 
-        if event == "2":
-            count = st.getQuestItemsCount(EVENTCOIN)
-            if count < 2 :
-                return "malo.htm"
-            else : 
-                 st.takeItems(EVENTCOIN,2)
-            st.getPlayer().setVitalityPoints(12999,True)
-            st.playSound("ItemSound.quest_finish")
-            st.setState(State.COMPLETED)
-            st.exitQuest(1)
-            return "up.htm"
+ #       if event == "2":
+ #           count = st.getQuestItemsCount(EVENTCOIN)
+ #           if count < 2 :
+ #               return "malo.htm"
+ #           else : 
+ #                st.takeItems(EVENTCOIN,2)
+ #           st.getPlayer().setVitalityPoints(12999,True)
+ #           st.playSound("ItemSound.quest_finish")
+ #           st.setState(State.COMPLETED)
+ #           st.exitQuest(1)
+ #           return "up.htm"
 
-        if event == "3":
-            count = st.getQuestItemsCount(EVENTCOIN)
-            if count < 3 :
-                return "malo.htm"
-            else : 
-                 st.takeItems(EVENTCOIN,3)
-            st.getPlayer().setVitalityPoints(16999,True)
-            st.playSound("ItemSound.quest_finish")
-            st.setState(State.COMPLETED)
-            st.exitQuest(1)
-            return "up.htm"
+ #       if event == "3":
+ #           count = st.getQuestItemsCount(EVENTCOIN)
+ #           if count < 3 :
+ #               return "malo.htm"
+ #           else : 
+ #                st.takeItems(EVENTCOIN,3)
+ #           st.getPlayer().setVitalityPoints(16999,True)
+ #           st.playSound("ItemSound.quest_finish")
+ #           st.setState(State.COMPLETED)
+ #           st.exitQuest(1)
+ #           return "up.htm"
 
         if event == "4":
             count = st.getQuestItemsCount(EVENTCOIN)
-            if count < 4 :
+            if count < 150 :
                 return "malo.htm"
             else : 
-                 st.takeItems(EVENTCOIN,4)
+                 st.takeItems(EVENTCOIN,150)
             st.getPlayer().setVitalityPoints(19999,True)
             st.playSound("ItemSound.quest_finish")
             st.setState(State.COMPLETED)

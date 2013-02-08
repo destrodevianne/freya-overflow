@@ -8,13 +8,13 @@
   <!-- Sealed Blue Wolf Boots -->
   <item id="1">
     <ingredient id="9143" count="6"/>
-    <production id="5733" count="1"/>
+    <production id="2439" count="1"/>
   </item>
 
   <!-- Sealed Blue Wolf Gloves -->
   <item id="2">
     <ingredient id="9143" count="6"/>
-    <production id="5717" count="1"/>
+    <production id="2487" count="1"/>
   </item>
 
   <!-- Blue Wolf Helmet -->
