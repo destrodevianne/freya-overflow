@@ -8,13 +8,13 @@
   <!-- Sealed Boots of Doom -->
   <item id="1">
     <ingredient id="9143" count="6"/>
-    <production id="5737" count="1"/>
+    <production id="601" count="1"/>
   </item>
 
   <!-- Sealed Doom Gloves -->
   <item id="2">
     <ingredient id="9143" count="6"/>
-    <production id="5721" count="1"/>
+    <production id="2475" count="1"/>
   </item>
 
   <!-- Doom Helmet -->

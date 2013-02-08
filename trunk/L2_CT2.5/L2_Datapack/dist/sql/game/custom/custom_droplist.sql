@@ -50,4 +50,4 @@ INSERT INTO `custom_droplist` VALUES ('21594', '5420', '1', '1', '-1', '3785');
 INSERT INTO `custom_droplist` VALUES ('21595', '5420', '1', '1', '-1', '3785');
 INSERT INTO `custom_droplist` VALUES ('21301', '5430', '1', '1', '-1', '3785');
 INSERT INTO `custom_droplist` VALUES ('21296', '5366', '1', '1', '-1', '3785');
-
+INSERT INTO `custom_droplist` VALUES ('21561', '4090', '1', '1', '-1', '128386');
