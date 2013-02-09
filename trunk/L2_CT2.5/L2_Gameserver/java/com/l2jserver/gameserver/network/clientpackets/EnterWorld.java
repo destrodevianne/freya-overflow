@@ -387,7 +387,8 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(SystemMessage.getSystemMessage(SystemMessageId.WELCOME_TO_LINEAGE));
 		
 		activeChar.sendMessage(getText("RXN0ZSBzZXJ2aWRvciBlc3RhIGNvZGlmaWNhZG8gZW4gYmFzZSBhIEwySiBzZXJ2ZXIgQ1QyLjU="));
-		activeChar.sendMessage(getText("VmVyc2lvbiBkZSBMaW5la2tpdDogMS4x"));
+		activeChar.sendMessage(getText("QWN0dWFsaXphY2lvbmVzIGhlY2hhcyBwb3IgT3ZlcmZsb3IgRFA="));
+		activeChar.sendMessage(getText("VmVyc2lvbiBkZSBMaW5la2tpdDogMi4w"));
 		
 		if (Config.DISPLAY_SERVER_VERSION)
 		{
