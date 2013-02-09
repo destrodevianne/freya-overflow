@@ -77,5 +77,10 @@
     <production id="213" count="1"/>
   </item>
 
+  <!-- Flaming Dragon Skull -->
+  <item id="13">
+    <ingredient id="9143" count="85"/>
+    <production id="7895" count="1"/>
+  </item>
 
 </list>
