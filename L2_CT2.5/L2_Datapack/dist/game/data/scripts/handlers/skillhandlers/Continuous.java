@@ -223,7 +223,7 @@ public class Continuous implements ISkillHandler
 					L2Summon summon = target.getPet();
 					if (summon != null && summon != activeChar && summon instanceof L2SummonInstance && effects.length > 0)
 					{
-						if (effects[0].canBeStolen())
+						if (effects[0].canBeStolen() || skill.isHeroSkill() || skill.isPotion())
 							skill.getEffects(activeChar, target.getPet(), new Env(shld, ss, sps, bss));
 					}
 				}
