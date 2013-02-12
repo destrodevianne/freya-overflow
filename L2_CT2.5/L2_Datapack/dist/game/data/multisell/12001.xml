@@ -7,14 +7,14 @@
 
   <!-- Fresh Fruit Cocktail -->
   <item id="1">
-    <ingredient id="9142" count="12"/>
-    <production id="10179" count="5"/>
+    <ingredient id="9142" count="15"/>
+    <production id="20393" count="5"/>
   </item>
 
   <!-- Sweet Fruit Cocktail -->
   <item id="2">
-    <ingredient id="9142" count="12"/>
-    <production id="10178" count="5"/>
+    <ingredient id="9142" count="15"/>
+    <production id="20394" count="5"/>
   </item>
 
 
