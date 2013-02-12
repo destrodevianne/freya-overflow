@@ -188,6 +188,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-1" />
@@ -201,6 +202,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-2" />
@@ -214,6 +216,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-3" />
@@ -227,6 +230,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-4" />
@@ -240,6 +244,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-5" />
@@ -253,6 +258,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-6" />
@@ -266,6 +272,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-7" />
@@ -279,6 +286,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-8" />
@@ -292,6 +300,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-9" />
@@ -305,6 +314,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-10" />
@@ -318,6 +328,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-11" />
@@ -331,6 +342,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-12" />
@@ -344,6 +356,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-13" />
@@ -357,6 +370,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-14" />
@@ -370,6 +384,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-15" />
@@ -383,6 +398,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-16" />
@@ -396,6 +412,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-17" />
@@ -409,6 +426,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-18" />
@@ -422,6 +440,7 @@
 		<set name="price" val="35000" />
 		<set name="is_stackable" val="true" />
 		<set name="is_sellable" val="false" />
+		<set name="is_tradable" val="false" />
 		<set name="is_oly_restricted" val="true" />
 		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2213-19" />
