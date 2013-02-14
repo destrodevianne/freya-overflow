@@ -65,6 +65,7 @@ import com.l2jserver.gameserver.model.L2WorldRegion;
 import com.l2jserver.gameserver.model.Location;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2EventMapGuardInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2GrandBossInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance.SkillDat;
@@ -749,6 +750,11 @@ public abstract class L2Character extends L2Object
 		
 		if (isAttackingDisabled())
 			return;
+			
+        if (target instanceof L2GrandBossInstance && ((L2Attackable) target).isReturningToSpawnPoint())
+        {
+			return;
+        }
 		
 		if(getActingPlayer() != null)
 		{
@@ -6527,6 +6533,14 @@ public abstract class L2Character extends L2Object
 							else if (_log.isLoggable(Level.WARNING))
 								_log.log(Level.WARNING, "Skill 4515 at level 1 is missing in DP.");
 						}
+						return;
+					}
+					
+					if (target instanceof L2GrandBossInstance && ((L2Attackable) target).isReturningToSpawnPoint())
+					{
+						abortAttack();
+						abortCast();
+						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 						return;
 					}
 					
