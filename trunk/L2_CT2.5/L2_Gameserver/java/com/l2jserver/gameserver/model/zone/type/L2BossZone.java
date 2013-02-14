@@ -217,7 +217,7 @@ public class L2BossZone extends L2ZoneType
 							if (raid == null || raid.getSpawn() == null || raid.isDead())
 								continue;
 							if (!raid.isInsideRadius(raid.getSpawn().getLocx(), raid.getSpawn().getLocy(), 150, false))
-								raid.returnHome();
+								raid.returnHomeBoss();
 						}
 					}
 				}
@@ -225,7 +225,7 @@ public class L2BossZone extends L2ZoneType
 		}
 		if (character instanceof L2Attackable && character.isRaid() && !character.isDead())
 		{
-			((L2Attackable) character).returnHome();
+			((L2Attackable) character).returnHomeBoss();
 		}
 	}
 	

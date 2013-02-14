@@ -2353,9 +2353,16 @@ public class L2Attackable extends L2Npc
 	public void returnHome()
 	{
 		clearAggroList();
-		
 		if (hasAI() && getSpawn() != null)
 			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+	}
+	
+	public void returnHomeBoss()
+	{
+		clearAggroList();
+		setisReturningToSpawnPoint(true);
+		if (hasAI() && getSpawn() != null)
+			teleToLocation(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), false);
 	}
 	
 	/*
