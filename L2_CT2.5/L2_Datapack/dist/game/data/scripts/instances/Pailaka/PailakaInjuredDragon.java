@@ -289,11 +289,16 @@ public class PailakaInjuredDragon extends Quest
         }
         else if (event.equalsIgnoreCase("32499-02.htm")) // Shouldn't be 32499-04.htm ???
         {
-            if (cond == 0)
+            if (cond == 0) //Empieza quest y limpia posibles items que le pudieran quedar de antes
             {
                 st.set("cond","1");
                 st.setState(State.STARTED);
                 st.playSound("ItemSound.quest_accept");
+                st.takeItems(SPEAR,1);
+                st.takeItems(STAGE1,1);
+                st.takeItems(STAGE2,1);
+                st.takeItems(ENCHSPEAR,1);
+                st.takeItems(LASTSPEAR,1);
             }
         }
         else if (event.equalsIgnoreCase("32499-05.htm"))
@@ -478,11 +483,12 @@ public class PailakaInjuredDragon extends Quest
             case VARKA_SILENOS_FOOTMAN:        
             case VARKA_SILENOS_RECRUIT:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 5)
+                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 10)
                 {
                     st.set("cond","4");
                     st.giveItems(STAGE1,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the first enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer.");
                 }
  
                 // Spawns Mage Type silenos behind the one that was killed
@@ -493,11 +499,12 @@ public class PailakaInjuredDragon extends Quest
                 break;
             case VARKA_SILENOS_WARRIOR:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 10)
+                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 20)
                 {
                     st.set("cond","4");
                     st.giveItems(STAGE1,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the first enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer.");
                 }
  
                 // Spawns Mage Type silenos behind the one that was killed
@@ -508,11 +515,12 @@ public class PailakaInjuredDragon extends Quest
                 break;
             case VARKA_ELITE_GUARD:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 15)
+                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 30)
                 {
                     st.set("cond","4");
                     st.giveItems(STAGE1,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the first enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer.");
                 }
  
                 // Spawns Mage Type silenos behind the one that was killed
@@ -524,11 +532,12 @@ public class PailakaInjuredDragon extends Quest
             case VARKAS_COMMANDER:
             case VARKA_SILENOS_OFFICER:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 25)
+                if (cond == 3 && st.hasQuestItems(SPEAR) && !st.hasQuestItems(STAGE1) && Rnd.get(100) < 50)
                 {
                     st.set("cond","4");
                     st.giveItems(STAGE1,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the first enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer.");
                 }
                
                 // Spawns Mage Type silenos behind the one that was killed
@@ -540,11 +549,12 @@ public class PailakaInjuredDragon extends Quest
             case VARKA_SILENOS_GREAT_MAGUS:
             case VARKA_SILENOS_GENERAL:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 5)
+                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 40)
                 {
                     st.set("cond","6");
                     st.giveItems(STAGE2,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the second and last enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer. Then you must kill Latana!.");
                 }
  
                 // Spawns Mage Type silenos behind the one that was killed
@@ -555,11 +565,12 @@ public class PailakaInjuredDragon extends Quest
                 break;
             case VARKAS_PROPHET:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 10)
+                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 20)
                 {
                     st.set("cond","6");
                     st.giveItems(STAGE2,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the second and last enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer. Then you must kill Latana!.");
                 }
  
                 // Spawns Mage Type silenos behind the one that was killed
@@ -570,11 +581,12 @@ public class PailakaInjuredDragon extends Quest
                 break;
             case VARKA_SILENOS_HEAD_GUARD:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 20)
+                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 40)
                 {
                     st.set("cond","6");
                     st.giveItems(STAGE2,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the second and last enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer. Then you must kill Latana!.");
                 }
                
                 // Spawns Mage Type silenos behind the one that was killed
@@ -585,11 +597,12 @@ public class PailakaInjuredDragon extends Quest
                 break;
             case PROPHET_GUARD:
                 dropHerb(npc, player, HP_HERBS_DROPLIST);
-                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 25)
+                if (cond == 5 && st.hasQuestItems(ENCHSPEAR) && !st.hasQuestItems(STAGE2) && Rnd.get(100) < 50)
                 {
                     st.set("cond","6");
                     st.giveItems(STAGE2,1);
                     st.playSound("ItemSound.quest_itemget");
+					player.sendMessage("You got the second and last enchantment, remember to enchant the pole in Ketra Orc Intelligence Officer. Then you must kill Latana!.");
                 }
                
                 // Spawns Mage Type silenos behind the one that was killed
