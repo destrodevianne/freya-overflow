@@ -422,8 +422,8 @@ public class SevenSignsFestival implements SpawnListener
 			
 			{ -76274, 109635, -4895, -1, 18021 },
 			{ -76274, 109795, -4895, -1, 18021 },
-			{ -76351, 110500, -4895, -1, 18056 },
-			{ -76528, 110500, -4895, -1, 18056 },
+			{ -76351, 110500, -4895, -1, 18026 },
+			{ -76528, 110500, -4895, -1, 18026 },
 		},
 		{
 			/* 53 and Below */
@@ -1598,9 +1598,15 @@ public class SevenSignsFestival implements SpawnListener
 			if (offeringScore > otherCabalHighScore)
 			{
 				int contribPoints = FESTIVAL_LEVEL_SCORES[festivalId];
+				int subtractPoints;
+				
+				if(otherCabalHighScore > 0)
+					subtractPoints = FESTIVAL_LEVEL_SCORES[festivalId];
+				else
+					subtractPoints = 0;
 				
 				// Give this cabal the festival points, while deducting them from the other.
-				SevenSigns.getInstance().addFestivalScore(oracle, contribPoints);
+				SevenSigns.getInstance().addFestivalScore(oracle, contribPoints, subtractPoints);
 				
 				if (Config.DEBUG)
 					_log.info("SevenSignsFestival: This is the highest score overall so far for the " + getFestivalName(festivalId)

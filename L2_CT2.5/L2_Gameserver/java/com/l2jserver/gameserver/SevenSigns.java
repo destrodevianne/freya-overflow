@@ -1143,22 +1143,22 @@ public class SevenSigns
 	 * @param cabal
 	 * @param amount
 	 */
-	public void addFestivalScore(int cabal, int amount)
+	public void addFestivalScore(int cabal, int amount, int subtract)
 	{
 		if (cabal == CABAL_DUSK)
 		{
 			_duskFestivalScore += amount;
 			
 			// To prevent negative scores!
-			if (_dawnFestivalScore >= amount)
-				_dawnFestivalScore -= amount;
+			//if (_dawnFestivalScore >= amount)
+			_dawnFestivalScore -= subtract;
 		}
 		else
 		{
 			_dawnFestivalScore += amount;
 			
-			if (_duskFestivalScore >= amount)
-				_duskFestivalScore -= amount;
+			//if (_duskFestivalScore >= amount)
+			_duskFestivalScore -= subtract;
 		}
 	}
 	
