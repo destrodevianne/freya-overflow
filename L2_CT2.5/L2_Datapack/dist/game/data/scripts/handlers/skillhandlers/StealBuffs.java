@@ -98,6 +98,13 @@ public class StealBuffs implements ISkillHandler
 				effect = effects[i];
 				if (effect == null)
 					continue;
+					
+				if (effect.isInvulStolen()) // Chequea si el PJ es invulnerable por alguna skill
+				{
+					count = 0;
+					toSteal.clear();
+					break;
+				}
 				
 				if (!effect.canBeStolen()) // remove effect if can't be stolen
 				{
@@ -157,6 +164,7 @@ public class StealBuffs implements ISkillHandler
 				continue;
 			
 			// stealing effects
+			
 			for (L2Effect eff : toSteal)
 			{
 				env = new Env();
@@ -184,7 +192,6 @@ public class StealBuffs implements ISkillHandler
 					_log.log(Level.WARNING, "Cannot steal effect: " + eff + " Stealer: " + activeChar + " Stolen: " + target, e);
 				}
 			}
-			
 			//Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);
 		}
