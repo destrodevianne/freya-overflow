@@ -623,6 +623,7 @@ public abstract class L2Effect
 	{
 		if(!effectCanBeStolen()
 				|| this.getEffectType() == L2EffectType.TRANSFORMATION
+				|| this.getEffectType() == L2EffectType.INVINCIBLE
 				|| this.getSkill().isPassive()
 				|| this.getSkill().isToggle()
 				|| this.getSkill().isDebuff()
@@ -633,6 +634,15 @@ public abstract class L2Effect
 				|| !this.getSkill().canBeDispeled())
 			return false;
 		return true;
+	}
+	
+	//Devuelve si la skill tiene, simplemente, el efecto de invulnerabilidad. Uso exclusivo de StealBuffs.
+	
+	public boolean isInvulStolen()
+	{
+		if(this.getEffectType() == L2EffectType.INVINCIBLE)
+			return true;
+		return false;
 	}
 
 	/**
