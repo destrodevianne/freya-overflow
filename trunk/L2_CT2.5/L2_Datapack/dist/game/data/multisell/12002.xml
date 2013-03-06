@@ -627,6 +627,17 @@
     <ingredient id="9142" count="30"/>
     <production id="10177" count="1"/>
   </item>
+  
+  <!-- Afro -->
+  <item id="54">
+    <ingredient id="9142" count="30"/>
+    <production id="20017" count="1"/>
+  </item>
+
+  <!-- Afro Pink -->
+  <item id="55">
+    <ingredient id="9142" count="30"/>
+    <production id="20276" count="1"/>
+  </item>
 
 </list>
-
