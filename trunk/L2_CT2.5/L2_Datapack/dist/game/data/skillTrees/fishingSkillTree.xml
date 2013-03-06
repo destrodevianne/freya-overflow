@@ -84,22 +84,22 @@
 		<skill skillName="Pumping" skillIdLvl="1313,25" getLevel="73" itemsIdCount="57,160000" learnedByNpc="true" />
 		<skill skillName="Pumping" skillIdLvl="1313,26" getLevel="76" itemsIdCount="57,173000" learnedByNpc="true" />
 		<skill skillName="Pumping" skillIdLvl="1313,27" getLevel="79" itemsIdCount="57,185000" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,1" getLevel="10" itemsIdCount="7609,4000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,2" getLevel="20" itemsIdCount="7609,8000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,3" getLevel="30" itemsIdCount="7609,20000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,4" getLevel="40" itemsIdCount="7609,20000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,5" getLevel="50" itemsIdCount="7609,60000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,6" getLevel="60" itemsIdCount="7609,60000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,7" getLevel="70" itemsIdCount="7609,100000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Storage" skillIdLvl="1371,8" getLevel="80" itemsIdCount="7609,100000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,1" getLevel="10" itemsIdCount="7609,4000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,2" getLevel="20" itemsIdCount="7609,8000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,3" getLevel="30" itemsIdCount="7609,20000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,4" getLevel="40" itemsIdCount="7609,20000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,5" getLevel="50" itemsIdCount="7609,60000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,6" getLevel="60" itemsIdCount="7609,60000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,7" getLevel="70" itemsIdCount="7609,100000" race="4" learnedByNpc="true" />
-		<skill skillName="Expand Inventory" skillIdLvl="1372,8" getLevel="80" itemsIdCount="7609,100000" race="4" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,1" getLevel="10" itemsIdCount="7609,4000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,2" getLevel="20" itemsIdCount="7609,8000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,3" getLevel="30" itemsIdCount="7609,20000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,4" getLevel="40" itemsIdCount="7609,20000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,5" getLevel="50" itemsIdCount="7609,60000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,6" getLevel="60" itemsIdCount="7609,60000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,7" getLevel="70" itemsIdCount="7609,100000" learnedByNpc="true" />
+		<skill skillName="Expand Storage" skillIdLvl="1371,8" getLevel="80" itemsIdCount="7609,100000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,1" getLevel="10" itemsIdCount="7609,4000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,2" getLevel="20" itemsIdCount="7609,8000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,3" getLevel="30" itemsIdCount="7609,20000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,4" getLevel="40" itemsIdCount="7609,20000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,5" getLevel="50" itemsIdCount="7609,60000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,6" getLevel="60" itemsIdCount="7609,60000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,7" getLevel="70" itemsIdCount="7609,100000" learnedByNpc="true" />
+		<skill skillName="Expand Inventory" skillIdLvl="1372,8" getLevel="80" itemsIdCount="7609,100000" learnedByNpc="true" />
 		<skill skillName="Expand Common Craft" skillIdLvl="1369,1" getLevel="10" itemsIdCount="7609,2000" learnedByNpc="true" />
 		<skill skillName="Expand Common Craft" skillIdLvl="1369,2" getLevel="20" itemsIdCount="7609,4000" learnedByNpc="true" />
 		<skill skillName="Expand Common Craft" skillIdLvl="1369,3" getLevel="30" itemsIdCount="7609,6000" learnedByNpc="true" />

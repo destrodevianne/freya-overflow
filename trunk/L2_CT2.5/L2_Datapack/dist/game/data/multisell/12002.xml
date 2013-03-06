@@ -14,7 +14,6 @@
   <!-- Monocle -->
   <item id="2">
     
-    
     <ingredient id="9142" count="30"/>
     <production id="6846" count="1"/>
   </item>
@@ -615,6 +614,18 @@
   <item id="51">
     <ingredient id="9142" count="30"/>
     <production id="13518" count="1"/>
+  </item>
+  
+  <!-- Half Mask 1 -->
+  <item id="52">
+    <ingredient id="9142" count="30"/>
+    <production id="10176" count="1"/>
+  </item>
+  
+  <!-- Half Mask 2 -->
+  <item id="53">
+    <ingredient id="9142" count="30"/>
+    <production id="10177" count="1"/>
   </item>
 
 </list>

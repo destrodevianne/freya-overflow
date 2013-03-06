@@ -617,11 +617,23 @@
     <production id="13518" count="1"/>
   </item>
   
+  <!-- Half Mask 1 -->
+  <item id="52">
+    <ingredient id="9143" count="15"/>
+    <production id="10176" count="1"/>
+  </item>
+  
+  <!-- Half Mask 2 -->
+  <item id="53">
+    <ingredient id="9143" count="15"/>
+    <production id="10177" count="1"/>
+  </item>
+  
   <!-- Formal Wear -->
-  <item id="57">
+  <item id="54">
     <ingredient id="9143" count="25"/>
     <production id="6408" count="1"/>
   </item>
-
+  
 </list>
 
