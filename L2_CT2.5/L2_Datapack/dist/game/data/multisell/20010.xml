@@ -629,8 +629,20 @@
     <production id="10177" count="1"/>
   </item>
   
-  <!-- Formal Wear -->
+  <!-- Afro -->
   <item id="54">
+    <ingredient id="9143" count="15"/>
+    <production id="20017" count="1"/>
+  </item>
+
+  <!-- Afro Pink -->
+  <item id="55">
+    <ingredient id="9143" count="15"/>
+    <production id="20276" count="1"/>
+  </item>
+  
+  <!-- Formal Wear -->
+  <item id="57">
     <ingredient id="9143" count="25"/>
     <production id="6408" count="1"/>
   </item>
