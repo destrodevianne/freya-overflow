@@ -133,7 +133,8 @@ public class L2RaidBossInstance extends L2MonsterInstance
 			return;
 		
 		// Gordon does not have permanent spawn
-		if (getNpcId() == 29095)
+		// Anakim y Lilith se buguean al volver al spawn - Zephyr
+		if (getNpcId() == 29095 || getNpcId() == 25286 || getNpcId() == 25283)
 			return;
 		
 		final L2Spawn spawn = getSpawn();
