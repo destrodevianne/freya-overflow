@@ -564,8 +564,7 @@
 		</for>
 	</skill>
 	<skill id="5449" levels="1" name="Weak Constitution">
-		<set name="isDebuff" val="true" />
-		<set name="ignoreResists" val="true" />
+		<set name="isTriggeredSkill" val="true" />
 		<set name="operateType" val="OP_ACTIVE" />
 		<set name="power" val="100" /> <!-- Base Land Rate -->
 		<set name="skillType" val="STUN" />

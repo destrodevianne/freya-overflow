@@ -2334,15 +2334,16 @@
 		<set name="reuseDelay" val="2000" />
 		<set name="castRange" val="600" />
 		<set name="effectRange" val="1100" />
+		<set name="trait" val="SHOCK" />
 		<enchant1 name="magicLvl" val="#enchantMagicLvl" />
 		<enchant1 name="mpConsume" val="#ench1MpConsume" />
 		<enchant2 name="magicLvl" val="#enchantMagicLvl" />
 		<enchant2 name="power" val="#ench2Power" />
 		<for>
-			<effect name="ChanceSkillTrigger" abnormalTime="60" val="0" triggeredId="5449" chanceType="ON_ATTACKED_HIT" activationChance="30" />
+			<effect name="ChanceSkillTrigger" abnormalTime="60" val="0" activationChance="30" activationMinDamage="250" chanceType="ON_ATTACKED_HIT" triggeredId="5449" />
 		</for>
 		<enchant1for>
-			<effect name="ChanceSkillTrigger" abnormalTime="#ench1Time" val="0" triggeredId="5449" chanceType="ON_ATTACKED_HIT" activationChance="30" />
+			<effect name="ChanceSkillTrigger" abnormalTime="#ench1Time" val="0" activationChance="30" activationMinDamage="250" chanceType="ON_ATTACKED_HIT" triggeredId="5449" />
 		</enchant1for>
 	</skill>
 	<skill id="1483" levels="7" name="Thin Skin" enchantGroup1="1" enchantGroup2="1">
