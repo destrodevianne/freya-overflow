@@ -165,8 +165,8 @@ public class L2SkillChargeDmg extends L2Skill
 						sm.addCharName(target);
 						caster.sendPacket(sm);
 					}
-					// Formula from Diego post, 700 from rpg tests
-					double vegdamage = (700 * target.getPAtk(caster) / caster.getPDef(target));
+					// Formula from Diego post: http://www.l2guru.com/forum/showthread.php?p=3122630
+					double vegdamage = (1189 * target.getPAtk(caster) / (double)caster.getPDef(target));
 					caster.reduceCurrentHp(vegdamage, target, this);
 				}
 				

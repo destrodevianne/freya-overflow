@@ -161,8 +161,8 @@ public class Blow implements ISkillHandler
 						sm.addCharName(target);
 						activeChar.sendPacket(sm);
 					}
-					// Formula from Diego post, 700 from rpg tests
-					double vegdamage = (700 * target.getPAtk(activeChar) / activeChar.getPDef(target));
+					// Formula from Diego Vargas post: http://www.l2guru.com/forum/showthread.php?p=3122630
+					double vegdamage = (1189 * target.getPAtk(activeChar) / activeChar.getPDef(target));
 					activeChar.reduceCurrentHp(vegdamage, target, skill);
 				}
 				
