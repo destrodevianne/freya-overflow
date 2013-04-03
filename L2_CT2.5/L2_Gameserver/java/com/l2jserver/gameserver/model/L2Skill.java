@@ -2157,7 +2157,8 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							if (targetPlayer != null)
 							{
 								// check target is not in a active siege zone
-								if (targetPlayer.isInsideZone(L2Character.ZONE_SIEGE) && !targetPlayer.isInSiege())
+								//Chequea si el que tira el ress tambien esta en zona de asedio
+								if ((player.isInsideZone(L2Character.ZONE_SIEGE) &&  !player.isInSiege()) || (targetPlayer.isInsideZone(L2Character.ZONE_SIEGE) && !targetPlayer.isInSiege()))
 								{
 									condGood = false;
 									activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
