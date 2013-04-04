@@ -39025,79 +39025,67 @@ INSERT INTO `droplist` VALUES
 (25544,7579,12,36,0,217807.50234),-- [draconic_bow_shaft]
 (25544,6680,1,1,1,46044.4226),-- [sealed_draconic_leather_armor]
 (25544,6707,12,36,1,740367.5774),-- [sealed_draconic_leather_armor_part]
-(25546,5297,1,1,0,9588.782896),-- [sealed_dark_crystal_leather_mail]
-(25546,5478,2,4,0,358938.400359),-- [sealed_dark_crystal_leather_mail_pattern]
-(25546,5298,1,1,0,15335.982277),-- [sealed_legging_of_dark_crystal]
-(25546,5482,4,12,0,211269.834468),-- [sealed_legging_of_dark_crystal_design]
-(25546,9626,1,1,1,39840.38535),-- [codex_of_giant_training]
-(25546,6570,1,1,1,33200.321125),-- [blessed_scrl_of_ench_am_a]
-(25546,729,1,1,1,33200.321125),-- [scrl_of_ench_wp_a]
-(25546,6569,1,1,1,3983.9724),-- [blessed_scrl_of_ench_wp_a]
-(25546,9912,190,380,2,1000000),-- [shoulder_strap_of_knight]
-(25549,5287,1,1,0,7411.894303),-- [sealed_dark_crystal_breastplate]
-(25549,5288,1,1,0,11860.33473),-- [sealed_dark_crystal_gaiters]
-(25549,5520,2,4,0,283750.708627),-- [sealed_dark_crystal_breastplate_pattern]
-(25549,5524,4,12,0,162636.06234),-- [sealed_dark_crystal_gaiters_pattern]
-(25549,9626,1,1,1,82137),-- [codex_of_giant_training]
-(25549,6578,1,1,1,27379),-- [blessed_scrl_of_ench_am_s]
-(25549,9912,190,380,2,1000000),-- [shoulder_strap_of_knight]
-(25552,6364,1,1,0,612.308907),-- [forgotten_blade]
-(25552,6372,1,1,0,612.308907),-- [heavens_divider]
-(25552,6688,1,1,0,282998.199849),-- [forgotten_blade_edge]
-(25552,6696,1,1,0,287494.182337),-- [heavens_divider_edge]
-(25552,9626,1,1,1,40727.576025),-- [codex_of_giant_training]
-(25552,959,1,1,1,12218.36139),-- [scrl_of_ench_wp_s]
-(25552,960,1,1,1,122182.728075),-- [scrl_of_ench_am_s]
-(25552,6577,1,1,1,2036.33451),-- [blessed_scrl_of_ench_wp_s]
-(25552,9912,188,377,2,1000000),-- [shoulder_strap_of_knight]
-(25553,6679,1,1,0,3705.775824),-- [sealed_imperial_crusader_helmet]
-(25553,6683,1,1,0,3705.775824),-- [sealed_draconic_leather_helmet]
-(25553,6687,1,1,0,3705.775824),-- [sealed_major_arcana_hood]
-(25553,6706,5,15,0,144069.775371),-- [sealed_imperial_crusader_helmet_pattern]
-(25553,6710,9,27,0,80038.565628),-- [sealed_draconic_leather_helmet_pattern]
-(25553,6714,2,6,0,360175.331529),-- [sealed_major_arcana_hood_pattern]
-(25553,9626,1,1,1,82888.5),-- [codex_of_giant_training]
-(25553,6578,1,1,1,27629.5),-- [blessed_scrl_of_ench_am_s]
-(25553,9912,191,389,2,1000000),-- [shoulder_strap_of_knight]
-(25554,6364,1,1,0,634.425057),-- [forgotten_blade]
-(25554,6372,1,1,0,634.425057),-- [heavens_divider]
-(25554,6688,1,1,0,293219.887899),-- [forgotten_blade_edge]
-(25554,6696,1,1,0,297878.261987),-- [heavens_divider_edge]
-(25554,9626,1,1,1,168794),-- [codex_of_giant_training]
-(25554,9912,199,391,2,1000000),-- [shoulder_strap_of_knight]
-(25557,6694,1,1,0,607459.839129),-- [saint_spear_blade]
-(25557,6370,1,1,0,1291.160871),-- [saint_spear]
-(25557,9627,1,1,1,85878),-- [codex_of_giant_dexterity]
-(25557,9912,200,400,2,1000000),-- [shoulder_strap_of_knight]
-(25560,6684,1,1,0,3647.87),-- [sealed_major_arcana_robe]
-(25560,6711,1,3,0,703852.13),-- [sealed_major_arcana_robe_part]
-(25560,9627,1,1,1,88391),-- [codex_of_giant_dexterity]
-(25560,9912,200,400,2,1000000),-- [shoulder_strap_of_knight]
-(25563,9450,1,1,0,305.505623),-- [dynasty_jamadhr]
-(25563,9624,1,1,0,61625.494377),-- [dynasty_jamadhr_piece]
-(25563,9588,1,1,1,9014.204907),-- [pattern_mithril_tshirt]
-(25563,9582,1,1,1,12720.053154),-- [mithril_tshirt]
-(25563,9592,1,1,1,6438.741939),-- [mithril_bracelet]
-(25563,9627,1,1,2,89041),-- [codex_of_giant_dexterity]
-(25563,9912,205,415,3,1000000),-- [shoulder_strap_of_knight]
-(25566,9445,1,1,0,311.143885),-- [dynasty_bow]
-(25566,9619,1,1,0,65261.856115),-- [dynasty_bow_piece]
-(25566,9588,1,1,1,9180.583587),-- [pattern_mithril_tshirt]
-(25566,9582,1,1,1,12954.832114),-- [mithril_tshirt]
-(25566,9592,1,1,1,6557.584299),-- [mithril_bracelet]
-(25566,9627,1,1,2,90685),-- [codex_of_giant_dexterity]
-(25566,9912,209,421,3,1000000),-- [shoulder_strap_of_knight]
-(25569,9442,1,1,0,106.587584),-- [dynasty_blade]
-(25569,9443,1,1,0,106.587584),-- [dynasty_two_hand_sword]
-(25569,9444,1,1,0,106.587584),-- [dynasty_magic_sword]
-(25569,9616,1,1,0,22210.723432),-- [dynasty_blade_piece]
-(25569,9617,1,1,0,22210.723432),-- [dynasty_two_hand_sword_piece]
-(25569,9618,1,1,0,22210.790384),-- [dynasty_magic_sword_piece]
-(25569,9588,1,1,1,9434.950992),-- [pattern_mithril_tshirt]
-(25569,9582,1,1,1,13313.773024),-- [mithril_tshirt]
-(25569,9592,1,1,1,6739.275984),-- [mithril_bracelet]
-(25569,9627,1,1,2,93197),-- [codex_of_giant_dexterity]
-(25569,9912,209,421,3,1000000),-- [shoulder_strap_of_knight]
+(25546,5320,1,1,0,24504), -- Sealed Leather Armor of Nightmare
+(25546,5323,1,1,0,24504), -- Sealed Majestic Leather Armor
+(25546,5480,4,12,0,453771), -- Sealed Leather Armor of Nightmare Fabric
+(25546,5481,8,22,0,242011), -- Sealed Majestic Leather Armor Fabric
+(25546,729,1,1,2,34957), -- Scroll: Enchant Weapon (Grade A)
+(25546,6570,1,1,2,34957), -- Blessed Scroll: Enchant Armor (Grade A)
+(25546,6569,1,1,2,4195), -- Blessed Scroll: Enchant Weapon (Grade A)
+(25546,9626,1,1,3,41949), -- Giant's Codex - Discipline
+(25549,5311,1,1,0,18702), -- Sealed Armor of Nightmare
+(25549,5316,1,1,0,18702), -- Sealed Majestic Plate Armor
+(25549,5522,4,12,0,350450), -- Sealed Armor of Nightmare Pattern
+(25549,5523,8,22,0,186906), -- Sealed Majestic Plate Armor Pattern
+(25549,6578,1,1,2,28458), -- Blessed Scroll: Enchant Armor (Grade S)
+(25549,9626,1,1,3,85373), -- Giant's Codex - Discipline
+(25552,81,1,1,1,5385), -- Dragon Slayer
+(25552,151,1,1,1,5385), -- Sword of Miracles 
+(25552,2500,1,1,1,5385), -- Dark Legion\'s Edge
+(25552,5529,9,27,1,85120), -- Dragon Slayer Edge
+(25552,5545,2,6,1,383040), -- Dark Legion\'s Edge Blade
+(25552,5546,5,15,1,168294), -- Sword of Miracles Edge
+(25552,959,1,1,2,13031), -- Scroll: Enchant Weapon (Grade S)
+(25552,960,1,1,2,130313), -- Scroll: Enchant Armor (Grade S)
+(25552,6577,1,1,2,2172), -- Blessed Scroll: Enchant Weapon (Grade S)
+(25552,9626,1,1,3,43438), -- Giant's Codex - Discipline
+(25553,164,1,1,1,4107), -- Elysian
+(25553,213,1,1,1,4107), -- Branch of The Mother Tree
+(25553,8342,6,18,1,97351), -- Flaming Dragon Skull Piece
+(25553,7895,1,1,1,4107), -- Flaming Dragon Skull
+(25553,8349,2,6,1,291994), -- Doom Crusher Head
+(25553,7902,1,1,1,4107), -- Doom Crusher
+(25553,5533,11,31,1,55630), -- Elysian Head
+(25553,5544,3,7,1,233412), -- Branch of The Mother Tree Head
+(25553,6578,1,1,2,29447), -- Blessed Scroll: Enchant Armor (Grade S)
+(25553,9626,1,1,3,88340), -- Giant's Codex - Discipline
+(25554,6367,1,1,1,8104), -- Angel Slayer
+(25554,6691,3,9,1,624177), -- Angel Slayer Blade
+(25554,9626,1,1,3,179677), -- Giant's Codex - Discipline
+(25557,6370,1,1,1,8023), -- Saint Spear
+(25557,6694,3,9,1,626146), -- Saint Spear Blade
+(25557,9627,1,1,3,88944), -- Giant's Codex - Mastery
+(25560,6684,1,1,0,22396), -- Sealed Major Arcana Robe
+(25560,6711,12,36,0,360112), -- Sealed Major Arcana Robe Part
+(25560,9627,1,1,3,90445), -- Giant's Codex - Mastery
+(25563,6371,1,1,1,3318), -- Demon Splinter
+(25563,6695,1,3,1,752053), -- Demon Splinter Blade
+(25563,9627,1,1,3,91945), -- Giant's Codex - Mastery
+(25563,9582,1,1,4,78810), -- Mithril Shirt
+(25563,9588,1,1,4,55850), -- Striped Mithril Shirt
+(25563,9592,1,1,4,39893), -- Mithril Bracelet
+(25566,7575,1,1,1,3374), -- Draconic Bow
+(25566,7579,1,3,1,788531), -- Draconic Bow Shaft
+(25566,9627,1,1,3,93495), -- Giant's Codex - Mastery
+(25566,9582,1,1,4,80139), -- Mithril Shirt
+(25566,9588,1,1,4,56791), -- Striped Mithril Shirt
+(25566,9592,1,1,4,40565), -- Mithril Bracelet
+(25569,6367,1,1,1,3429), -- Angel Slayer
+(25569,6691,1,3,1,792331), -- Angel Slayer Blade
+(25569,9627,1,1,3,95031), -- Giant's Codex - Mastery
+(25569,9582,1,1,4,81455), -- Mithril Shirt
+(25569,9588,1,1,4,57724), -- Striped Mithril Shirt
+(25569,9592,1,1,4,41232), -- Mithril Bracelet
 (25572,6364,1,1,0,447.248529),-- [forgotten_blade]
 (25572,6372,1,1,0,447.248529),-- [heavens_divider]
 (25572,6688,1,1,0,206710.252203),-- [forgotten_blade_edge]
