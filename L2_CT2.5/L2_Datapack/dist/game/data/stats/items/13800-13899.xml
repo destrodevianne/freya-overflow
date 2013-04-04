@@ -557,7 +557,7 @@
 		<set name="is_destroyable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_depositable" val="false" />
-		<set name="duration" val="10" />
+		<set name="time" val="10" />
 		<for>
 			<set order="0x08" stat="pAtk" val="140" />
 			<set order="0x08" stat="mAtk" val="120" />
@@ -937,7 +937,7 @@
 		<set name="is_destroyable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_depositable" val="false" />
-		<set name="duration" val="10" />
+		<set name="time" val="10" />
 		<for>
 			<set order="0x08" stat="pAtk" val="140" />
 			<set order="0x08" stat="mAtk" val="120" />
