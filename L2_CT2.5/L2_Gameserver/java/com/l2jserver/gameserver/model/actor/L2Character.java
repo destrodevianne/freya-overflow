@@ -70,6 +70,7 @@ import com.l2jserver.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import com.l2jserver.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import com.l2jserver.gameserver.model.actor.knownlist.CharKnownList;
 import com.l2jserver.gameserver.model.actor.position.CharPosition;
@@ -7068,4 +7069,20 @@ public abstract class L2Character extends L2Object
 	{
 		return _effects.isAffected(flag);
 	}
+	
+	/**
+	* Metodo demasiado mal hecho para el NPC Buffer en Python
+	* Lo correcto seria pasarlo a Java y no usar Strings como Booleans
+	* Pero por el momento funciona bien
+	* Zephyr
+	**/
+	
+	public String petIsSummon(L2Character player)
+	{
+	if (player.getPet() != null && player.getPet() instanceof L2SummonInstance)
+			return "001";
+		else
+			return "000";
+	}
+	
 }
