@@ -830,77 +830,83 @@
 		<set name="weight" val="10" />
 		<set name="price" val="500000" />
 	</item>
-	<item id="8570" type="EtcItem" name="Event Gift Box">
+	<item id="8570" type="EtcItem" name="Surprise Box Low">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2277-1" />
 	</item>
-	<item id="8571" type="EtcItem" name="Event Gift Box">
+	<item id="8571" type="EtcItem" name="Surprise Box Mid">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2277-2" />
 	</item>
-	<item id="8572" type="EtcItem" name="Event Gift Box">
+	<item id="8572" type="EtcItem" name="Surprise Box High">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
+		<set name="handler" val="ItemSkills" />
 		<set name="item_skill" val="2277-3" />
 	</item>
 	<item id="8573" type="EtcItem" name="Event Gift Box">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
-		<set name="item_skill" val="2277-4" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="2277-1" />
 	</item>
 	<item id="8574" type="EtcItem" name="Event Gift Box">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
-		<set name="item_skill" val="2277-5" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="2277-1" />
 	</item>
 	<item id="8575" type="EtcItem" name="Event Gift Box">
 		<set name="icon" val="icon.etc_box_of_adventure_3_i00" />
 		<set name="default_action" val="capsule" />
 		<set name="immediate_effect" val="1" />
-		<set name="material" val="steel" />
+		<set name="material" val="liquid" />
 		<set name="weight" val="20" />
 		<set name="is_tradable" val="false" />
 		<set name="is_dropable" val="false" />
 		<set name="is_sellable" val="false" />
 		<set name="is_stackable" val="true" />
-		<set name="item_skill" val="2277-6" />
+		<set name="handler" val="ItemSkills" />
+		<set name="item_skill" val="2277-1" />
 	</item>
 	<item id="8576" type="Weapon" name="Apprentice's Staff (Event)">
 		<set name="icon" val="icon.weapon_apprentices_staff_i00" />
