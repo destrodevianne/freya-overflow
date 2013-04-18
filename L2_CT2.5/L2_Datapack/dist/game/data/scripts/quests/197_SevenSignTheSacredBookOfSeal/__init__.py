@@ -56,13 +56,16 @@ class Quest (JQuest) :
 			st.giveItems(TEXT, 1)
 			st.playSound("ItemSound.quest_middle")
 		elif event == "32593-08.htm" :
-			st.addExpAndSp(52518015,5817676)
-			st.unset("cond")
-			st.takeItems(TEXT, 1)
-			st.takeItems(SCULPTURE, 1)
-			st.setState(State.COMPLETED)
-			st.exitQuest(False)
-			st.playSound("ItemSound.quest_finish")
+			if player.getLevel() < 79 :
+				htmltext = "<html><body>Only characters who are <font color=\"LEVEL\">level 79</font> or higher may complete this quest.</body></html>"
+			else :
+				st.addExpAndSp(52518015,5817676)
+				st.unset("cond")
+				st.takeItems(TEXT, 1)
+				st.takeItems(SCULPTURE, 1)
+				st.setState(State.COMPLETED)
+				st.exitQuest(False)
+				st.playSound("ItemSound.quest_finish")
 		return htmltext
 
 	def onTalk (self, npc, player) :

@@ -68,11 +68,14 @@ class Quest (JQuest) :
 			st.takeItems(STAFF, 1)
 			st.playSound("ItemSound.quest_middle")
 		elif event == "32593-02.htm" :
-			st.addExpAndSp(52518015,5817676)
-			st.unset("cond")
-			st.setState(State.COMPLETED)
-			st.exitQuest(False)
-			st.playSound("ItemSound.quest_finish")
+			if player.getLevel() < 79 :
+				htmltext = "<html><body>Only characters who are <font color=\"LEVEL\">level 79</font> or higher may complete this quest.</body></html>"
+			else :
+				st.addExpAndSp(52518015,5817676)
+				st.unset("cond")
+				st.setState(State.COMPLETED)
+				st.exitQuest(False)
+				st.playSound("ItemSound.quest_finish")
 		elif event == "30969-06.htm" :
 			if not self.mammon :
 				npc = st.addSpawn(MAMMON,60000)
