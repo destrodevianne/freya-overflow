@@ -326,11 +326,14 @@ class Quest (JQuest) :
 				player.showQuestMovie(int(event))
 				return ""
 		elif event == "31001-03.htm" :
-			st.addExpAndSp(52518015,5817677)
-			st.unset("cond")
-			st.setState(State.COMPLETED)
-			st.exitQuest(False)
-			st.playSound("ItemSound.quest_finish")
+			if player.getLevel() < 79 :
+				htmltext = "<html><body>Only characters who are <font color=\"LEVEL\">level 79</font> or higher may complete this quest.</body></html>"
+			else :
+				st.addExpAndSp(52518015,5817677)
+				st.unset("cond")
+				st.setState(State.COMPLETED)
+				st.exitQuest(False)
+				st.playSound("ItemSound.quest_finish")
 		return htmltext
 
 	def onTalk (self, npc, player) :
