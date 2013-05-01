@@ -1015,4 +1015,7 @@ INSERT INTO `teleport` VALUES
 ('Monastic Fortress -> Valley of Saints',20177,65307,-71445,-3696,500,0,57), -- retail
 ('Monastic Fortress -> Den of Evil',20178,68693,-110438,-1946,500,0,57), -- retail
 ('Monastic Fortress -> Ice Merchant Cabin',20179,113903,-108752,-860,500,0,57), -- retail
-('Monastic Fortress -> Shyeed\'s Cavern',20180,76911,-55295,-5824,500,0,57); -- retail
+('Monastic Fortress -> Shyeed\'s Cavern',20180,76911,-55295,-5824,500,0,57), -- retail
+
+-- Zaken
+('Zakens room',90001,54226,220133,-3496,0,0,57); -- custom
