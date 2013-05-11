@@ -37,8 +37,10 @@ import com.l2jserver.gameserver.model.actor.L2Summon;
 import com.l2jserver.gameserver.model.actor.instance.L2BabyPetInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2CubicInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2DoorInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2MonsterInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PcInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2PetInstance;
+import com.l2jserver.gameserver.model.actor.instance.L2RaidBossInstance;
 import com.l2jserver.gameserver.model.actor.instance.L2SummonInstance;
 import com.l2jserver.gameserver.model.base.PlayerState;
 import com.l2jserver.gameserver.model.entity.Castle;
@@ -2021,6 +2023,15 @@ public final class Formulas
 						}
 					}
 				}
+				
+				//Le baja a la mitad el HP de los mobs, summon o pets
+				//Added by Zephyr
+				
+				else if ((target instanceof L2MonsterInstance || target instanceof L2SummonInstance || target instanceof L2PetInstance) && !(target instanceof L2RaidBossInstance)) 
+				{ 
+					target.setCurrentHp(target.getCurrentHp() * 0.5);
+					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CP_SIPHON));
+                } 
 				//TODO: remove half kill since SYSMsg got changed.
 				/*else if (target instanceof L2Npc) // If is a monster remove first damage and after 50% of current hp
                     target.reduceCurrentHp(target.getCurrentHp() / 2, activeChar, skill);*/
