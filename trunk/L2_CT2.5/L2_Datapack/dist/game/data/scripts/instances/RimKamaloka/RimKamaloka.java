@@ -1,3 +1,4 @@
+// l2World Angel#
 package instances.RimKamaloka;
 
 import java.util.Calendar;
@@ -66,16 +67,8 @@ public class RimKamaloka extends Quest
 	 */
 	private static final int MAX_LEVEL_DIFFERENCE = 5;
 
-	/*
-	 * Respawn delay for the first generation of mobs
-	 * Default: 30 seconds
-	 */
 	private static final int RESPAWN_DELAY = 30;
 
-	/*
-	 * Inactivity despawn delay for the new generations
-	 * Default: 10 seconds
-	 */
 	private static final int DESPAWN_DELAY = 10000;
 
 	/*
@@ -100,19 +93,16 @@ public class RimKamaloka extends Quest
 		{ 10025, -219868, -8021 },
 		{ 15617, -219883, -8021 },
 		{ 22742, -220079, -7802 },
-		{  8559, -212987, -7802 },
+		{ 8559, -212987, -7802 },
 		{ 15867, -212994, -7802 },
 		{ 23038, -213052, -8007 },
-		{  9139, -205132, -8007 },
+		{ 9139, -205132, -8007 },
 		{ 15943, -205740, -8008 },
 		{ 22343, -206237, -7991 },
 		{ 41496, -219694, -8759 },
 		{ 48137, -219716, -8759 }
 	};
 
-	/*
-	 * Npc IDs: 1st, 2nd, 3rd generations
-	 */
 	private static final int[][] KANABIONS =
 	{
 		{ 22452, 22453, 22454 },
@@ -131,10 +121,10 @@ public class RimKamaloka extends Quest
 	private static final int[][][] SPAWNLIST =
 	{
 		{
-			{  8971, -219546, -8021 },
-			{  9318, -219644, -8021 },
-			{  9266, -220208, -8021 },
-			{  9497, -220054, -8024 }
+			{ 8971, -219546, -8021 },
+			{ 9318, -219644, -8021 },
+			{ 9266, -220208, -8021 },
+			{ 9497, -220054, -8024 }
 		},
 		{
 			{ 16107, -219574, -8021 },
@@ -149,10 +139,10 @@ public class RimKamaloka extends Quest
 			{ 23851, -220294, -7803 }
 		},
 		{
-			{  9514, -212478, -7803 },
-			{  9236, -213348, -7803 },
-			{  8868, -212683, -7803 },
-			{  9719, -213042, -7803 }
+			{ 9514, -212478, -7803 },
+			{ 9236, -213348, -7803 },
+			{ 8868, -212683, -7803 },
+			{ 9719, -213042, -7803 }
 		},
 		{
 			{ 16925, -212811, -7803 },
@@ -167,10 +157,10 @@ public class RimKamaloka extends Quest
 			{ 23533, -213301, -8009 }
 		},
 		{
-			{  8828, -205518, -8009 },
-			{  8895, -205989, -8009 },
-			{  9398, -205967, -8009 },
-			{  9393, -205409, -8009 }
+			{ 8828, -205518, -8009 },
+			{ 8895, -205989, -8009 },
+			{ 9398, -205967, -8009 },
+			{ 9393, -205409, -8009 }
 		},
 		{
 			{ 16185, -205472, -8009 },
@@ -204,18 +194,22 @@ public class RimKamaloka extends Quest
 
 	private static final int[][] REWARDERS = 
 	{
-		{  9261, -219862, -8021 },
+		{ 9261, -219862, -8021 },
 		{ 16301, -219806, -8021 },
 		{ 23478, -220079, -7799 },
-		{  9290, -212993, -7799 },
+		{ 9290, -212993, -7799 },
 		{ 16598, -212997, -7802 },
 		{ 23650, -213051, -8007 },
-		{  9136, -205733, -8007 },
+		{ 9136, -205733, -8007 },
 		{ 16508, -205737, -8007 },
 		{ 23229, -206316, -7991 },
 		{ 42638, -219781, -8759 },
 		{ 49014, -219737, -8759 }
 	};
+
+	private static final int START_NPC = 32484;
+
+	private static final int REWARDER = 32485;
 
 	private static final int[][][] REWARDS =
 	{
@@ -252,7 +246,7 @@ public class RimKamaloka extends Quest
 			{ 13002, 5, 12827, 1 }
 		},
 		{ // 40-50
-			null,
+		null,
 			{ 13002, 7, 10846, 1 },
 			{ 13002, 7, 10847, 1 },
 			{ 13002, 7, 10848, 1 },
@@ -309,10 +303,6 @@ public class RimKamaloka extends Quest
 		}
 	};
 
-	private static final int START_NPC = 32484;
-
-	private static final int REWARDER = 32485;
-
 	private class RimKamaWorld extends InstanceWorld
 	{
 		public int index;
@@ -337,7 +327,7 @@ public class RimKamaloka extends Quest
 
 		public RimKamaWorld()
 		{
-			//InstanceManager.getInstance().super();
+
 		}
 	}
 
@@ -584,17 +574,18 @@ public class RimKamaloka extends Quest
 		world.isRewarded = true;
 
 		final int[][] allRewards = REWARDS[world.index];
-		final int[] reward = allRewards[Math.min(world.grade, allRewards.length)];
+		world.grade = Math.min(world.grade, allRewards.length);
+		final int[] reward = allRewards[world.grade];
 		if (reward == null)
 			return;
 		for (int objectId : world.allowed)
 		{
-			L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-			if (player != null && player.isOnline())
+			L2PcInstance obj = L2World.getInstance().getPlayer(objectId);
+				if (obj != null && obj.isOnline())
 			{
-				player.sendMessage("Kanabions:"+world.kanabionsCount+" Dopplers:"+world.dopplersCount+" Voiders:"+world.voidersCount);
+				obj.sendMessage("Grade:"+world.grade);
 				for (int i = 0; i < reward.length; i+=2)
-					player.addItem("Reward", reward[i], reward[i+1], npc, true);
+					obj.addItem("Reward", reward[i], reward[i+1], npc, true);
 			}
 		}
 	}
@@ -608,6 +599,7 @@ public class RimKamaloka extends Quest
 			_world = world;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_world != null)
@@ -626,12 +618,12 @@ public class RimKamaloka extends Quest
 				boolean found = false;
 				for (int objectId : _world.allowed)
 				{
-					L2PcInstance player = L2World.getInstance().getPlayer(objectId);
-					if (player != null && player.isOnline())
+					L2PcInstance obj = L2World.getInstance().getPlayer(objectId);
+				if (obj != null && obj.isOnline())
 					{
 						found = true;
 						InstanceManager.getInstance().setInstanceTime(objectId, _world.templateId, reenter.getTimeInMillis());
-						player.sendPacket(sm);
+						obj.sendPacket(sm);
 					}
 				}
 				if (!found)
@@ -665,6 +657,7 @@ public class RimKamaloka extends Quest
 			_world = world;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_world != null)
@@ -693,10 +686,19 @@ public class RimKamaloka extends Quest
 				}
 
 				// calculate reward
-				if (_world.kanabionsCount < 10)
-					_world.grade = 0;
-				else
-					_world.grade = ((_world.dopplersCount + 2 * _world.voidersCount) / _world.kanabionsCount) + 1;
+                // calculate reward
+                if ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) < 20)
+                     _world.grade = 0;
+                else if (((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) > 20) && ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) < 40))
+                     _world.grade = 1;
+                else if (((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) > 40) && ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) < 52))
+                     _world.grade = 2;
+                else if (((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) > 52) && ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) < 61))
+                     _world.grade = 3;
+                else if (((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) > 61) && ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) < 76))
+                     _world.grade = 4;
+                else if ((_world.kanabionsCount + _world.dopplersCount + _world.voidersCount) > 76)
+                     _world.grade = 5;
 
 				final int index = _world.index;
 				// spawn rewarder npc
@@ -714,6 +716,7 @@ public class RimKamaloka extends Quest
 			_world = world;
 		}
 
+		@Override
 		public void run()
 		{
 			if (_world != null
@@ -796,7 +799,7 @@ public class RimKamaloka extends Quest
 		if (npc == null || caller == null)
 			return null;
 
-		if (npc.getNpcId() == caller.getNpcId())
+	if (npc.getNpcId() == caller.getNpcId())
 			return null;
 
 		return super.onFactionCall(npc, caller, attacker, isPet);
@@ -811,7 +814,7 @@ public class RimKamaloka extends Quest
 		final int npcId = npc.getNpcId();
 		if (npcId == START_NPC)
 			return npc.getCastle().getName() + ".htm";
-		else if (npcId == REWARDER)
+		else if (npcId == REWARDER)//.l2World/An&gel#
 		{
 			final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
 			if (tmpWorld instanceof RimKamaWorld)
@@ -821,7 +824,7 @@ public class RimKamaloka extends Quest
 					return "";
 
 				switch (world.grade)
-				{
+			{
 					case 0:
 						return "GradeF.htm";
 					case 1:
@@ -832,7 +835,7 @@ public class RimKamaloka extends Quest
 						return "GradeB.htm";
 					case 4:
 						return "GradeA.htm";
-					default:
+					case 5:
 						return "GradeS.htm";
 				}
 			}
@@ -844,20 +847,7 @@ public class RimKamaloka extends Quest
 	@Override
 	public final String onFirstTalk (L2Npc npc, L2PcInstance player)
 	{
-		if (npc == null)
-			return null;
-
-		final int npcId = npc.getNpcId();
-		if (npcId == REWARDER)
-		{
-			final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
-			if (tmpWorld instanceof RimKamaWorld)
-			{
-				if (((RimKamaWorld)tmpWorld).isRewarded)
-					return "Rewarded.htm";
-			}
-		}
-		return npcId + ".htm";
+		return String.valueOf(npc.getNpcId()) + ".htm";
 	}
 
 	@Override
@@ -915,7 +905,7 @@ public class RimKamaloka extends Quest
 	public final String onKill(L2Npc npc, L2PcInstance player, boolean isPet)
 	{
 		if (npc == null || player == null)
-			return null;
+		return null;
 
 		final InstanceWorld tmpWorld = InstanceManager.getInstance().getWorld(npc.getInstanceId());
 		if (tmpWorld instanceof RimKamaWorld)
@@ -935,12 +925,12 @@ public class RimKamaloka extends Quest
 				world.kanabionsCount++;
 				if (((L2Attackable)npc).isOverhit())
 				{
-					if (chance < 35)
+					if (chance < 30)
 						nextId = world.DOPPLER;
-					else if (chance < 50)
+					else if (chance < 40)
 						nextId = world.VOIDER;
 				}
-				else if (chance < 20)
+				else if (chance < 15)
 					nextId = world.DOPPLER;
 			}
 			else if (npcId == world.DOPPLER)
@@ -948,16 +938,16 @@ public class RimKamaloka extends Quest
 				world.dopplersCount++;
 				if (((L2Attackable)npc).isOverhit())
 				{
-					if (chance < 35)
+					if (chance < 30)
 						nextId = world.DOPPLER;
-					else if (chance < 65)
+					else if (chance < 60)
 						nextId = world.VOIDER;
 				}
 				else
 				{
-					if (chance < 15)
+					if (chance < 10)
 						nextId = world.DOPPLER;
-					else if (chance < 30)
+					else if (chance < 20)
 						nextId = world.VOIDER;
 				}
 			}
@@ -966,10 +956,10 @@ public class RimKamaloka extends Quest
 				world.voidersCount++;
 				if (((L2Attackable)npc).isOverhit())
 				{
-					if (chance < 60)
+					if (chance < 50)
 						nextId = world.VOIDER;
 				}
-				else if (chance < 25)
+				else if (chance < 20)
 					nextId = world.VOIDER;
 			}
 
@@ -991,7 +981,6 @@ public class RimKamaloka extends Quest
 		for (int[] list : KANABIONS)
 		{
 			addFactionCallId(list[0]);
-			addSpawnId(list[0]);
 			for (int mob : list)
 			{
 				addAttackId(mob);
