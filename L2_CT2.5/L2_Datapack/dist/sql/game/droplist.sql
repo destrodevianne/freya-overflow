@@ -27088,6 +27088,7 @@ INSERT INTO `droplist` VALUES
 (22140,5495,1,1,-1,135982),-- Sealed Shield of Nightmare Fragment
 (22140,5488,1,1,-1,40326),-- Sealed Majestic Robe Fabric
 (22140,730,1,1,-1,7463),-- Scroll: Enchant Armor (Grade A)
+(22140,8273,1,5,0,700000),-- Anteroom Key
 (22141,57,4566,9322,0,700000),-- Adena
 (22141,1344,100,300,2,42751),-- Mithril Arrow
 (22141,1865,1,3,2,114002),-- Varnish
@@ -27214,6 +27215,7 @@ INSERT INTO `droplist` VALUES
 (22147,8732,1,1,200,3080),-- Life Stone: level 76
 (22147,8742,1,1,200,770),-- Mid-Grade Life Stone: level 76
 (22147,8752,1,1,200,77),-- High-Grade Life Stone: level 76
+(22147,8273,1,5,0,700000),-- Anteroom Key
 (22148,57,3873,7932,0,700000),-- Adena
 (22148,1867,12,36,2,26912),-- Animal Skin
 (22148,1869,2,6,2,121104),-- Iron Ore
@@ -27247,6 +27249,7 @@ INSERT INTO `droplist` VALUES
 (22149,8732,1,1,200,2904),-- Life Stone: level 76
 (22149,8742,1,1,200,726),-- Mid-Grade Life Stone: level 76
 (22149,8752,1,1,200,73),-- High-Grade Life Stone: level 76
+(22149,8273,1,5,0,700000),-- Anteroom Key
 (22150,57,4087,8341,0,700000),-- Adena
 (22150,1873,2,6,2,50994),-- Silver Nugget
 (22150,1895,1,1,2,145698),-- Metallic Fiber
