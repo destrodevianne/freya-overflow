@@ -298,7 +298,7 @@
 		<set name="is_dropable" val="false" />
 		<set name="is_destroyable" val="false" />
 		<set name="is_sellable" val="false" />
-		<set name="is_depositable" val="false" />
+		<set name="is_depositable" val="true" />
 		<set name="item_skill" val="8337-1" />
 	</item>
 	<item id="15313" type="Weapon" name="PC cafe' exclusive - Forgotten Blade - Weapons for PC Cafe Use">
