@@ -828,13 +828,19 @@ public final class L2PcInstance extends L2Playable
 	{
 		updatePvPFlag(1);
 		
-		_PvPRegTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new PvPFlag(), 1000, 1000);
+		if (_PvPRegTask == null) 
+		{ 
+			_PvPRegTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new PvPFlag(), 1000, 1000); 
+		} 
 	}
 	
 	public void stopPvpRegTask()
 	{
 		if (_PvPRegTask != null)
-			_PvPRegTask.cancel(true);
+		{ 
+			_PvPRegTask.cancel(true); 
+			_PvPRegTask = null; 
+		} 
 	}
 	
 	public void stopPvPFlag()
@@ -8692,14 +8698,16 @@ public final class L2PcInstance extends L2Playable
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
+		if (attacker == null)
+			return false;		
+	
 		// Check if the attacker isn't the L2PcInstance Pet
 		if (attacker == this || attacker == getPet())
 			return false;
 		
-		// TODO: check for friendly mobs
-		// Check if the attacker is a L2MonsterInstance
-		if (attacker instanceof L2MonsterInstance)
-			return true;
+		// Friendly mobs doesnt attack players
+		if (attacker instanceof L2FriendlyMobInstance)
+			return false;
 		
 		if(NexusEvents.isInEvent(this))
 		{
@@ -8709,13 +8717,18 @@ public final class L2PcInstance extends L2Playable
 				return false;
 		}
 		
-		// Check if the attacker is not in the same party
+		// is AutoAttackable if both players are in the same duel and the duel is still going on
+		if (attacker instanceof L2PcInstance && getDuelState() == Duel.DUELSTATE_DUELLING && getDuelId() == ((L2PcInstance) attacker).getDuelId())
+			return true;
+		
+		// Check if the attacker is not in the same party. NOTE: Party checks goes before oly checks in order to prevent patry member autoattack at oly. 
 		if (getParty() != null && getParty().getPartyMembers().contains(attacker))
 			return false;
 		
 		// Check if the attacker is in olympia and olympia start
-		if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInOlympiadMode() ){
-			if (isInOlympiadMode() && isOlympiadStart() && ((L2PcInstance)attacker).getOlympiadGameId()==getOlympiadGameId())
+		if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInOlympiadMode())
+		{
+			if (isInOlympiadMode() && isOlympiadStart() && ((L2PcInstance) attacker).getOlympiadGameId() == getOlympiadGameId())
 				return true;
 			else
 				return false;
@@ -8725,30 +8738,15 @@ public final class L2PcInstance extends L2Playable
 		if (TvTEvent.isStarted() && TvTEvent.isPlayerParticipant(getObjectId()))
 			return true;
 		
-		// Check if the attacker is not in the same clan
-		if (getClan() != null && attacker != null && getClan().isMember(attacker.getObjectId()))
-			return false;
-		
-		if(attacker instanceof L2Playable && isInsideZone(ZONE_PEACE))
-			return false;
-		
-		// Check if the L2PcInstance has Karma
-		if (getKarma() > 0 || getPvpFlag() > 0)
-			return true;
-		
 		// Check if the attacker is a L2Playable
 		if (attacker instanceof L2Playable)
 		{
+		
+			if(isInsideZone(ZONE_PEACE))
+				return false;
+		
 			// Get L2PcInstance
-			L2PcInstance cha = attacker.getActingPlayer();
-			
-			// is AutoAttackable if both players are in the same duel and the duel is still going on
-			if ( getDuelState() == Duel.DUELSTATE_DUELLING
-					&& getDuelId() == cha.getDuelId())
-				return true;
-			// Check if the L2PcInstance is in an arena or a siege area
-			if (isInsideZone(ZONE_PVP) && cha.isInsideZone(ZONE_PVP))
-				return true;
+			L2PcInstance attackerPlayer = attacker.getActingPlayer();
 			
 			if (getClan() != null)
 			{
@@ -8756,25 +8754,41 @@ public final class L2PcInstance extends L2Playable
 				if (siege != null)
 				{
 					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Defender clan
-					if (siege.checkIsDefender(cha.getClan()) &&
-							siege.checkIsDefender(getClan()))
+					if (siege.checkIsDefender(attackerPlayer.getClan()) && siege.checkIsDefender(getClan()))
 						return false;
 					
 					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Attacker clan
-					if (siege.checkIsAttacker(cha.getClan()) &&
-							siege.checkIsAttacker(getClan()))
+					if (siege.checkIsAttacker(attackerPlayer.getClan()) && siege.checkIsAttacker(getClan()))
 						return false;
 				}
 				
 				// Check if clan is at war
-				if (getClan() != null && cha.getClan() != null
-						&& getClan().isAtWarWith(cha.getClanId())
-						&& cha.getClan().isAtWarWith(getClanId())
+				if (getClan() != null && attackerPlayer.getClan() != null
+						&& getClan().isAtWarWith(attackerPlayer.getClanId())
+						&& attackerPlayer.getClan().isAtWarWith(getClanId())
 						&& getWantsPeace() == 0
-						&& cha.getWantsPeace() == 0
+						&& attackerPlayer.getWantsPeace() == 0
 						&& !isAcademyMember())
 					return true;
 			}
+			
+			// Check if the L2PcInstance is in an arena, but NOT siege zone. NOTE: This check comes before clan/ally checks, but after party checks.
+			// This is done because in arenas, clan/ally members can autoattack if they arent in party.
+			if ((isInsideZone(ZONE_PVP) && attackerPlayer.isInsideZone(ZONE_PVP)) && !(isInsideZone(ZONE_SIEGE) && attackerPlayer.isInsideZone(ZONE_SIEGE)))
+				return true;
+			
+			// Check if the attacker is not in the same clan
+			if (getClan() != null && getClan().isMember(attacker.getObjectId()))
+				return false;
+			
+			// Check if the attacker is not in the same ally
+			if (attacker instanceof L2PcInstance && getAllyId() == attackerPlayer.getAllyId())
+				return false;
+			
+			// Now check again if the L2PcInstance is in pvp zone, but this time at siege PvP zone, applying clan/ally checks
+			if ((isInsideZone(ZONE_PVP) && attackerPlayer.isInsideZone(ZONE_PVP)) && (isInsideZone(ZONE_SIEGE) && attackerPlayer.isInsideZone(ZONE_SIEGE)))
+
+				return true;
 		}
 		else if (attacker instanceof L2DefenderInstance)
 		{
@@ -8785,9 +8799,12 @@ public final class L2PcInstance extends L2Playable
 			}
 		}
 		
+		// Check if the L2PcInstance has Karma
+		if (getKarma() > 0 || getPvpFlag() > 0)
+			return true;
+		
 		return false;
 	}
-	
 	
 	/**
 	 * Check if the active L2Skill can be casted.<BR><BR>
