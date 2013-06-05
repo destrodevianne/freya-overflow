@@ -243,6 +243,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	
 	private final int _minPledgeClass;
 	private final boolean _isOffensive;
+	private final boolean _isPVP;
 	private final int _maxCharges;
 	private final int _numCharges;
 	private final int _triggeredId;
@@ -532,6 +533,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
+		_isPVP = set.getBool("pvp", false);
 		_maxCharges = set.getInteger("maxCharges", 0);
 		_numCharges = set.getInteger("numCharges", 0);
 		_triggeredId = set.getInteger("triggeredId", 0);
@@ -1142,7 +1144,12 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	
 	public final boolean isOffensive()
 	{
-		return _isOffensive;
+		return _isOffensive || isPVP();
+	}
+	
+	public final boolean isPVP()
+	{
+		return _isPVP;
 	}
 	
 	public final boolean isNeutral()
