@@ -70,8 +70,9 @@ public class AutoVoteRewardManager
  {
  for (L2PcInstance onlinePlayer : pls)
  {
-     if (onlinePlayer.isOnline() && !onlinePlayer.getClient().isDetached() && !_ips.contains(onlinePlayer.getClient().getConnection().getInetAddress().getHostAddress()))         
-     {
+     //if (onlinePlayer.isOnline() && !onlinePlayer.getClient().isDetached() && !_ips.contains(onlinePlayer.getClient().getConnection().getInetAddress().getHostAddress()))         
+     if (onlinePlayer.isOnline() && !onlinePlayer.getClient().isDetached())
+	 {
          String[] parase = Config.VOTE_SYSTEM_ITEM_ID.split(",");
          String[] parase3 = Config.VOTE_SYSTEM_ITEM_COUNT.split(",");
          for(int o = 0; o <parase.length; o++){
