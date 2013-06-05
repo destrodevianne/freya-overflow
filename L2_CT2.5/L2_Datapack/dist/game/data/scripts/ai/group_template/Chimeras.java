@@ -87,23 +87,29 @@ public class Chimeras extends L2AttackableAIScript
 						HellboundManager.getInstance().updateTrust(3, true);
 					}
 					
-					npc.setIsDead(true);
 					if (npc.getNpcId() == CELTUS)
 					{
-						((L2Attackable) npc).dropItem(caster, CONTAINED_LIFE_FORCE, 1);
+						if (npc.getCurrentHp() > 1500) {
+							((L2Attackable) npc).dropItem(caster, CONTAINED_LIFE_FORCE, 1);
+						}
 					}
 					else
 					{
-						if (Rnd.get(100) < 80)
-						{
-							((L2Attackable) npc).dropItem(caster, DIM_LIFE_FORCE, 1);
-						}
-						else if (Rnd.get(100) < 80)
-						{
-							((L2Attackable) npc).dropItem(caster, LIFE_FORCE, 1);
+						if (npc.getCurrentHp() > 1500) {
+							if (Rnd.get(100) < 80)
+							{
+								((L2Attackable) npc).dropItem(caster, DIM_LIFE_FORCE, 1);
+							}
+							else if (Rnd.get(100) < 80)
+							{
+								((L2Attackable) npc).dropItem(caster, LIFE_FORCE, 1);
+							}
 						}
 					}
-					npc.onDecay();
+					
+					npc.setCurrentHp(1);
+					
+					//npc.onDecay();
 				}
 			}
 		}
